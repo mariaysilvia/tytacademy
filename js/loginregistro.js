@@ -6,7 +6,13 @@ function mostrarMensaje(elementId, mensaje, color) {
     if (elemento) {
         elemento.textContent = mensaje;
         elemento.style.color = color;
+        elemento.style.display = mensaje ? 'block' : 'none';
     }
+}
+
+// Función para validar documento
+function validarDocumento(documento) {
+    return /^\d+$/.test(documento);
 }
 
 // Función para validar la contraseña
@@ -55,26 +61,19 @@ async function registrarUsuario(formData) {
             body: formData
         });
         
-        const data = await response.text();
-        console.log('Respuesta del servidor:', data);
+        const resultado = await response.json();
         
-        try {
-            const resultado = JSON.parse(data);
-            if (resultado.success) {
-                mostrarMensaje("signupMessage", "¡Registro exitoso! Redirigiendo...", "green");
-                setTimeout(() => {
-                    window.location.href = "../html/iniciarsesion.html";
-                }, 2000);
-            } else {
-                mostrarMensaje("signupMessage", resultado.message || "Error en el registro", "red");
-            }
-        } catch (error) {
-            mostrarMensaje("signupMessage", "Error al procesar la respuesta del servidor", "red");
-            console.error('Error:', error);
+        if (resultado.success) {
+            mostrarMensaje("signupMessage", "¡Registro exitoso! Redirigiendo...", "green");
+            setTimeout(() => {
+                window.location.href = "iniciarsesion.html";
+            }, 2000);
+        } else {
+            mostrarMensaje("signupMessage", resultado.message || "Error en el registro", "red");
         }
     } catch (error) {
-        mostrarMensaje("signupMessage", "Error de conexión. Por favor, verifica tu conexión a internet", "red");
-        console.error('Error de conexión:', error);
+        console.error('Error:', error);
+        mostrarMensaje("signupMessage", "Error al procesar el registro", "red");
     }
 }
 
@@ -88,97 +87,19 @@ async function iniciarSesion(formData) {
             body: formData
         });
         
-        const data = await response.text();
-        console.log('Respuesta del servidor:', data);
+        const resultado = await response.json();
         
-        try {
-            const resultado = JSON.parse(data);
-            if (resultado.success) {
-                mostrarMensaje("loginMessage", "¡Inicio de sesión exitoso! Redirigiendo...", "green");
-                setTimeout(() => {
-                    window.location.href = "../html/index.html";
-                }, 2000);
-            } else {
-                mostrarMensaje("loginMessage", resultado.message || "Error en el inicio de sesión", "red");
-            }
-        } catch (error) {
-            mostrarMensaje("loginMessage", "Error al procesar la respuesta del servidor", "red");
-            console.error('Error:', error);
+        if (resultado.success) {
+            mostrarMensaje("loginMessage", "¡Inicio de sesión exitoso! Redirigiendo...", "green");
+            setTimeout(() => {
+                window.location.href = "principalAprendiz.html";
+            }, 2000);
+        } else {
+            mostrarMensaje("loginMessage", resultado.message || "Error en el inicio de sesión", "red");
         }
     } catch (error) {
-        mostrarMensaje("loginMessage", "Error de conexión. Por favor, verifica tu conexión a internet", "red");
-        console.error('Error de conexión:', error);
-    }
-}
-
-// Asignar eventos a los formularios
-const registerForm = document.getElementById("register-form");
-if (registerForm) {
-    registerForm.onsubmit = function(event) {
-        event.preventDefault();
-        
-        const formData = new FormData(this);
-        const password = document.getElementById("contraseña").value;
-        const confirmPassword = document.getElementById("confirmar-contraseña").value;
-
-        // Validar contraseña
-        const validacionPassword = validarPassword(password);
-        if (!validacionPassword.valido) {
-            mostrarMensaje("signupMessage", validacionPassword.mensaje, "red");
-            return;
-        }
-
-        // Verificar que las contraseñas coincidan
-        if (password !== confirmPassword) {
-            mostrarMensaje("signupMessage", "Las contraseñas no coinciden", "red");
-            return;
-        }
-
-        // Enviar datos al servidor
-        registrarUsuario(formData);
-    };
-}
-
-const loginForm = document.getElementById("login-form");
-if (loginForm) {
-    loginForm.onsubmit = function(event) {
-        event.preventDefault();
-        const formData = new FormData(this);
-        iniciarSesion(formData);
-    };
-}
-
-
-// Función para iniciar sesión
-async function iniciarSesion(formData) {
-    try {
-        mostrarMensaje("loginMessage", "Procesando inicio de sesión...", "blue");
-        
-        const response = await fetch('../php/login.php', {
-            method: 'POST',
-            body: formData
-        });
-        
-        const data = await response.text();
-        console.log('Respuesta del servidor:', data);
-        
-        try {
-            const resultado = JSON.parse(data);
-            if (resultado.success) {
-                mostrarMensaje("loginMessage", "¡Inicio de sesión exitoso! Redirigiendo...", "green");
-                setTimeout(() => {
-                    window.location.href = "../html/index.html";
-                }, 2000);
-            } else {
-                mostrarMensaje("loginMessage", resultado.message || "Error en el inicio de sesión", "red");
-            }
-        } catch (error) {
-            mostrarMensaje("loginMessage", "Error al procesar la respuesta del servidor", "red");
-            console.error('Error:', error);
-        }
-    } catch (error) {
-        mostrarMensaje("loginMessage", "Error de conexión. Por favor, verifica tu conexión a internet", "red");
-        console.error('Error de conexión:', error);
+        console.error('Error:', error);
+        mostrarMensaje("loginMessage", "Error al procesar el inicio de sesión", "red");
     }
 }
 
@@ -212,5 +133,67 @@ async function actualizarPerfil(datos) {
         return { success: false, message: 'Error al actualizar el perfil' };
     }
 }
+
+// Event Listeners
+document.addEventListener('DOMContentLoaded', function() {
+    // Formulario de registro
+    const registerForm = document.getElementById("register-form");
+    if (registerForm) {
+        registerForm.onsubmit = function(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(this);
+            const password = document.getElementById("contraseña").value;
+            const confirmPassword = document.getElementById("confirmar-contraseña").value;
+            const documento = document.getElementById("documento").value;
+
+            // Validar documento
+            if (!validarDocumento(documento)) {
+                mostrarMensaje("signupMessage", "El documento solo debe contener números", "red");
+                return;
+            }
+
+            // Validar contraseña
+            const validacionPassword = validarPassword(password);
+            if (!validacionPassword.valido) {
+                mostrarMensaje("signupMessage", validacionPassword.mensaje, "red");
+                return;
+            }
+
+            // Verificar que las contraseñas coincidan
+            if (password !== confirmPassword) {
+                mostrarMensaje("signupMessage", "Las contraseñas no coinciden", "red");
+                return;
+            }
+
+            // Enviar datos al servidor
+            registrarUsuario(formData);
+        };
+
+        // Validación en tiempo real del documento
+        const documentoInput = document.getElementById("documento");
+        if (documentoInput) {
+            documentoInput.addEventListener('input', function() {
+                if (!validarDocumento(this.value) && this.value !== '') {
+                    mostrarMensaje("signupMessage", "El documento solo debe contener números", "red");
+                } else {
+                    mostrarMensaje("signupMessage", "", "black");
+                }
+            });
+        }
+    }
+
+    // Formulario de inicio de sesión
+    const loginForm = document.getElementById("login-form");
+    if (loginForm) {
+        loginForm.onsubmit = function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            iniciarSesion(formData);
+        };
+    }
+});
+
+// Exportar funciones necesarias para el perfil
 window.cargarDatosPerfil = cargarDatosPerfil;
 window.actualizarPerfil = actualizarPerfil;
