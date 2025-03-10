@@ -1,0 +1,107 @@
+drop database basededatostytacademy;
+create database if not exists basededatostytacademy;
+use basededatostytacademy;
+
+CREATE TABLE Admini (
+    idAdmini INT PRIMARY KEY AUTO_INCREMENT,
+    documento VARCHAR(20),
+    nombre VARCHAR(100),
+    apellido VARCHAR(100),
+    email VARCHAR(100),
+    clave VARCHAR(255)
+);
+
+CREATE TABLE Modulo (
+    idModulo INT PRIMARY KEY AUTO_INCREMENT,
+    modulo VARCHAR(100),
+    descripcion TEXT
+);
+
+create table temaModulo (
+idtemaModulo INT PRIMARY KEY AUTO_INCREMENT,
+nombreTema varchar(50),
+idModulo int,
+FOREIGN KEY (idModulo) REFERENCES Modulo(idModulo)
+);
+
+
+
+CREATE TABLE Instructor (
+    idInstructor INT PRIMARY KEY AUTO_INCREMENT,
+    documento VARCHAR(20),
+    nombre VARCHAR(100),
+    apellido VARCHAR(100),
+    email VARCHAR(100),
+    clave VARCHAR(255),
+    celular VARCHAR(20),
+    estado ENUM('Activo', 'Inactivo'),
+    idModulo INT,
+    FOREIGN KEY (idModulo) REFERENCES Modulo(idModulo)
+);
+
+CREATE TABLE tipoPregunta (
+    idtipoPregunta INT PRIMARY KEY AUTO_INCREMENT,
+    nombreTipoPregunta VARCHAR(100)
+);
+
+
+CREATE TABLE Pregunta (
+    idPregunta INT PRIMARY KEY AUTO_INCREMENT,
+    pregunta TEXT,
+    imagen VARCHAR(255),
+    idModulo INT,
+    idtipoPregunta INT,
+    idtemaModulo INT,
+    FOREIGN KEY (idModulo) REFERENCES Modulo(idModulo),
+    FOREIGN KEY (idtipoPregunta) REFERENCES tipoPregunta(idtipoPregunta),
+    FOREIGN KEY (idtemaModulo) REFERENCES temaModulo(idtemaModulo)
+);
+  
+
+CREATE TABLE Respuesta (
+    idRespuesta INT PRIMARY KEY AUTO_INCREMENT,
+    respuesta TEXT,
+    imagen VARCHAR(255),
+    idPregunta INT,
+    tipoRespuesta VARCHAR(50),
+    FOREIGN KEY (idPregunta) REFERENCES Pregunta(idPregunta)
+);
+
+CREATE TABLE Programa (
+    idPrograma INT PRIMARY KEY AUTO_INCREMENT,
+    numeroFicha VARCHAR(50),
+    nombrePrograma VARCHAR(100)
+);
+
+CREATE TABLE Aprendiz (
+idAprendiz INT PRIMARY KEY auto_increment,
+documento varchar(20),
+nombres varchar(200),
+apellidos varchar(200),
+correo varchar(100),
+contraseña varchar(100),
+celular varchar(20),
+idPrograma INT,
+FOREIGN KEY (idPrograma) REFERENCES Programa(idPrograma)
+);
+
+CREATE TABLE Prueba (
+    idPrueba INT PRIMARY KEY AUTO_INCREMENT,
+    idAprendiz INT,
+    idModulo INT,
+    fechaHoraInicial DATETIME,
+    fechaHoraFinal DATETIME,
+    FOREIGN KEY (idModulo) REFERENCES Modulo(idModulo),
+    FOREIGN KEY (idAprendiz) REFERENCES Aprendiz(idAprendiz)
+);
+
+
+
+ CREATE TABLE Valoracion (
+ idValoracion INT PRIMARY KEY AUTO_INCREMENT,
+ idPrueba INT,
+ idPregunta INT,
+ idRespuesta INT,
+ FOREIGN KEY (idPrueba) REFERENCES Prueba(idPrueba),
+ FOREIGN KEY (idPregunta) REFERENCES Pregunta(idPregunta),
+ FOREIGN KEY (idRespuesta) REFERENCES Respuesta(idRespuesta));
