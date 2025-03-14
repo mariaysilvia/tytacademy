@@ -237,11 +237,7 @@ nav ul li ul li a:hover{
 .modal-header h5{
     font-weight: 700;
 }
-.modal-text-grande {
-    font-size: 20px;
-    font-weight: 500;
-} 
-    
+
 .rounded-circle{
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.677);
 }
@@ -260,7 +256,7 @@ nav ul li ul li a:hover{
     background-image: linear-gradient(
         rgba(0, 0, 0, 0),
         rgba(0, 0, 0, 0.284)),
-        url(../imagenes/961.jpg);
+        url(../imagenes/961.jpeg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -279,89 +275,72 @@ nav ul li ul li a:hover{
 }
 
 /*banner*/
-
-
-/*informacion extra*/
-#testimonials{
-    margin: 100px 0;
-}
-
-.testimonials p{
-    font-size: 18px;
-}
-
-.testimonials{
-    border-left: 4px solid #3c72e6;
-    margin-top: 50px;
-    margin-bottom: 50px;
-}
-
-.testimonials img {
-    height: 150px;
-    width: 150px;
-    border-radius: 50%;
-    margin: 0 10px;
-}
-
-
-.user-details{
-    display: inline-block;
-    font-size: 15px;
-}
-
-/*Acerca de nosotros*/
-
-#about-us{
-    background-image: linear-gradient(to right, rgb(255, 255, 255), rgb(61, 135, 245)   ) ;
-    padding-bottom: 50px;
-    padding-top: 50px;
-}
-.img-fluid {
-    border-radius: 40%;
-    width: 70%; 
-    height: auto; 
-}
-.img-fluid1 {
-    border-radius: 30%;
-    width: 85%; 
-    height: 80%; 
-}
-
-#about-us p{
-    margin: 0px 0;
-    font-size: 23px;
-}
-
-#about-us {
-    margin-left: 40px ;
-}
-
-
-/*boton de ir arriba*/
-
-#button-up{
-    width: 60px;
-    height: 60px;
-    background: var(--primary-color);
+.banner {
     display: flex;
-    justify-content: center;
+    justify-content: space-between; 
     align-items: center;
-    color: #fff;
-    border-radius: 50%;
-    font-size: 20px;
-    position: fixed;
-    bottom: 50px;
-    right: 50px;
-    cursor: pointer;
-    border: 4px solid transparent;
-    transition: all 300ms ease;
-    transform:scale(0);
+    min-height: 400px;
+    background-image: linear-gradient(
+        rgba(0, 0, 0, 0.641),
+        rgba(0, 0, 0, 0.284)),
+        url(../imagenes/fondos.png)
 }
 
-#button-up:hover{
-    transform: scale(1.1);
-    border-color: rgba(0,0,0,0.1);
+.banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 400px;
 }
+
+.banner_title {
+    margin-left: 80px; 
+    padding-left: 60px;
+}
+
+.banner_title h1 {
+    color: rgba(255, 255, 255, 0.81);
+    font-size: 70px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    text-align: lineal;
+}
+
+.banner_title p{
+    color: #ffffff;
+    font-size: 27px;
+    margin-bottom: 10px;
+
+}
+.banner_img img {
+    max-width: 100%; 
+    height: auto;
+}
+
+/*video*/
+.video-container {
+    width: 80%;
+    margin: 50px auto;
+    background: linear-gradient(to right, #95afc7, #3c72e6);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.video-title {
+    color: white;
+    font-size: 30px;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+video {
+    width: 75%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px 4px rgba(0,0,0,0.5);
+}
+
 /*informacion*/
 .title {
     color: #222121;
@@ -392,7 +371,191 @@ nav ul li ul li a:hover{
     display: block;
     transform: translateY(8px);
 }
+.botones{
+    border: none;
+    background-color: var(--secundary-color);
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 10px; 
+}
 
+.botones:hover{
+    transform: scale(1.1);
+    background: linear-gradient(#3c72e6,#5aa3e6);
+}
+
+/*modulos*/
+.columna1 {
+    background-color: #e2ebf3;
+    padding: 30px;
+    margin: 0 10px;
+    text-align: justify;
+    border-radius: 10px;
+    display: flex;
+    margin-top: 100px;
+    border: 2px solid var(--secundary-color); 
+}
+
+
+.columna-1 {
+    flex: 1; 
+    margin-right: 25px; 
+}
+
+.imagen1 {
+    width: 80%;
+    height: 360px;
+    border-radius: 15px;
+}
+.columna-1 h1{
+    text-transform: uppercase;
+    font-size: 36px;
+    font-weight: 600;
+}
+.columna-1 p, ul, li{
+    font-size: 21px;
+}
+
+.contenedor {
+    display: flex;
+}
+
+/*Pruebas*/
+.columna2 {
+    background-color: #e2e9ef;
+    padding: 30px;
+    margin: 0 10px;
+    text-align: justify;
+    border-radius: 10px;
+    display: flex;
+    margin-top: 100px;
+    border: 2px solid var(--secundary-color); 
+}
+
+.columna-2 {
+    flex: 1; 
+    margin-right: 25px; 
+}
+
+.imagen2 {
+    width: 90%;
+    height: 360px;
+    border-radius: 15px;
+}
+.columna-2 h1{
+    text-transform: uppercase;
+    font-size: 36px;
+    font-weight: 600;
+}
+.columna-2 p{
+    font-size: 21px;
+}
+
+.contenedor-2 {
+    display: flex;
+}
+
+/*nosotros*/
+.columna3 {
+    background-color: #e0ebf4;
+    padding: 30px;
+    margin: 0 10px;
+    text-align: justify;
+    border-radius: 10px;
+    display: flex;
+    margin-top: 100px;
+    border: 2px solid var(--secundary-color); 
+}
+
+.columna-3 {
+    flex: 1; 
+    margin-right: 25px; 
+}
+
+.imagen3 {
+    width: 70%;
+    height: 360px;
+    border-radius: 15px;
+}
+.columna-3 h1{
+    text-transform: uppercase;
+    font-size: 36px;
+    font-weight: 600;
+}
+.columna-3 p{
+    font-size: 21px;
+}
+
+.contenedor-3 {
+    display: flex;
+}
+
+/*perfil*/
+.columna4 {
+    background-color: #d5dee5;
+    padding: 30px;
+    margin: 0 10px;
+    text-align: justify;
+    border-radius: 10px;
+    display: flex;
+    margin-top: 100px;
+    border: 2px solid var(--secundary-color); 
+}
+
+.columna-4 {
+    flex: 1; 
+    margin-right: 25px; 
+}
+
+.imagen4 {
+    width: 30%;
+    height: 360px;
+    border-radius: 15px;
+}
+.columna-4 h1{
+    text-transform: uppercase;
+    font-size: 36px;
+    font-weight: 600;
+}
+.columna-4 p{
+    font-size: 21px;
+}
+
+.contenedor-4 {
+    display: flex;
+}
+
+/*boton de ir arriba*/
+
+#button-up{
+    width: 60px;
+    height: 60px;
+    background: var(--primary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 20px;
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    cursor: pointer;
+    border: 4px solid transparent;
+    transition: all 300ms ease;
+    transform:scale(0);
+}
+
+#button-up:hover{
+    transform: scale(1.1);
+    border-color: rgba(0,0,0,0.1);
+}
 
 /*footer*/
 

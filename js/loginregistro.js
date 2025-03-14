@@ -92,7 +92,7 @@ async function iniciarSesion(formData) {
         if (resultado.success) {
             mostrarMensaje("loginMessage", "¡Inicio de sesión exitoso! Redirigiendo...", "green");
             setTimeout(() => {
-                window.location.href = "principalAprendiz.html";
+                window.location.href = "principalAprendiz.php";
             }, 2000);
         } else {
             mostrarMensaje("loginMessage", resultado.message || "Error en el inicio de sesión", "red");
@@ -197,3 +197,44 @@ document.addEventListener('DOMContentLoaded', function() {
 // Exportar funciones necesarias para el perfil
 window.cargarDatosPerfil = cargarDatosPerfil;
 window.actualizarPerfil = actualizarPerfil;
+
+async function guardarCambios() {
+    try {
+        const inputs = document.querySelectorAll('.modal-body input.form-control');
+        const datos = {
+            nombres: inputs[0].value,
+            apellidos: inputs[1].value,
+            correo: inputs[2].value,
+            celular: inputs[3].value
+        };
+
+        const resultado = await actualizarPerfil(datos);
+        
+        if (resultado.success) {
+            alert(resultado.message);
+            const modalElement = document.getElementById('perfilModal');
+            const modal = bootstrap.Modal.getInstance(modalElement);
+            modal.hide();
+            window.location.reload();
+        } else {
+            alert(resultado.message || 'Error al actualizar el perfil');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error al guardar los cambios');
+    }
+}
+
+// Agregar esta función para habilitar la edición
+function habilitarEdicion() {
+    const campos = ['perfilNombre', 'perfilApellido', 'perfilEmail', 'perfilCelular'];
+    
+    campos.forEach(campo => {
+        const elemento = document.getElementById(campo);
+        const valor = elemento.textContent;
+        elemento.innerHTML = `<input type="text" class="form-control" value="${valor}">`;
+    });
+
+    document.getElementById('btnEditar').style.display = 'none';
+    document.getElementById('btnGuardar').style.display = 'inline';
+}
