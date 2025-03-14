@@ -51,7 +51,7 @@
                 <i class="fa-regular fa-clock"></i><strong>20 Preguntas</strong>
             </ul>
             <div class="card-body">
-            <a href="#" class="card-link">Realizar Prueba</a>
+            <a href="../formulariosparamodulos/formulariolecturacritica.php" class="card-link">Realizar Prueba</a>
             </div>
         </div>
 
@@ -66,7 +66,7 @@
                 <i class="fa-regular fa-clock"></i><strong>20 Preguntas</strong>
             </ul>
             <div class="card-body">
-            <a href="#" class="card-link">Realizar Prueba</a>
+            <a href="../formulariosparamodulos/formulariorazonamiento.php" class="card-link">Realizar Prueba</a>
             </div>
         </div>
 
@@ -81,7 +81,7 @@
                 <i class="fa-regular fa-clock"></i><strong>20 Preguntas</strong>
             </ul>
             <div class="card-body">
-            <a href="#" class="card-link">Realizar Prueba</a>
+            <a href="../formulariosparamodulos/formulariosciudadana.php" class="card-link">Realizar Prueba</a>
             </div>
         </div>
 
@@ -96,7 +96,7 @@
                 <i class="fa-regular fa-clock"></i><strong>20 Preguntas</strong>
             </ul>
             <div class="card-body">
-            <a href="#" class="card-link">Realizar Prueba</a>
+            <a href="../formulariosparamodulos/formularioscomunicacion.php" class="card-link">Realizar Prueba</a>
             </div>
         </div>
 
@@ -111,7 +111,7 @@
                 <i class="fa-regular fa-clock"></i><strong>20 Preguntas</strong>
             </ul>
             <div class="card-body">
-            <a href="#" class="card-link">Realizar Prueba</a>
+            <a href="../formulariosparamodulos/formularioingles.php" class="card-link">Realizar Prueba</a>
             </div>
         </div>
     </div>

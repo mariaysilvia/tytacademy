@@ -119,6 +119,52 @@ video {
     background-color: var(--secundary-color);
 }
 
+/*ver perfil*/
+.modal-header{
+    font-size: 15px;
+    background-color: #d5dee5;
+    color: var(--primary-color);
+}
+
+.modal-header h5{
+    font-weight: 700;
+}
+
+.rounded-circle{
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.677);
+}
+
+
+.rounded-circle{
+    animation: movimiento 2.5s linear infinite;
+}
+
+.row strong{
+    color: #1541a0;
+    font-weight: 800;
+}
+
+.modal-content{
+    background-image: linear-gradient(
+        rgba(0, 0, 0, 0),
+        rgba(0, 0, 0, 0.284)),
+        url(../imagenes/961.jpeg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+@keyframes movimiento{
+    0%{
+        transform: translateY(0);
+    }
+    50%{
+        transform: translateY(30px);
+    }
+    100%{
+        transform: translateY(0);
+    }
+}
 
 
 

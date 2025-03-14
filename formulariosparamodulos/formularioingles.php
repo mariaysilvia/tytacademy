@@ -42,55 +42,9 @@
                     </select>
                 
             <input class="botons" type="submit" value="Comenzar">
-            <p><a href="../html/PRUEBAS.html">Cambiar de modulo</a></p>
+            <p><a href="../html/PRUEBAS.php">Cambiar de modulo</a></p>
         </form>
     </section>
 
 
-<!--footer-->
-    <footer class="footer-distributed">
-        <div class="footer-left">
-            <div class="logo">
-                <a href="/html/principal.html">
-                    <img src="/imagenes/tytacademy.png" alt="TYTAcademy">
-                </a>
-            </div>
-            <p class="footer-links">
-                <a href="#">Inicio</a> |
-                <a href="#">Nosotros</a> |
-                <a href="#">Contactos</a> |
-                <a href="#">SENA</a>
-            </p>
-            <p class="footer-company-name">Copyright 2025 <strong>TYTACADEMY</strong> Derechos reservados</p>
-        </div>
-        <div class="footer-center">
-            <div>
-                <i class="fa-solid fa-location-dot"></i>
-                <p><span>SENA</span>CIMM</p>
-            </div>
-            <div>
-                <i class="fa fa-phone"></i>
-                <p>3206831437 </p> | <p> 3132630302</p> 
-            </div>
-            <div>
-                <i class="fa fa-envelope"></i>
-                <p><a href="mailto:tytacademy28@gmail.com">tytacademy28@gmail.com</a></p>
-            </div>
-        </div>
-        <div class="footer-right">
-            <p class="footer-company-about">
-                <span>Sobre el sitio web.</span>
-                <strong>TYT ACADEMY</strong> Estudia para las pruebas TYT de manera rápida y efectiva. 
-                <p>Simulacros aleatorios que te ayudan a un mejor desempeño para el resultado que tanto aspiras a obtener.</p>
-            </p>
-            <div class="footer-icons">
-                <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                <a href="https://www.instagram.com/tytacademy28/?next=%2F" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                <a href="https://x.com/AcademyTyt28" target="_blank"><i class="fa-brands fa-twitter"></i></a>
-            </div>
-        </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</body>
-</html>
+    <?php include '../html/footer.php'; ?> <!-- Incluye el footer aquí -->

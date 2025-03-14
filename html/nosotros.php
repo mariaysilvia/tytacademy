@@ -38,14 +38,18 @@
 
 </header>
 
-<!--banner-->
-<section class="banner-nosotros">
-    <div class="banner-nosotros-title">
+<!--banner de nosotros-->
+<section class="bannerGS contenedor">
+    <section class="bannerGS_title">
         <h1>Nosotros TYTAcademy</h1> 
         <p>Conoce más acerca de nosotros.</p>
-    </div>
-    <div class="banner-img-nosotros">
+        <br>
+
+
+    </section>
+    <div class="bannerGS_img">
         <img src="../imagenes/mujernosotros.png" alt="">
+
     </div>
 </section>
 

@@ -91,12 +91,14 @@
         <div class="container text-center">
             <h1 class="title">¿Soluciones practicas?</h1>
             <h3>Por eso creamos esta página para ayudarte a alcanzar un buen puntaje.</h3>
+            <br>
         <div class="row text-center">
         <div class="col-md-4 services">
             <div class="animated-text">
-                Simulacros ilimitados <span></span>
+                <h5>Simulacros ilimitados</h5>
             </div>
             <img src="../imagenes/fotoestudiante.png" class="service-img1">
+            <br>
             <br>
             <br>
             <p>¡Estudia sin limites!</p>
@@ -105,9 +107,10 @@
 
             <div class="col-md-4 services">
                 <div class="animated-text">
-                    Flexibilidad <span></span>
+                    <h5>Flexibilidad </h5>
                 </div>
             <img src="../imagenes/fotoidea.jpg" class="service-img2">
+            <br>
             <br>
             <br>
             <p>¡Estudia a tú propio ritmo!</p>
@@ -115,12 +118,13 @@
         </div>
                 <div class="col-md-4 services">
                     <div class="animated-text">
-                        Preguntas aleatorias <span></span>
+                    <h5>Preguntas aleatorias</h5>
                     </div>
             <img src="../imagenes/fotoanteojos.jpg" class="service-img3">
             <br>
             <br>
-            <p>¡Te evaluamos con nuestras preguntas generadas aleatoriamente!</p>
+            <br>
+            <p>¡Te evaluamos con preguntas aleatorias!</p>
         
             </div>
         </div>
@@ -131,62 +135,58 @@
 <br>
 <br>
 
-<!--modulos-->
-
-    <section id="modulos">
-        <div class="container text-center">
-            <h1 class="title">Examen saber TYT</h1>
-            <h4>Con nuestro simulacro TYTACADEMY, ¡descubre cómo funcionan los diferentes módulos
-            y aprovecha la oportunidad para convertir tus errores en aprendizaje! 💪</h4>
+<!--seccion de simulacros-->
+<section id="modulos">
+    <div class="container text-center">
+        <h1 class="title">Examen saber TYT</h1>
+        <h4>Con nuestro simulacro TYTACADEMY, ¡descubre cómo funcionan los diferentes módulos
+        y aprovecha la oportunidad para convertir tus errores en aprendizaje! 💪</h4>
+        <br>
+    </div>
+    <div class="module-cards">
+        <div class="module-card">
+            <img src="../imagenes/lecture.jpg" alt="Lectura Crítica">
             <br>
 
-        </div>
-        <div class="tarjetas">
-            <div class="card">
-            <img src="../imagenes/lecture.jpg" alt="">
-            <br>
             <p>Lectura Crítica</p>
-            <i class="fa-regular fa-face-smile-wink"></i>
             
-            </div>
-            
-            <div class="card">
-            <img src="../imagenes/maths.jpg" alt="">
-            <br>
-            <p>Razonamiento cuantitativo</p>
-            <i class="fa-regular fa-face-smile-wink"></i>
-            </div>
+        </div>
 
-            <div class="card">
-            <img src="https://simulacroicfes.co/img/subjects/sociales.jpg" alt="">
+        <div class="module-card">
+            <img src="../imagenes/maths.jpg" alt="Razonamiento Cuantitativo">
             <br>
-            <p>Competencia ciudadana</p>
-            <i class="fa-regular fa-face-smile-wink"></i>
-            </div>
 
-            <div class="card">
-            <img src="../imagenes/comunication.jpg" alt="">
+            <p>Razonamiento Cuantitativo</p>
+        </div>
+
+        <div class="module-card">
+            <img src="https://simulacroicfes.co/img/subjects/sociales.jpg" alt="Competencia Ciudadana">
             <br>
+
+            <p>Competencia Ciudadana</p>
+        </div>
+
+        <div class="module-card">
+            <img src="../imagenes/comunication.jpg" alt="Comunicación">
+            <br>
+
             <p>Comunicación</p>
-            <i class="fa-regular fa-face-smile-wink"></i>
-            </div>
+        </div>
 
-            <div class="card">
-            <img src="../imagenes/english.jpg" alt="">
+        <div class="module-card">
+            <img src="../imagenes/english.jpg" alt="Inglés">
             <br>
             <p>Inglés</p>
-            <i class="fa-regular fa-face-smile-wink"></i>
-            </div>
         </div>
+    </div>
+</section>
 
-    </section>
+<br>
+<br>
+<br>
+<br>
 
-    <!--Acordeon -->
-<br>
-<br>
-<br>
-<br>
-<br>
+<!--acordeon de preguntas-->
 <section class="acordeon contenedor">
     <div class="acordeon_img">
         <img src="../imagenes/acordeon.png" alt="">
@@ -196,8 +196,7 @@
         <p>TYTACADEMY es un sitio web gratuito creado para ayudar a los estudiantes que están a punto de finalizar sus estudios técnicos y tecnológicos.
         Nuestro objetivo es apoyarlos en la preparación del examen Saber TYT, ofreciendo una herramienta de práctica y evaluación de conocimientos.</p>
         <br>
-        <a href="#" class="preguntas">Preguntas frecuentes</a>
-        
+        <a href="#" class="preguntas" data-bs-toggle="modal" data-bs-target="#acordeonModal">Preguntas frecuentes</a>
     </section>
 </section>
 <br>
@@ -205,6 +204,69 @@
 <br>
 <br>
 <br>
+
+<!-- Modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="acordeonModal" tabindex="-1" aria-labelledby="acordeonModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="acordeonModalLabel">Preguntas frecuentes</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="accordion-container">
+                        <div class="accordion-item">
+                            <button class="accordion-title"><strong>1. ¿Qué son las pruebas TYT?</strong><span class="arrow">⬇️</span></button>
+                            <div class="accordion-content">
+                                <p>Son un examen estandarizado realizado por el Instituto Colombiano para la Evaluación de la Educación (ICFES) que evalúa a los estudiantes de programas técnicos y tecnológicos.</p>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-title"><strong>2. ¿Cómo son las pruebas TYT?</strong><span class="arrow">⬇️</span></button>
+                            <div class="accordion-content">
+                                <p>El examen se realiza en dos partes: la primera es obligatoria para todos los estudiantes que se presentan al examen Saber TyT, mientras que en la segunda parte solo participan aquellos que pertenecen a ciertos grupos de referencia (programas académicos con características de formación similares). Estos grupos están especificados en cada una de las guías de los módulos de competencias específicas y se determinan durante el proceso de inscripción.</p>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-title"><strong>3. ¿Qué evalúa la prueba TYT?</strong><span class="arrow">⬇️</span></button>
+                            <div class="accordion-content">
+                                <p>La prueba se organiza en cinco módulos que evaluarán las habilidades generales de:
+                                    <ul>
+                                        <li>Lectura Crítica</li>
+                                        <li>Razonamiento Cuantitativo</li>
+                                        <li>Competencias Ciudadanas</li>
+                                        <li>Comunicación Escrita</li>
+                                        <li>Inglés</li>
+                                    </ul>
+                                    Las preguntas de todos los módulos, excepto el de comunicación escrita, son de opción múltiple con una sola respuesta correcta. En el módulo de comunicación escrita, los estudiantes deberán redactar un texto argumentativo sobre el tema que se les asigne.</p>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-title"><strong>4. ¿Cuáles son los pasos a seguir para la inscripción de las pruebas TYT?</strong><span class="arrow">⬇️</span></button>
+                            <div class="accordion-content">
+                                <p>Los pasos a seguir para la inscripción de las pruebas TYT son...
+                                    <ul>
+                                        <li>Pre-Registro</li>
+                                        <li>Requisitos académicos</li>
+                                        <li>Inscripción formal</li>
+                                        <li>Documentación</li>
+                                        <li>Pago de tarifas</li>
+                                    </ul>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-title"><strong>5. ¿Cómo se puede estudiar para estas pruebas?</strong><span class="arrow">⬇️</span></button>
+                            <div class="accordion-content">
+                                <p>Se recomienda conocer las metodologías de los simulacros, lo que permitirá manejar mejor los resultados de las pruebas. Por ello, se han creado simulacros que puede poner en práctica en el menú de simulacros.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <!--boton de ir hacia arriba-->
 
@@ -268,6 +330,7 @@
 </footer>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="/PruebasTYT/js/botonarriba.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/botonarriba.js"></script>
+<script src="../js/acordeon.js"></script>
 </body>

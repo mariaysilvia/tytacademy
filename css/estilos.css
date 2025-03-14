@@ -276,7 +276,14 @@ body{
     font-weight: 600;
 }
 .services p{
-    font-size: 22px;
+    font-size: 25px;
+    font-style: italic;
+    
+}
+.services h5{
+    font-size: 27px;
+    font-weight: 700;
+    color: var(--primary-color);
 }
 
 .title::before{
@@ -303,53 +310,46 @@ body{
 }
 
 /*modulos*/
-.tarjetas {
+.module-cards {
     display: flex;
     justify-content: space-around; 
     flex-wrap: wrap; 
 }
 
-.card {
+.module-card {
     width: 250px;
-    height: 270px;
+    height: 350px;
     border: 5px solid #ccc;
     border-radius: 5px;
     margin: 15px;
     padding: 13px;
     text-align: center;
     box-shadow: 4px 4px 13px rgba(16, 3, 69, 0.426); 
+    background-color: #fff;
 }
 
-.card:hover { 
+.module-card:hover { 
     box-shadow: 4px 4px 17px var(--secundary-color); 
     transition: box-shadow 0.3s ease; 
 }
-.card img{
-    width: 190px;
-    height: 235px;
-    border-radius: 17px;
 
+.module-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin-bottom: 10px;
 }
 
-.card p{
-    font-size: 21px;
-}
-
-.card i{
-    color: blue;
-    width: 22px;
-    height: 22px;
-    
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+.module-card p {
+    font-size: 20px;
+    margin: 10px 0;
+    font-weight: 700;
+    color: #17377d;
 }
 
 /*acordeon*/
-.acordeon{
+.acordeon {
     display: flex;
     width: 80%;
     margin: 0 auto; 
@@ -361,19 +361,19 @@ body{
     width: 100%;
     height: auto;
 }
-.acordeon_img img{
+
+.acordeon_img img {
     width: 490px;
     display: block;
 }
 
-.acordeon_title p{
+.acordeon_title p {
     color: #000;
     font-size: 24px;
     margin-bottom: 12px;
-
 }
 
-.acordeon_title .preguntas{
+.acordeon_title .preguntas {
     border: none;
     background-color: var(--secundary-color);
     color: white;
@@ -386,9 +386,77 @@ body{
     cursor: pointer;
     border-radius: 10px; 
 }
-
-.acordeon_img{
+.preguntas:hover{
+    background: linear-gradient(#3c72e6,#5aa3e6);
+}
+.acordeon_img {
     animation: movimiento 2.5s linear infinite;
+}
+
+.accordion-container {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.accordion-item {
+    border-bottom: 1px solid #ddd;
+}
+
+.accordion-item:last-child {
+    border-bottom: none;
+}
+
+.accordion-title {
+    background-color: transparent;
+    color: rgb(8, 8, 8);
+    cursor: pointer;
+    padding: 15px 20px;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    text-align: left;
+    width: 100%;
+    transition: color 0.3s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.accordion-title:hover, .active {
+    color: #21aaff; 
+}
+
+.accordion-title .arrow {
+    transition: transform 0.3s;
+}
+
+.accordion-title.active .arrow {
+    transform: rotate(180deg); 
+}
+
+.accordion-content {
+    display: none;
+    padding: 15px 20px;
+    background-color: white;
+    color: #3e3d3d;
+}
+
+.accordion-content p, ul, li {
+    margin: 0;
+    font-size: 17px;
+    font-style: italic;
+}
+.modal-header{
+    background-color: #5aa2e658;
+    box-shadow: 10px 8px 10px rgba(16, 3, 69, 0.426);
+
+}
+.modal-header h5{
+    font-size: 20px;
+    font-weight: 700;
+    color: #17377d;
+
 }
 
 /*boton de ir arriba*/

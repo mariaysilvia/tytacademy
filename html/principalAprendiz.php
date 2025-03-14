@@ -37,15 +37,15 @@
 
 </header>
 <!--banner-->
-<section class="banner contenedor">
-    <section class="banner_title">
-        <h1>¡Bienvenido, estudiante! </h1>
+<section class="bannerES contenedor">
+    <section class="bannerES_title">
+        <h1>¡Bienvenido, estudiante! </h1> 
         <p>Conoce más acerca de lo que puedes hacer en este sitio web.</p>
         <br>
 
 
     </section>
-    <div class="banner_img">
+    <div class="bannerES_img">
         <img src="../imagenes/banner-inicio.png" alt="">
 
     </div>
@@ -60,7 +60,7 @@
         <h1 class="title">¿Cómo desea iniciar?</h1>
     </div>
     <div class="columna1">
-        <div class="contenedor">
+        <div class="contenedor-1">
             <div class="columna-1">
                 <h1>Guía para Estudiar Cada Módulo.</h1>
                 <br>

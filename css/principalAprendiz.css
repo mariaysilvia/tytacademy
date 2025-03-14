@@ -275,30 +275,30 @@ nav ul li ul li a:hover{
 }
 
 /*banner*/
-.banner {
+.bannerES {
     display: flex;
     justify-content: space-between; 
     align-items: center;
     min-height: 400px;
     background-image: linear-gradient(
-        rgba(0, 0, 0, 0.641),
-        rgba(0, 0, 0, 0.284)),
-        url(../imagenes/fondos.png)
+        rgba(0, 0, 0, 0.167),
+        rgba(0, 0, 0, 0.122)),
+        url(../imagenes/fondos.png);
 }
 
-.banner {
+.bannerES {
     display: flex;
     justify-content: space-between;
     align-items: center;
     min-height: 400px;
 }
 
-.banner_title {
+.bannerES_title {
     margin-left: 80px; 
     padding-left: 60px;
 }
 
-.banner_title h1 {
+.bannerES_title h1 {
     color: rgba(255, 255, 255, 0.81);
     font-size: 70px;
     font-weight: 800;
@@ -306,13 +306,13 @@ nav ul li ul li a:hover{
     text-align: lineal;
 }
 
-.banner_title p{
+.bannerES_title p{
     color: #ffffff;
     font-size: 27px;
     margin-bottom: 10px;
 
 }
-.banner_img img {
+.bannerES_img img {
     max-width: 100%; 
     height: auto;
 }
@@ -402,7 +402,6 @@ video {
     border: 2px solid var(--secundary-color); 
 }
 
-
 .columna-1 {
     flex: 1; 
     margin-right: 25px; 
@@ -418,11 +417,14 @@ video {
     font-size: 36px;
     font-weight: 600;
 }
-.columna-1 p, ul, li{
+.columna-1 p{
+    font-size: 21px;
+}
+.columna1 ul li{
     font-size: 21px;
 }
 
-.contenedor {
+.contenedor-1 {
     display: flex;
 }
 

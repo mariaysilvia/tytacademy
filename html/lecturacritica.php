@@ -2,16 +2,17 @@
 <?php include '../html/navbar.php'; ?> <!-- Incluye el navbar aquí -->
 
     </header>
-<!--banner-->
-<section class="banner contenedor">
+
+    <!--banner-->
+<section class="bannerLC contenedor">
     <video autoplay muted loop>
         <source src="../videos/lecturacritica.mp4" type="video/mp4">
     </video>
-    <div class="banner-content">
-        <section class="banner_title">
+    <div class="bannerLC-content">
+        <section class="bannerLC_title">
             <h1>¡Lectura crítica!</h1>
         </section>
-        <div class="banner_img">
+        <div class="bannerLC_img">
             <img src="../imagenes/LogoModuloLecturaCritica.png" alt="">
         </div>
     </div>
@@ -25,64 +26,62 @@
     <div class="row">
         <div class="container text-center">
             <h1 class="title">¿Qué desea conocer?</h1>
-</div>
-<br>
-        <div class="col-4">
-        <div id="list-example" class="list-group">
-            <h3>Responde a tus preguntas</h3>
-            <a class="list-group-item list-group-item-action" href="#list-item-1">¿Qué es la lectura critica?</a>
-            <a class="list-group-item list-group-item-action" href="#list-item-2">¿Qué se evalua?</a>
-            <a class="list-group-item list-group-item-action" href="#list-item-3">¿Cómo son las preguntas?</a>
         </div>
+        <br>
+        <div class="col-4">
+            <div id="list-example" class="list-groupLC">
+                <h3>Responde a tus preguntas</h3>
+                <a class="list-groupLC-item list-groupLC-item-action" href="#list-item-1">¿Qué es la lectura critica?</a>
+                <a class="list-groupLC-item list-groupLC-item-action" href="#list-item-2">¿Qué se evalua?</a>
+                <a class="list-groupLC-item list-groupLC-item-action" href="#list-item-3">¿Cómo son las preguntas?</a>
+            </div>
         </div>
         <div class="col-8">
-        <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
-            <h4 id="list-item-1">Lectura critica</h4>
-            <p>
-            <ul>
-                <li>
-                <h5>Lectura:</h5>Pasar la vista por los signos de una palabra o texto escrito para interpretarlos mentalmente o en voz alta.
-                </li>
-                <li>
-                <h5>Critica:</h5>Conjunto de opiniones o juicios que responden a un análisis ya sea positivo o negativo.
-                </li>
-            </ul>
-            En términos generales, la lectura crítica permite a la persona que lee ser más reflexiva y activa.
-            De esta manera, se logra una comprensión de lectura exitosa, ya que adquirir un análisis profundo
-            requiere dedicación y una buena rutina de lectura.
-        </p>
-            <h4 id="list-item-2">Evaluando</h4>
-            <p>Evalúa habilidades para comprender, interpretar y evaluar textos que pueden encontrarse en la vida cotidiana y
-            en ambitos académicos no especializados.
-            <ul>
-                <li>Significado de las frases o palabras vistas en los textos durante las pruebas.</li>
-                <li>Fragmentos cortas para generar un sentido global.</li>
-                <li>Reflexión y evaluación con respecto a los diferentes textos que se van a desarrollar.</li>
-                <li>Tener en cuenta los niveles de lectura para el analisis correcto de las lecturas.</li>
-            </ul>
-            </p>
-            <h4 id="list-item-3">Tipos de preguntas</h4>
-            <p>Las preguntas presentadas en este modulo son de selección multiple con unica respuesta:
-            <img src="../imagenes/unicarespuesta.png" alt=""><br>
-            Se podria decir que la forma de contestarlas es mediante un cuadernillo de respuestas señalando una sola:
-            <img src="../imagenes/respuestaunica.png" alt="">
-            </p>
-
-        </div>
+            <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true" class="scrollspy-exampleLC" tabindex="0">
+                <h4 id="list-item-1">Lectura critica</h4>
+                <p>
+                <ul>
+                    <li>
+                        <h5>Lectura:</h5>Pasar la vista por los signos de una palabra o texto escrito para interpretarlos mentalmente o en voz alta.
+                    </li>
+                    <li>
+                        <h5>Critica:</h5>Conjunto de opiniones o juicios que responden a un análisis ya sea positivo o negativo.
+                    </li>
+                </ul>
+                En términos generales, la lectura crítica permite a la persona que lee ser más reflexiva y activa.
+                De esta manera, se logra una comprensión de lectura exitosa, ya que adquirir un análisis profundo
+                requiere dedicación y una buena rutina de lectura.
+                </p>
+                <h4 id="list-item-2">Evaluando</h4>
+                <p>Evalúa habilidades para comprender, interpretar y evaluar textos que pueden encontrarse en la vida cotidiana y
+                en ambitos académicos no especializados.
+                <ul>
+                    <li>Significado de las frases o palabras vistas en los textos durante las pruebas.</li>
+                    <li>Fragmentos cortas para generar un sentido global.</li>
+                    <li>Reflexión y evaluación con respecto a los diferentes textos que se van a desarrollar.</li>
+                    <li>Tener en cuenta los niveles de lectura para el analisis correcto de las lecturas.</li>
+                </ul>
+                </p>
+                <h4 id="list-item-3">Tipos de preguntas</h4>
+                <p>Las preguntas presentadas en este modulo son de selección multiple con unica respuesta:
+                <img src="../imagenes/unicarespuesta.png" alt=""><br>
+                Se podria decir que la forma de contestarlas es mediante un cuadernillo de respuestas señalando una sola:
+                <img src="../imagenes/respuestaunica.png" alt="">
+                </p>
+            </div>
         </div>
     </div>
-
-    </section>
-    <br>
-    <br>
+</section>
+<br>
+<br>
 
     <!--textos continuos y discontinuos-->
     <div class="container text-center">
         <h1 class="title">¿Textos continuos y discontinuos?</h1>
     </div>
     
-    <div class="container-cards"> 
-        <div class="card" style="width: 550px; height: 400px;">
+    <div class="containerLC-cards"> 
+        <div class="cardLC" style="width: 550px; height: 400px;">
             <div class="face front">
                 <img src="../imagenes/Discontinuos.gif" alt="">
                 <h3>Tipos de textos</h3>
@@ -93,13 +92,12 @@
                 imágenes, gráficos, tablas y símbolos para transmitir información.</p>
                 <p><strong>En las pruebas TYT, puedes encontrarlos en forma de infografías, gráficos, cómics y tablas.</strong></p>
                 <div class="link">
-                    <a href="#"><strong>Ver más</strong></a>
                 </div>
             </div>
         </div>
         <br>
         <br>
-        <div class="card" style="width: 550px; height: 400px;">
+        <div class="cardLC" style="width: 550px; height: 400px;">
             <div class="face front">
                 <img src="../imagenes/Continuos.gif" alt="">
                 <h3>Tipos de textos</h3>
@@ -111,7 +109,6 @@
                 utilizando reglas gramaticales para que la información se entienda de forma clara y coherente.</p>
                     <p><strong>En las pruebas TYT, puedes encontrar ejemplos de textos continuos en forma de ensayos, novelas y artículos de prensa.</strong></p>
                 <div class="link">
-                    <a href="#"><strong>Ver más</strong></a>
                 </div>
             </div>
         </div>

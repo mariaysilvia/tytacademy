@@ -278,7 +278,48 @@ nav ul li ul li a:hover{
     }
 }
 
-/*banner*/
+/*banner nosotros*/
+.bannerGS {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    min-height: 400px;
+    background-image: linear-gradient(
+        rgba(0, 0, 0, 0.167),
+        rgba(0, 0, 0, 0.122)),
+        url(../imagenes/acuarela.jpg);
+}
+
+.bannerGS {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 400px;
+}
+
+.bannerGS_title {
+    margin-left: 80px; 
+    padding-left: 60px;
+}
+
+.bannerGS_title h1 {
+    color: rgba(255, 255, 255, 0.81);
+    font-size: 70px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    text-align: lineal;
+}
+
+.bannerGS_title p{
+    color: #ffffff;
+    font-size: 27px;
+    margin-bottom: 10px;
+
+}
+.bannerGS_img img {
+    width: 750px; /* O el valor que desees */
+    height: auto; /* Mantén 'height: auto' para que la imagen mantenga sus proporciones */
+}
 
 
 /*informacion extra*/
