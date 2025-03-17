@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TYT ACADEMY</title>
+    <link rel="stylesheet" href="../css/pruebaspresentadas.css">
+    <link rel="icon" href="../imagenes/lecturacriticamodulo.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+    <header>
+        <h1>TYT ACADEMY</h1><h2>SIMULACRO 1</h2>
+        <p>Lectura crítica <strong>Total preguntas: 10</strong></p>
+    </header>
+    <div class="container">
+        <img src="../imagenes/texto_1-10.png" alt="">
+
+        <!-- Aquí agregamos el atributo 'action' para enviar a corregirpruebas.php -->
+        <form id="formularioPrueba" action="../php/corregirpruebacritica.php" method="POST">
+
+
+            <!-- Pregunta 1 -->
+            <section id="pregunta1" class="question">
+                <h3><strong>1.</strong> Wendy fue:</h3>
+                <label>
+                    <input type="radio" value="1" name="p1"><strong>A.</strong> Acosada por miembros de la Mara Salvatrucha
+                </label>
+                <label>
+                    <input type="radio" value="2" name="p1"><strong>B.</strong> Abusada por un miembro de la Mara Salvatrucha
+                </label>
+                <label>
+                    <input type="radio" value="3" name="p1"><strong>C.</strong> Violentada por un miembro de la Mara Salvatrucha.
+                </label>
+                <label>
+                    <input type="radio" value="4" name="p1"><strong>D.</strong> Violada por miembros de la Mara Salvatrucha.
+                </label>
+            </section>
+
+            <!-- Pregunta 2 -->
+            <section id="pregunta2" class="question">
+                <h3><strong>2.</strong> En el párrafo 7 la palabra “víctimas” se resalta en letra cursiva porque en opinión del autor:</h3>
+                <label>
+                    <input type="radio" value="1" name="p2"><strong>A.</strong> Todas las mujeres prostitutas son víctimas.
+                </label>
+                <label>
+                    <input type="radio" value="2" name="p2"><strong>B.</strong> Víctima es un término que unos grupos usan para referirse a algunas prostitutas.
+                </label>
+                <label>
+                    <input type="radio" value="3" name="p2"><strong>C.</strong> Ninguna mujer prostituta es víctima.
+                </label>
+                <label>
+                    <input type="radio" value="4" name="p2"><strong>D.</strong> Víctima es un término que unos grupos usan para referirse a todas las prostitutas.
+                </label>
+            </section>
+
+            <!-- Pregunta 3 -->
+            <section id="pregunta3" class="question">
+                <h3><strong>3.</strong> El autor usa los casos de Wendy, la rumana, la Valeska y Luisa para:</h3>
+                <label>
+                    <input type="radio" value="1" name="p3"><strong>A.</strong> Explicar que la prostitución es forzada.
+                </label>
+                <label>
+                    <input type="radio" value="2" name="p3"><strong>B.</strong> Demostrar que no todas las prostitutas son víctimas.
+                </label>
+                <label>
+                    <input type="radio" value="3" name="p3"><strong>C.</strong> Mostrar que todas las prostitutas son víctimas.
+                </label>
+                <label>
+                    <input type="radio" value="4" name="p3"><strong>D.</strong> Narrar casos en que la prostitución es forzada.
+                </label>
+            </section>
+
+            <!-- Pregunta 4 -->
+            <section id="pregunta4" class="question">
+                <h3><strong>4.</strong> El autor usa la expresión “industria del rescate” como parte de un intento por:</h3>
+                <label>
+                    <input type="radio" value="1" name="p4"><strong>A.</strong> Reconocer la labor de un grupo de burócratas, periodistas y ONG que busca salvar a las prostitutas.
+                </label>
+                <label>
+                    <input type="radio" value="2" name="p4"><strong>B.</strong> Descalificar a un grupo de burócratas, periodistas y ONG que se dedica a trabajar por las prostitutas.
+                </label>
+                <label>
+                    <input type="radio" value="3" name="p4"><strong>C.</strong> Destacar un grupo de burócratas, periodistas y ONG que se dedica a trabajar por las prostitutas.
+                </label>
+                <label>
+                    <input type="radio" value="4" name="p4"><strong>D.</strong> Justificar la acción de un grupo de burócratas, periodistas y ONG que asume que todas las prostitutas deben ser rescatadas.
+                </label>
+            </section>
+
+            <!-- Pregunta 5 -->
+            <section id="pregunta5" class="question">
+                <h3><strong>5.</strong> El propósito del texto es:</h3>
+                <label>
+                    <input type="radio" value="1" name="p5"><strong>A.</strong> Mostrar los prejuicios y la ignorancia de un grupo de personas dedicado a enfrentar el fenómeno de la prostitución.
+                </label>
+                <label>
+                    <input type="radio" value="2" name="p5"><strong>B.</strong> Narrar las historias de vida de cuatro prostitutas en diferentes países del mundo.
+                </label>
+                <label>
+                    <input type="radio" value="3" name="p5"><strong>C.</strong> Argumentar sobre la importancia de que las mujeres no se vuelvan prostitutas.
+                </label>
+                <label>
+                    <input type="radio" value="4" name="p5"><strong>D.</strong> Narrar el recorrido de las mujeres que llegan a la prostitución.
+                </label>
+            </section>
+
+            <!-- Pregunta 6 -->
+            <section id="pregunta6" class="question">
+                <h3><strong>6.</strong> La afirmación de Luisa, “Si estoy con un man que me gusta porque sí, ¿por qué no voy a estar con otro por plata?” implica que ella:</h3>
+                <label>
+                    <input type="radio" value="1" name="p6"><strong>A.</strong> Toma decisiones siguiendo la moral de la comunidad.
+                </label>
+                <label>
+                    <input type="radio" value="2" name="p6"><strong>B.</strong> Le da más importancia a los sentimientos que al dinero.
+                </label>
+                <label>
+                    <input type="radio" value="3" name="p6"><strong>C.</strong> Cree que el dinero es una razón fuerte para estar con alguien.
+                </label>
+                <label>
+                    <input type="radio" value="4" name="p6"><strong>D.</strong> La opinión de los demás es importante a la hora de tomar decisiones.
+                </label>
+            </section>
+
+            <!-- Pregunta 7 -->
+            <section id="pregunta7" class="question">
+                <h3><strong>7.</strong> El texto está escrito para una audiencia:</h3>
+                <label>
+                    <input type="radio" value="1" name="p7"><strong>A.</strong> Especializada.
+                </label>
+                <label>
+                    <input type="radio" value="2" name="p7"><strong>B.</strong> Científica.
+                </label>
+                <label>
+                    <input type="radio" value="3" name="p7"><strong>C.</strong> General.
+                </label>
+                <label>
+                    <input type="radio" value="4" name="p7"><strong>D.</strong> Joven.
+                </label>
+            </section>
+
+            <!-- Pregunta 8 -->
+            <section id="pregunta8" class="question">
+                <h3><strong>8.</strong> El caso de Luisa busca:</h3>
+                <label>
+                    <input type="radio" value="1" name="p8"><strong>A.</strong> Ilustrar que hay mujeres que se vuelven prostitutas porque quieren.
+                </label>
+                <label>
+                    <input type="radio" value="2" name="p8"><strong>B.</strong> Explicar la historia de una mujer que se vuelve prostituta porque quiere.
+                </label>
+                <label>
+                    <input type="radio" value="3" name="p8"><strong>C.</strong> Ilustrar que hay mujeres que se vuelven prostitutas porque las obligan.
+                </label>
+                <label>
+                    <input type="radio" value="4" name="p8"><strong>D.</strong> Explicar la historia de una mujer que se vuelve prostituta porque la obligan.
+                </label>
+            </section>
+
+            <!-- Pregunta 9 -->
+            <section id="pregunta9" class="question">
+                <h3><strong>9.</strong> Considere la siguiente frase en el último párrafo del texto: “No me arrepiento absolutamente de nada”. Con ella la mujer responde a algunos sectores sociales para los que la prostitución:</h3>
+                <label>
+                    <input type="radio" value="1" name="p9"><strong>A.</strong> Es una actividad arriesgada pero divertida.
+                </label>
+                <label>
+                    <input type="radio" value="2" name="p9"><strong>B.</strong> No representa un problema importante.
+                </label>
+                <label>
+                    <input type="radio" value="3" name="p9"><strong>C.</strong> Representa una opción de supervivencia.
+                </label>
+                <label>
+                    <input type="radio" value="4" name="p9"><strong>D.</strong> Es una opción desesperada e indeseable.
+                </label>
+            </section>
+
+            <!-- Pregunta 10 -->
+            <section id="pregunta10" class="question">
+                <h3><strong>10.</strong> Los testimonios presentados en el texto permiten sostener que el ejercicio de la prostitución:</h3>
+                <label>
+                    <input type="radio" value="1" name="p10"><strong>A.</strong> Es un medio de realización personal para algunas mujeres.
+                </label>
+                <label>
+                    <input type="radio" value="2" name="p10"><strong>B.</strong> Atrapa a todas sus víctimas en contra de su voluntad.
+                </label>
+                <label>
+                    <input type="radio" value="3" name="p10"><strong>C.</strong> Es el medio para que las mujeres tengan conciencia de su sexualidad.
+                </label>
+                <label>
+                    <input type="radio" value="4" name="p10"><strong>D.</strong> Hace que las mujeres pierdan el control sobre su cuerpo.
+                </label>
+            </section>
+
+        </form>
+
+        <button type="button" id="btnCorregir">Corregir</button>
+
+        <br>
+        <h2><span id="resultados"></span></h2>
+        <h2><span id="incorrectas"></span></h2>
+
+    </div>
+    <script src="../js/corregirpruebacritica.js"></script>
+</body>
+</html>
