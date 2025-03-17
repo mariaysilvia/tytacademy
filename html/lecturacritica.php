@@ -3,7 +3,7 @@
 
     </header>
 
-    <!--banner-->
+    <!--banner de lectura critica-->
 <section class="bannerLC contenedor">
     <video autoplay muted loop>
         <source src="../videos/lecturacritica.mp4" type="video/mp4">
@@ -21,7 +21,7 @@
 <br>
 <br>
 
-<!--scrollspy-->
+<!--scrollspy de lectura critica-->
 <section>
     <div class="row">
         <div class="container text-center">
@@ -62,7 +62,7 @@
                     <li>Tener en cuenta los niveles de lectura para el analisis correcto de las lecturas.</li>
                 </ul>
                 </p>
-                <h4 id="list-item-3">Tipos de preguntas</h4>
+                <h4 id="list-item-3">Tipo de preguntas</h4>
                 <p>Las preguntas presentadas en este modulo son de selección multiple con unica respuesta:
                 <img src="../imagenes/unicarespuesta.png" alt=""><br>
                 Se podria decir que la forma de contestarlas es mediante un cuadernillo de respuestas señalando una sola:

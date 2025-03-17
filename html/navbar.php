@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/PRUEBAS.css">
     <link rel="stylesheet" href="../css/lecturacritica.css">
     <link rel="stylesheet" href="../css/nosotros.css">
+    <link rel="stylesheet" href="../css/razonamiento.css">
     <link rel="icon" href="../imagenes/lecturacriticamodulo.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,7 +36,7 @@
                 <li><a href="#">Módulos</a>
                     <ul>
                         <li><a href="../html/lecturacritica.php">Lectura crítica</a></li>
-                        <li><a href="#">Razonamiento cuantitativo</a></li>
+                        <li><a href="../html/razonamiento.php">Razonamiento cuantitativo</a></li>
                         <li><a href="#">Competencia ciudadana</a></li>
                         <li><a href="#">Comunicación</a></li>
                         <li><a href="#">Inglés</a></li>
