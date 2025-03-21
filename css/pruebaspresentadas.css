@@ -7,6 +7,7 @@
 :root {
     --primary-color: #3c72e6;
     --secundary-color: #5aa3e6;
+    --terceary-color: #2169ac;
     --background-color: #fff;
     --dark-color: #000;
 }
@@ -119,4 +120,20 @@ h2 {
 #resultado {
     font-size: 30px;
     color: var(--primary-color);
+}
+.question h5{
+    text-align: justify;
+    margin-top: 20px;
+    line-height: 30px;
+    
+    
+}
+
+.container p{
+    font-size: 33px;
+    font-weight: 800;
+    text-align: center;
+    margin-top: 20px;
+    color: var(--terceary-color);
+    font-style: italic;
 }
