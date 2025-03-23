@@ -5,13 +5,14 @@
 }
 
 :root {
-    --primary-color: #3c72e6;
-    --secundary-color: #5aa3e6;
+    --primary-color: #3cb352c3;
+    --secundary-color: #a8e176dc;
+    --terceary-color: #3b9113c1;
     --background-color: #fff;
     --dark-color: #000;
 }
 body {
-    background-image: url('../imagenes/fondoquiz.jpg');
+    background-image: linear-gradient(to bottom, #fbf0ff, #3cb372e1);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -22,13 +23,15 @@ body {
 
 header {
     text-align: center;
-    background: linear-gradient(#8dbce7, #3c72e66a);
-    color: #fff;
+    background: linear-gradient(#b4eea9, #47e63c22);
+    color: var(--terceary-color);
     padding: 10px 0;
 }
 header h1{
-    font-weight: 700;
+    font-weight: 800;
     font-size: 50px;
+    font-style: italic;
+    color: #FFF0F5;
 }
 header p{
     font-size: 20px;
@@ -77,7 +80,7 @@ label {
 }
 
 label:hover {
-    background: #c0defc;
+    background: #c0fccc;
 }
 
 input[type="radio"] {
@@ -119,4 +122,27 @@ h2 {
 #resultado {
     font-size: 30px;
     color: var(--primary-color);
+}
+.question h5{
+    text-align: justify;
+    margin-top: 20px;
+    line-height: 30px;
+
+}
+
+.container p{
+    font-size: 33px;
+    font-weight: 800;
+    text-align: center;
+    margin-top: 20px;
+    color: var(--terceary-color);
+    font-style: italic;
+}
+.question img{
+    width: 570px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.562);
 }
