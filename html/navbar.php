@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../css/lecturacritica.css">
     <link rel="stylesheet" href="../css/nosotros.css">
     <link rel="stylesheet" href="../css/razonamiento.css">
-    <link rel="icon" href="../imagenes/lecturacriticamodulo.png" type="image/x-icon">
+    <link rel="icon" href="../imagenes/computador.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
