@@ -60,20 +60,29 @@ async function registrarUsuario(formData) {
             method: 'POST',
             body: formData
         });
-        
-        const resultado = await response.json();
-        
+
+        // Verificar si la respuesta es JSON válida
+        let resultado;
+        try {
+            resultado = await response.json();
+        } catch (error) {
+            console.error("Error al parsear JSON:", error);
+            mostrarMensaje("signupMessage", "Error en la respuesta del servidor", "red");
+            return;
+        }
+
         if (resultado.success) {
             mostrarMensaje("signupMessage", "¡Registro exitoso! Redirigiendo...", "green");
             setTimeout(() => {
                 window.location.href = "iniciarsesion.html";
             }, 2000);
         } else {
+            console.error("Error del servidor:", resultado.message);
             mostrarMensaje("signupMessage", resultado.message || "Error en el registro", "red");
         }
     } catch (error) {
-        console.error('Error:', error);
-        mostrarMensaje("signupMessage", "Error al procesar el registro", "red");
+        console.error('Error en la solicitud:', error);
+        mostrarMensaje("signupMessage", error.message || "Error al procesar el registro", "red");
     }
 }
 
@@ -233,6 +242,7 @@ function habilitarEdicion() {
         const elemento = document.getElementById(campo);
         const valor = elemento.textContent;
         elemento.innerHTML = `<input type="text" class="form-control" value="${valor}">`;
+
     });
 
     document.getElementById('btnEditar').style.display = 'none';

@@ -2,6 +2,7 @@
 header('Content-Type: application/json');
 require_once '../php/conexion.php';
 
+
 function validarPassword($password) {
     if (strlen($password) < 8) return false;
     if (!preg_match('/[0-9]/', $password)) return false;
@@ -13,15 +14,33 @@ function validarPassword($password) {
 try {
     // Verificar método HTTP
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        throw new Exception('Método no permitido');
+        echo json_encode([
+            'success' => false,
+            'message' => 'Método no permitido'
+        ]);
+        exit; // Detener la ejecución
+    }
+
+    // Validar que se reciban los datos esperados
+    if (!isset($_POST['documento']) || !isset($_POST['nombres']) || !isset($_POST['apellidos']) ||!isset( $_POST['correo']) || !isset( $_POST['contraseña']) || !isset( $_POST['celular'])) {
+        echo json_encode([
+            'success' => false,
+            'message' => 'Faltan datos en la solicitud'
+        ]);
+        exit; // Detener la ejecución
+    }
+
+    // Limpiar el búfer de salida para evitar contenido no deseado
+    if (ob_get_length()) {
+        ob_clean();
     }
 
     // Obtener y limpiar datos
-    $documento = trim($_POST['documento'] ?? '');
-    $nombres = trim($_POST['nombres'] ?? '');
-    $apellidos = trim($_POST['apellidos'] ?? '');
-    $correo = trim($_POST['correo'] ?? '');
-    $password_sin_hash = trim($_POST['contraseña'] ?? '');
+    $documento = trim($_POST['documento']);
+    $nombres = trim($_POST['nombres']);
+    $apellidos = trim($_POST['apellidos']);
+    $correo = trim($_POST['correo']);
+    $password_sin_hash = trim($_POST['contraseña']);
     $celular = trim($_POST['celular'] ?? '');
 
     // Validar campos requeridos
@@ -77,6 +96,21 @@ try {
     // Confirmar transacción
     $pdo->commit();
 
+    // Enviar correo de bienvenida
+    error_log("📨 Llamando a enviarCorreoBienvenida con: $nombres <$correo>");
+    require_once 'email.php';
+    $mensaje = "Gracias por registrarte con nosotros.";
+    if (enviarCorreoBienvenida($nombres, $correo, $mensaje)) {
+        error_log("Correo de bienvenida enviado a $correo");
+    } else {
+        error_log("Error al enviar el correo de bienvenida a $correo. Revisa los logs de email.php para más detalles.");
+    }
+
+    // Limpiar el búfer de salida antes de enviar JSON
+    if (ob_get_length()) {
+        ob_clean();
+    }
+
     echo json_encode([
         'success' => true,
         'message' => 'Registro exitoso'
@@ -91,10 +125,15 @@ try {
     // Log del error
     error_log("Error en registro.php: " . $e->getMessage());
 
-    // Respuesta de error
+    // Limpiar el búfer de salida antes de enviar JSON
+    if (ob_get_length()) {
+        ob_clean();
+    }
+
     echo json_encode([
         'success' => false,
         'message' => $e->getMessage()
     ]);
+    exit; // Asegúrate de detener la ejecución aquí
 }
 ?>
