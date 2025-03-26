@@ -1,64 +1,89 @@
-document.getElementById('btnCorregir').addEventListener('click', function () {
-    let respuestasCorrectas = {
-        p1: 4, // Respuesta correcta para la pregunta 1
-        p2: 3, // Respuesta correcta para la pregunta 2
-        p3: 3, // Respuesta correcta para la pregunta 3
-        p4: 3, // Respuesta correcta para la pregunta 4
-        p5: 2, // Respuesta correcta para la pregunta 5
-        p6: 2, // Respuesta correcta para la pregunta 6
-        p7: 4, // Respuesta correcta para la pregunta 7
-        p8: 4, // Respuesta correcta para la pregunta 8
-        p9: 1, // Respuesta correcta para la pregunta 9
-        p10: 3 // Respuesta correcta para la pregunta 10
-    };
+document.getElementById('formularioPrueba').addEventListener('submit', function (event) {
+    event.preventDefault(); // Evitar el envío predeterminado del formulario
 
-    let totalCorrectas = 0; // Contador para respuestas correctas
-    let totalIncorrectas = 0; // Contador para respuestas incorrectas
-    let respuestasIncorrectas = []; // Array para almacenar las respuestas incorrectas
-    let respuestasCorrectasList = []; // Array para almacenar las respuestas correctas
-    let todasPreguntasRespondidas = true; // Variable para verificar si todas las preguntas han sido respondidas
+    let respuestasConEstado = [];
+    let todasPreguntasRespondidas = true;
 
-    // Recorremos cada pregunta del 1 al 10
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 20; i++) {
         let pregunta = `p${i}`;
         let seleccionada = document.querySelector(`input[name="${pregunta}"]:checked`);
-        
+        let respuestaSeleccionada = seleccionada ? parseInt(seleccionada.value) : null;
+
         if (!seleccionada) {
-            todasPreguntasRespondidas = false; // Si alguna pregunta no está respondida, cambiamos a false
+            todasPreguntasRespondidas = false;
             break;
         }
 
-        let respuestaSeleccionada = parseInt(seleccionada.value);
-
-        // Comprobamos si la respuesta es correcta
-        if (respuestaSeleccionada === respuestasCorrectas[pregunta]) {
-            totalCorrectas++; // Aumentamos el contador de respuestas correctas
-            respuestasCorrectasList.push(`Pregunta ${i}: Respuesta correcta seleccionada: ${respuestaSeleccionada}`); // Almacenamos la respuesta correcta
-        } else {
-            totalIncorrectas++; // Aumentamos el contador de respuestas incorrectas
-            respuestasIncorrectas.push(`Pregunta ${i}: Respuesta seleccionada: ${respuestaSeleccionada}`); // Almacenamos las respuestas incorrectas con su número
-        }
+        respuestasConEstado.push({
+            pregunta: pregunta,
+            respuestaUsuario: respuestaSeleccionada
+        });
     }
 
-    // Si no se han respondido todas las preguntas, se muestra un mensaje de alerta 
     if (!todasPreguntasRespondidas) {
         alert("Lo siento, debes marcar todas las preguntas.");
-        return; // Detenemos la ejecución del código para evitar mostrar resultados si no se han marcado todas las preguntas
+        return;
     }
 
-    // Mostramos los resultados en el HTML
-    document.getElementById('resultados').textContent = `Preguntas acertadas: ${totalCorrectas}`;
-    document.getElementById('incorrectas').textContent = `Preguntas incorrectas: ${totalIncorrectas}`;
+    // Enviar respuestas al servidor
+    fetch('../php/corregirpruebacritica.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(respuestasConEstado)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);
+            return;
+        }
+        document.getElementById('resultados').textContent = `Preguntas acertadas: ${data.aciertos}`;
+        document.getElementById('incorrectas').textContent = `Preguntas incorrectas: ${data.incorrectas.length}`;
+        console.log("Respuestas con estado:", data.respuestas);
+    })
+    .catch(error => console.error('Error:', error));
+});
 
-    // Mostramos las respuestas correctas
-    console.log("Respuestas correctas:");
-    respuestasCorrectasList.forEach(function(correcta) {
-        console.log(correcta); // Esto se puede mostrar en el html 
-    });
+document.getElementById('btnCorregir').addEventListener('click', function () {
+    let respuestasConEstado = [];
+    let todasPreguntasRespondidas = true;
 
-    // Mostramos las respuestas incorrectas
-    console.log("Respuestas incorrectas:");
-    respuestasIncorrectas.forEach(function(incorrecta) {
-        console.log(incorrecta); // Esto se puede mostrar en el html 
-    });
+    for (let i = 1; i <= 20; i++) {
+        let pregunta = `p${i}`;
+        let seleccionada = document.querySelector(`input[name="${pregunta}"]:checked`);
+        let respuestaSeleccionada = seleccionada ? parseInt(seleccionada.value) : null;
+
+        if (!seleccionada) {
+            todasPreguntasRespondidas = false;
+            break;
+        }
+
+        respuestasConEstado.push({
+            pregunta: pregunta,
+            respuestaUsuario: respuestaSeleccionada
+        });
+    }
+
+    if (!todasPreguntasRespondidas) {
+        alert("Lo siento, debes marcar todas las preguntas.");
+        return;
+    }
+
+    // Enviar respuestas al servidor
+    fetch('../php/corregirpruebacritica.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(respuestasConEstado)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);
+            return;
+        }
+        document.getElementById('resultados').textContent = `Preguntas acertadas: ${data.aciertos}`;
+        document.getElementById('incorrectas').textContent = `Preguntas incorrectas: ${data.incorrectas.length}`;
+        console.log("Respuestas con estado:", data.respuestas);
+    })
+    .catch(error => console.error('Error:', error));
 });

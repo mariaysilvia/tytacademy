@@ -32,6 +32,9 @@ function enviarCorreoBienvenida($nombre, $email, $mensaje) {
     
     $cuerpo = str_replace('{{nombre}}', $nombre, $cuerpo);
 
+    // Agregar referencia al CID de la imagen
+    $cuerpo = str_replace('../imagenes/firmaelectronica.jpeg', 'cid:firmaelectronica', $cuerpo);
+
     // Configurar PHPMailer
     $mail = new PHPMailer(true);
     try {
@@ -54,6 +57,9 @@ function enviarCorreoBienvenida($nombre, $email, $mensaje) {
         $mail->setFrom('tytacademy28@gmail.com', 'TYT Academy'); // El remitente debe coincidir con el correo autenticado
         $mail->addAddress($email, $nombre);
         $mail->addReplyTo('tytacademy28@gmail.com', 'Soporte');
+
+        // Adjuntar la imagen de la firma electrónica
+        $mail->addEmbeddedImage('../imagenes/firmaelectronica.jpeg', 'firmaelectronica');
 
         // Contenido del correo
         $mail->isHTML(true);
