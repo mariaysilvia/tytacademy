@@ -57,6 +57,7 @@
     crossorigin="anonymous"></script>
 <script src="../js/botonarriba.js"></script>
 <script src="../js/loginregistro.js"></script>
+<script src="../js/fotoperfil.js"></script>
 <script>
     async function abrirModal() {
         const modal = new bootstrap.Modal(document.getElementById('perfilModal'));

@@ -738,3 +738,20 @@ video {
         max-width: 150px;
     }
 }
+
+/* perfil bolita */
+.perfil-bolita {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+    border: 2px solid #ccc;
+    position: relative;
+}
+
+.perfil-bolita img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

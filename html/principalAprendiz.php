@@ -1,4 +1,3 @@
-
 <?php include '../html/navbar.php'; ?> <!-- Incluye el navbar aquí -->
 
 
@@ -11,10 +10,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="text-center mb-4">
-                    <img src="../imagenes/fotoanteojos.jpg" class="rounded-circle" alt="Foto de perfil"
-                        style="width: 150px; height: 150px; object-fit: cover;">
+                <div class="perfil-bolita text-center mb-4">
+                    <img id="fotoPerfil" src="../image/" alt="Foto de perfil">
                 </div>
+                <form id="formFotoPerfil">
+                    <input type="file" name="foto" id="inputFoto" accept="image/*" style="display: none;">
+                    <button type="button" class="btn btn-primary mt-2" onclick="document.getElementById('inputFoto').click();">Seleccionar Foto</button>
+                    <button type="button" class="btn btn-success mt-2" onclick="subirFoto()">Subir Foto</button>
+                </form>
                 <div class="row">
                     <div class="col-md-12">
                         <p><strong>Nombre:</strong> <span id="perfilNombre" class="dato-perfil"></span></p>
@@ -26,8 +29,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" id="btnEditar"
-                    onclick="habilitarEdicion()">Editar</button>
+                <button type="button" class="btn btn-primary" id="btnEditar" onclick="habilitarEdicion()">Editar</button>
                 <button type="button" class="btn btn-success" id="btnGuardar" onclick="guardarCambios()"
                     style="display: none;">Guardar</button>
             </div>
@@ -169,3 +171,18 @@
 </div>
 
 <?php include '../html/footer.php'; ?> <!-- Incluye el footer aquí -->
+
+<script>
+    function subirFoto() {
+        const inputFoto = document.getElementById('inputFoto');
+        const archivo = inputFoto.files[0];
+        if (!archivo) {
+            alert('Por favor, selecciona una foto antes de subirla.');
+            return;
+        }
+        const idAprendiz = 1; // Reemplazar con el ID real del aprendiz
+        subirFotoPerfil(idAprendiz, archivo);
+    }
+</script>
+</body>
+</html>
