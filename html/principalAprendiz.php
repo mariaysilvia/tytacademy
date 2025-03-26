@@ -99,7 +99,7 @@
                     puedes hacer durante la prueba TYT y, sobre todo, reconociendo cada una de tus falencias para ir
                     mejorando cada vez más en tu rendimiento para la prueba real.
                 </p>
-                <a href="../html/PRUEBAS.html" class="botones">Ver más</a>
+                <a href="../html/PRUEBAS.php" class="botones">Ver más</a>
             </div>
 
         </div>
@@ -121,7 +121,7 @@
                     Podrás descubrir las motivaciones de los autores y la pasión que los impulsa a crear este espacio de
                     aprendizaje.
                 </p>
-                <a href="../html/nosotros.html" class="botones">Ver más</a>
+                <a href="../html/nosotros.php" class="botones">Ver más</a>
 
             </div>
 
@@ -142,7 +142,6 @@
                 Gracias a esto, podrás llevar un control de tu progreso, así como de los formularios que ya has
                 presentado y otras opciones disponibles en esta sección.
             </p>
-            <a href="../html/index.html" class="botones">Ver más</a>
 
         </div>
         <img class="imagen4" src="../imagenes/perfiltyt.jpg" alt="">

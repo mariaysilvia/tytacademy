@@ -26,19 +26,11 @@
         <br>
         <h6>Define las caracteristicas de la prueba</h6>
         <form>
-            <label for="areas">¿Qué tema desea practicar?:</label>
-            <select class="controls" name="areas" id="areas" required>
-                <option value="todos">Todos</option>
-                <option value="area1">Comprension de lectura</option>
-                <option value="area2">Vocabulario</option>
-                <option value="area3">Gramatica</option>
-                </select>
-
                 <label for="preguntas">¿Qué cantidad de preguntas desea en su prueba?:</label>
                 <select class="controls" name="preguntas" id="preguntas" required>
                     <option value="todas">Todas</option>
                     <option value="10">10 Preguntas</option>
-                    <option value="15">15 Preguntas</option>
+                    <option value="20">20 Preguntas</option>
                     </select>
                 
             <input class="botons" type="submit" value="Comenzar">

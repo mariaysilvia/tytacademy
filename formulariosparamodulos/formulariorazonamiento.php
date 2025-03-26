@@ -38,7 +38,7 @@
                 <select class="controls" name="preguntas" id="preguntas" required>
                     <option value="todas">Todas</option>
                     <option value="10">10 Preguntas</option>
-                    <option value="15">15 Preguntas</option>
+                    <option value="20">20 Preguntas</option>
                     </select>
                 
             <input class="botons" type="submit" value="Comenzar">
