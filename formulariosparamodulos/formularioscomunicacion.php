@@ -26,14 +26,6 @@
         <br>
         <h6>Define las caracteristicas de la prueba</h6>
         <form>
-            <label for="areas">¿Qué aspecto desea practicar?:</label>
-            <select class="controls" name="areas" id="areas" required>
-                <option value="todos">Todos</option>
-                <option value="area1">Planteamiento</option>
-                <option value="area2">Organización</option>
-                <option value="area3">Expresión</option>
-                </select>
-
                 <label for="preguntas">¿Qué cantidad de preguntas desea en su prueba?:</label>
                 <select class="controls" name="preguntas" id="preguntas" required>
                     <option value="todas">Todas</option>
