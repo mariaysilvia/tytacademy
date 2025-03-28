@@ -8,8 +8,11 @@
     <link rel="stylesheet" href="../css/principalAprendiz.css">
     <link rel="stylesheet" href="../css/PRUEBAS.css">
     <link rel="stylesheet" href="../css/lecturacritica.css">
-    <link rel="stylesheet" href="../css/nosotros.css">
     <link rel="stylesheet" href="../css/razonamiento.css">
+    <link rel="stylesheet" href="../css/ciudadana.css">
+    <link rel="stylesheet" href="../css/comunicacion.css">
+    <link rel="stylesheet" href="../css/ingles.css">
+    <link rel="stylesheet" href="../css/nosotros.css">
     <link rel="icon" href="../imagenes/computador.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,9 +40,9 @@
                     <ul>
                         <li><a href="../html/lecturacritica.php">Lectura crítica</a></li>
                         <li><a href="../html/razonamiento.php">Razonamiento cuantitativo</a></li>
-                        <li><a href="#">Competencia ciudadana</a></li>
-                        <li><a href="#">Comunicación</a></li>
-                        <li><a href="#">Inglés</a></li>
+                        <li><a href="../html/ciudadana.php">Competencia ciudadana</a></li>
+                        <li><a href="../html/comunicacion.php">Comunicación</a></li>
+                        <li><a href="../html/ingles.php">Inglés</a></li>
                     </ul>
                 </li>
                 <li><a href="../html/PRUEBAS.php">Pruebas</a></li>

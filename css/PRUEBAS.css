@@ -277,11 +277,11 @@ nav ul li ul li a:hover{
 /*modulos tarjetas*/
 .modulostarjetas {
     display: flex;
-    flex-wrap: wrap;
+    
     justify-content: center; 
-    padding: 20px;
+    padding: 60px;
     background: linear-gradient(to right, rgb(196, 227, 255), rgb(97, 119, 242));
-    min-height: 100vh;
+    min-height: 200vh;
 }  
 
 .container-cards {
@@ -406,8 +406,6 @@ nav ul li ul li a:hover{
     height: auto;
     display: block;
 }
-
-
 
 .footer-distributed{
     background-color: #e7e7f8c5;
