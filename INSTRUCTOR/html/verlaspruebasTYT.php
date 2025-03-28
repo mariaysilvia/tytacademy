@@ -25,7 +25,7 @@
                     <ul>
                         <li><a href="../html/inicioinstructor.php"></a></li><!--inicio-->
                         <br>
-                        <li><a href="../html/pruebasINSTRUCTOR.php" id="selected">Pruebas</a></li>
+                        <li><a href="#" id="selected">Pruebas</a></li>
                         <li><a href="#" onclick="abrirModal()">Mi perfil</a>
                             <ul>
                                 <li><a href="#" onclick="abrirModal()">Ver perfil</a></li>

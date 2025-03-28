@@ -2,42 +2,6 @@
 <?php include '../html/navbar.php'; ?> <!-- Incluye el navbar aquí -->
 
 
-    <!-- Modal para Ver Perfil -->
-    <div class="modal fade" id="perfilModal" tabindex="-1" aria-labelledby="perfilModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="perfilModalLabel">Mi Perfil</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="text-center mb-4">
-                        <img src="../imagenes/fotoanteojos.jpg" class="rounded-circle" alt="Foto de perfil"
-                            style="width: 150px; height: 150px; object-fit: cover;">
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p><strong>Nombre:</strong> <span id="perfilNombre" class="dato-perfil"></span></p>
-                            <p><strong>Apellido:</strong> <span id="perfilApellido" class="dato-perfil"></span></p>
-                            <p><strong>Correo:</strong> <span id="perfilEmail" class="dato-perfil"></span></p>
-                            <p><strong>Celular:</strong> <span id="perfilCelular" class="dato-perfil"></span></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" id="btnEditar"
-                        onclick="habilitarEdicion()">Editar</button>
-                    <button type="button" class="btn btn-success" id="btnGuardar" onclick="guardarCambios()"
-                        style="display: none;">Guardar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-        
-</header>
-
-
 <section class="modulostarjetas">
     <div class="container-cards">
 <!--Lectura critica-->

@@ -23,9 +23,9 @@
             <div class="menu">
                 <nav>
                     <ul>
-                        <li><a href="../html/inicioinstructor.html"></a></li><!--inicio-->
+                        <li><a href="../html/inicioinstructor.php"></a></li><!--inicio-->
                         <br>
-                        <li><a href="../html/creaciondelaspruebasTYT.html" id="selected">Pruebas</a></li>
+                        <li><a href="../html/creaciondelaspruebasTYT.php" id="selected">Pruebas</a></li>
                         <li><a href="#" onclick="abrirModal()">Mi perfil</a>
                             <ul>
                                 <li><a href="#" onclick="abrirModal()">Ver perfil</a></li>
