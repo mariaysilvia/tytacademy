@@ -11,11 +11,11 @@
             </div>
             <div class="modal-body">
                 <div class="perfil-bolita text-center mb-4">
-                    <img id="fotoPerfil" src="../image/" alt="Foto de perfil">
+                    <img id="fotoPerfil">
                 </div>
                 <form id="formFotoPerfil">
-                    <input type="file" name="foto" id="inputFoto" accept="image/*" style="display: none;">
-                    <button type="button" class="btn btn-primary mt-2" onclick="document.getElementById('inputFoto').click();">Seleccionar Foto</button>
+                <input type="file" name="foto" id="inputFoto" accept="image/*" style="display: none;" onchange="mostrarFoto(event);">
+                    <button type="file" class="btn btn-primary mt-2" onclick="document.getElementById('inputFoto').click();">Seleccionar Foto</button>
                     <button type="button" class="btn btn-success mt-2" onclick="subirFoto()">Subir Foto</button>
                 </form>
                 <div class="row">
@@ -58,7 +58,6 @@
 <br>
 <br>
 <section id="informacion">
-<<<<<<< HEAD
     <div class="container text-center">
         <h1 class="title">¿Cómo desea iniciar?</h1>
     </div>
@@ -136,7 +135,6 @@
     <div class="columna4">
         <div class="columna-4">
             <h1>Configuración de Perfil</h1>
-=======
 <div class="container text-center">
     <h1 class="title">¿Cómo desea iniciar?</h1>
 </div>
@@ -144,7 +142,6 @@
     <div class="contenedor-1">
         <div class="columna-1">
             <h1>Guía para Estudiar Cada Módulo.</h1>
->>>>>>> 2c36c66ca5f27ef6cb5d4242ba1e89df94ced704
             <br>
             <p>
                 En este apartado te guiaremos a través de los temas que pueden aparecer en las pruebas de cada
@@ -181,8 +178,6 @@
                 puedes hacer durante la prueba TYT y, sobre todo, reconociendo cada una de tus falencias para ir
                 mejorando cada vez más en tu rendimiento para la prueba real.
             </p>
-<<<<<<< HEAD
-=======
             <a href="../html/PRUEBAS.html" class="botones">Ver más</a>
         </div>
 
@@ -206,7 +201,6 @@
                 aprendizaje.
             </p>
             <a href="../html/nosotros.html" class="botones">Ver más</a>
->>>>>>> 2c36c66ca5f27ef6cb5d4242ba1e89df94ced704
 
         </div>
 
@@ -255,17 +249,6 @@
 
 <?php include '../html/footer.php'; ?> <!-- Incluye el footer aquí -->
 
-<script>
-    function subirFoto() {
-        const inputFoto = document.getElementById('inputFoto');
-        const archivo = inputFoto.files[0];
-        if (!archivo) {
-            alert('Por favor, selecciona una foto antes de subirla.');
-            return;
-        }
-        const idAprendiz = 1; // Reemplazar con el ID real del aprendiz
-        subirFotoPerfil(idAprendiz, archivo);
-    }
-</script>
+<script></script>
 </body>
 </html>
