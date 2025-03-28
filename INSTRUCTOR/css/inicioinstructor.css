@@ -71,7 +71,7 @@ nav  ul  li{
     position: relative;
 }
 nav > ul > li:first-child > a{
-    background-image: url(/INSTRUCTOR/imagenesinstructor/hogar.png);
+    background-image: url(../imagenesinstructor/hogar.png);
     background-size: 24px;
     background-repeat: no-repeat;
     background-position: center center;
@@ -80,7 +80,7 @@ nav > ul > li:first-child > a{
 }
 
 nav > ul > li:first-child:hover > a{
-    background-image: url(/INSTRUCTOR/imagenesinstructor/hogar.png);
+    background-image: url(../imagenesinstructor/hogar.png);
     background-size: 24px;
     background-repeat: no-repeat;
     background-position: center center;
@@ -283,7 +283,7 @@ nav ul li ul li a:hover{
     background-image: linear-gradient(
         rgba(0, 0, 0, 0.479),
         rgba(0, 0, 0, 0.122)),
-        url(/INSTRUCTOR/imagenesinstructor/fondoinicioinstructor.jpg);
+        url(../imagenesinstructor/fondoinicioinstructor.jpg);
 }
 
 .bannerING {

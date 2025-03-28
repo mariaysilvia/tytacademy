@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TYT ACADEMY</title>
-    <link rel="stylesheet" href="/INSTRUCTOR/css/verlaspruebasTYT.css">
-    <link rel="icon" href="/INSTRUCTOR/imagenesinstructor/computador.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/pruebasINSTRUCTOR.css">
+    <link rel="icon" href="../imagenesinstructor/computador.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
@@ -16,16 +16,16 @@
 <header>
         <div class="header_superior">
             <div class="logo"> 
-                <img src="/INSTRUCTOR/imagenesinstructor/tytacademy.png" alt="TYT Academy Logo">
+                <img src="../imagenesinstructor/tytacademy.png" alt="TYT Academy Logo">
             </div>
         </div>
         <div class="container_menu">
             <div class="menu">
                 <nav>
                     <ul>
-                        <li><a href="/INSTRUCTOR/html/inicioinstructor.html"></a></li><!--inicio-->
+                        <li><a href="../html/inicioinstructor.php"></a></li><!--inicio-->
                         <br>
-                        <li><a href="/INSTRUCTOR/html/creaciondelaspruebasTYT.html" id="selected">Pruebas</a></li>
+                        <li><a href="../html/crearpruebasINSTRUCTOR.php" id="selected">Pruebas</a></li>
                         <li><a href="#" onclick="abrirModal()">Mi perfil</a>
                             <ul>
                                 <li><a href="#" onclick="abrirModal()">Ver perfil</a></li>
@@ -79,19 +79,78 @@
         
 </header>
 
-<body onload="cargarCategorias()"> <!-- Llama a la función al cargar la página -->
-    <div class="container">
-        <h1 class="mt-4">Preguntas registradas</h1>
-        <div id="listaCategorias" class="row mt-4">
-            <!-- Las tarjetas de las categorías se agregarán aquí dinámicamente -->
-        </div>
+<!--banner pruebas instructor-->
+<section class="bannerIP contenedor">
+    <section class="bannerIP_title">
+        <h1>¡Crea pruebas para los modulos! </h1> 
+        <p>Conoce más acerca de lo que puedes hacer dentro de nuestro sitio web.</p>
+        <br>
+
+    </section>
+</section>
+
+<!--tarjetas acerca de crear las pruebas-->
+<br>
+<br>
+    <div class="container text-center">
+        <h1 class="title">¿Qué podrá hacer en TYTACADEMY?</h1>
     </div>
 
-    <div id="video-background">
-        <video autoplay muted loop>
-            <source src="/INSTRUCTOR/imagenesinstructor/fonfocreaciondelaspruebas.mp4" type="video/mp4">
-        </video>
+    <div class="containerP-card">
+    <div class="cardP">
+    <figure>
+        <img
+        src="../imagenesinstructor/tarjetasimagenes.jpg"
+        />
+    </figure>
+    <div class="contenidoP-card">
+        <h3>Crea pruebas TYT</h3>
+        <p>
+        En este apartado la creación de las pruebas es primordial. Elige el tipo de preguntas que desees y como deseas evaluarlo para 
+        los estudiantes.
+    </p>
+
+        <a href="../html/creaciondelaspruebasTYT.php">Comenzar</a>
     </div>
+    </div>
+    <div class="cardP">
+    <figure>
+        <img
+        src="../imagenesinstructor/imagenesprueba.jpg"
+        />
+    </figure>
+    <div class="contenidoP-card">
+        <h3>Ver pruebas TYT</h3>
+        <p>
+        Puede visualizar cada prueba que  ha creado junto a sus preguntas y podrá eliminar y editar si así lo desea. Recuerde
+        seleccionar la respuesta correcta para indicarle al sistema cuál debe de evaluar. 
+        </p>
+        <a href="../html/verlaspruebasTYT.php">Ver más</a>
+    </div>
+    </div>
+    <div class="cardP">
+    <figure>
+        <img
+        src="../imagenesinstructor/pruebaimagenes.jpg"
+        />
+    </figure>
+    <div class="contenidoP-card">
+        <h3>Ver los resultados</h3>
+        <p>
+        Luego de que los estudiantes presenten la prueba podra visualizar cada uno de los resultados que han obtenido, gracias a esto
+        reconocerá en lo que debe mejorar y podrá evaluar.
+        </p>
+        <a href="../html/verlosresultados.php">Ver más</a>
+    </div>
+    </div>
+</div>
+
+
+<!--boton de ir hacia arriba-->
+
+<div id="button-up">
+    <i class="fa-solid fa-chevron-up"></i>
+</div>
 
 
 <!--footer-->
@@ -99,7 +158,7 @@
 <footer class="footer-distributed">
     <div class="footer-left">
         <div class="logo">
-            <img src="/INSTRUCTOR/imagenesinstructor/tytacademy.png" alt="TYTAcademy">
+            <img src="../imagenesinstructor/tytacademy.png" alt="TYTAcademy">
         </div>
         <p class="footer-links">
             <a href="#">Inicio</a>
@@ -150,8 +209,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
-<script src="/INSTRUCTOR/js/botonarriba.js"></script>
-<script src="/INSTRUCTOR/js/opcionesdelaspruebas.js"></script>
+<script src="../js/botonarriba.js"></script>
 <script>
     async function abrirModal() {
         const modal = new bootstrap.Modal(document.getElementById('perfilModal'));
@@ -176,7 +234,7 @@
     }
 </script>
 
-
 </body>
 
 </html>
+

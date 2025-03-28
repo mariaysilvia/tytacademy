@@ -71,7 +71,7 @@ nav  ul  li{
     position: relative;
 }
 nav > ul > li:first-child > a{
-    background-image: url(/INSTRUCTOR/imagenesinstructor/hogar.png);
+    background-image: url(../imagenesinstructor/hogar.png);
     background-size: 24px;
     background-repeat: no-repeat;
     background-position: center center;
@@ -80,7 +80,7 @@ nav > ul > li:first-child > a{
 }
 
 nav > ul > li:first-child:hover > a{
-    background-image: url(/INSTRUCTOR/imagenesinstructor/hogar.png);
+    background-image: url(../imagenesinstructor/hogar.png);
     background-size: 24px;
     background-repeat: no-repeat;
     background-position: center center;
@@ -341,27 +341,27 @@ video {
 }
 
 .opcion-container {
-    margin-bottom: 15px; /* Espacio entre las opciones */
+    margin-bottom: 15px; 
 }
 
 .opcion-container input[type="radio"] {
-    margin-right: 10px; /* Espacio entre el radio button y el texto */
-    vertical-align: middle; /* Alinea verticalmente el radio button con el texto */
+    margin-right: 10px; 
+    vertical-align: middle;
 }
 
 .linea {
-    border-bottom: 2px solid #553366; /* Línea divisoria morada */
-    margin: 10px 0; /* Margen arriba y abajo de la línea */
+    border-bottom: 2px solid #553366; 
+    margin: 10px 0; 
 }
 
 .opcion-enlace {
-    margin-left: 10px; /* Espacio entre el texto y el enlace */
-    color: #007bff; /* Enlace azul */
-    text-decoration: none; /* Quita el subrayado del enlace */
+    margin-left: 10px; 
+    color: #007bff; 
+    text-decoration: none; 
 }
 
 .opcion-enlace:hover {
-    text-decoration: underline; /* Subraya el enlace al pasar el ratón */
+    text-decoration: underline; 
 }
 
 .botons {

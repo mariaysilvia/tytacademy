@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TYT ACADEMY</title>
-    <link rel="stylesheet" href="/INSTRUCTOR/css/pruebasINSTRUCTOR.css">
-    <link rel="icon" href="/INSTRUCTOR/imagenesinstructor/computador.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/creaciondelaspruebas.css">
+    <link rel="icon" href="../imagenesinstructor/computador.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
@@ -16,16 +16,16 @@
 <header>
         <div class="header_superior">
             <div class="logo"> 
-                <img src="/INSTRUCTOR/imagenesinstructor/tytacademy.png" alt="TYT Academy Logo">
+                <img src="../imagenesinstructor/tytacademy.png" alt="TYT Academy Logo">
             </div>
         </div>
         <div class="container_menu">
             <div class="menu">
                 <nav>
                     <ul>
-                        <li><a href="/INSTRUCTOR/html/inicioinstructor.html"></a></li><!--inicio-->
+                        <li><a href="../html/inicioinstructor.html"></a></li><!--inicio-->
                         <br>
-                        <li><a href="/INSTRUCTOR/html/crearpruebasINSTRUCTOR.html" id="selected">Pruebas</a></li>
+                        <li><a href="../html/pruebasINSTRUCTOR.html" id="selected">Pruebas</a></li>
                         <li><a href="#" onclick="abrirModal()">Mi perfil</a>
                             <ul>
                                 <li><a href="#" onclick="abrirModal()">Ver perfil</a></li>
@@ -37,7 +37,6 @@
             </div>
         </div>
         
-        <!-- Modal para Ver Perfil -->
 <!-- Modal para Ver Perfil -->
 <div class="modal fade" id="verPerfilModal" tabindex="-1" aria-labelledby="verPerfilModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -78,79 +77,68 @@
         </script>
         
 </header>
-
-<!--banner pruebas instructor-->
-<section class="bannerIP contenedor">
-    <section class="bannerIP_title">
-        <h1>¡Crea pruebas para los modulos! </h1> 
-        <p>Conoce más acerca de lo que puedes hacer dentro de nuestro sitio web.</p>
-        <br>
-
+<body>
+    <div id="video-background">
+        <video autoplay muted loop>
+            <source src="../imagenesinstructor/fonfocreaciondelaspruebas.mp4" type="video/mp4">
+        </video>
+    </div>
+    <section class="form-question">
+        <h2>Pruebas TYTACADEMY</h2>
+        <form>
+            <label for="imagenPreguntas">Imagen de la pregunta:</label>
+            <input class="controls" type="file" name="imagenProducto" id="imagenProducto" required>
+    
+            <label for="nombrespreguntas">Ingrese la pregunta que desea:</label>
+            <textarea class="controls" name="nombrespreguntas" id="nombrespreguntas" rows="4" cols="50" placeholder="Ingrese la pregunta." required></textarea>
+    
+            <div>
+                <label for="documento">¿La pregunta tendrá imágenes como respuesta?</label>
+                <select class="controls" name="documento" id="documento" required onchange="toggleImageOptions()">
+                    <option value="">Elija su respuesta</option>
+                    <option value="si">Sí</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+    
+            <div id="opciones-container" style="display: none;">  <!-- Inicialmente oculto -->
+                <div>
+                    <label for="opciones">Ingrese sus múltiples opciones:</label>
+                </div>
+                <div class="opcion-container">
+                    <input type="radio" id="opcionA" name="opciones" value="Opción A">
+                    <label for="opcionA">Opción A</label>
+                    <textarea id="opcionA-text" rows="2" cols="50" placeholder="Ingrese su opción."></textarea>
+                </div>
+                <div class="linea"></div>
+                <div class="opcion-container">
+                    <label for="más">¿Desea agregar más opciones?</label>
+                    <a href="#" class="opcion-enlace" onclick="agregarOpcion(); return false;">Más opciones</a>
+                </div>
+            </div>
+    
+            <div id="opcionesimagen-container" style="display: none;">  <!-- Inicialmente oculto -->
+                <div>
+                    <label for="opcionesimagen">Ingrese sus múltiples imágenes:</label>
+                </div>
+                <div class="opcionimagen-container">
+                    <input type="radio" id="imagenA" name="opcionesimagen" value="imagenA">
+                    <label for="imagenA">Imagen A</label>
+                    <input type="file" id="imagenA-file" accept="image/*" onchange="previewImage(this)">
+                    <img id="imagenA-preview" src="#" alt="Vista previa" style="max-width: 100px; max-height: 100px; display: none;">
+                </div>
+                <div class="linea"></div>
+                <div class="opcionimagen-container">
+                    <label for="más">¿Desea agregar más opciones?</label>
+                    <a href="#" class="opcionimagen-enlace" onclick="agregarImagen(); return false;">Más opciones</a>
+                </div>
+            </div>
+    
+            <input class="botons" type="submit" value="Guardar">
+            <p><a href="../html/pruebasINSTRUCTOR.php">¿Desea volver al inicio?</a></p>
+        </form>
     </section>
-</section>
-
-<!--tarjetas acerca de crear las pruebas-->
-<br>
-<br>
-    <div class="container text-center">
-        <h1 class="title">¿Qué podrá hacer en TYTACADEMY?</h1>
-    </div>
-
-    <div class="containerP-card">
-    <div class="cardP">
-    <figure>
-        <img
-        src="/INSTRUCTOR/imagenesinstructor/tarjetasimagenes.jpg"
-        />
-    </figure>
-    <div class="contenidoP-card">
-        <h3>Crea pruebas TYT</h3>
-        <p>
-        En este apartado la creación de las pruebas es primordial. Elige el tipo de preguntas que desees y como deseas evaluarlo para 
-        los estudiantes.
-    </p>
-
-        <a href="/INSTRUCTOR/html/creaciondelaspruebasTYT.html">Comenzar</a>
-    </div>
-    </div>
-    <div class="cardP">
-    <figure>
-        <img
-        src="/INSTRUCTOR/imagenesinstructor/imagenesprueba.jpg"
-        />
-    </figure>
-    <div class="contenidoP-card">
-        <h3>Ver pruebas TYT</h3>
-        <p>
-        Puede visualizar cada prueba que  ha creado junto a sus preguntas y podrá eliminar y editar si así lo desea. Recuerde
-        seleccionar la respuesta correcta para indicarle al sistema cuál debe de evaluar. 
-        </p>
-        <a href="/INSTRUCTOR/html/verlaspruebasTYT.html">Ver más</a>
-    </div>
-    </div>
-    <div class="cardP">
-    <figure>
-        <img
-        src="/INSTRUCTOR/imagenesinstructor/pruebaimagenes.jpg"
-        />
-    </figure>
-    <div class="contenidoP-card">
-        <h3>Ver los resultados</h3>
-        <p>
-        Luego de que los estudiantes presenten la prueba podra visualizar cada uno de los resultados que han obtenido, gracias a esto
-        reconocerá en lo que debe mejorar y podrá evaluar.
-        </p>
-        <a href="#">Ver más</a>
-    </div>
-    </div>
-</div>
-
-
-<!--boton de ir hacia arriba-->
-
-<div id="button-up">
-    <i class="fa-solid fa-chevron-up"></i>
-</div>
+    
 
 
 <!--footer-->
@@ -158,7 +146,7 @@
 <footer class="footer-distributed">
     <div class="footer-left">
         <div class="logo">
-            <img src="/INSTRUCTOR/imagenesinstructor/tytacademy.png" alt="TYTAcademy">
+            <img src="../imagenesinstructor/tytacademy.png" alt="TYTAcademy">
         </div>
         <p class="footer-links">
             <a href="#">Inicio</a>
@@ -210,6 +198,7 @@
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
 <script src="../js/botonarriba.js"></script>
+<script src="../js/opcionesdelaspruebas.js"></script>
 <script>
     async function abrirModal() {
         const modal = new bootstrap.Modal(document.getElementById('perfilModal'));
@@ -234,7 +223,7 @@
     }
 </script>
 
+
 </body>
 
 </html>
-
