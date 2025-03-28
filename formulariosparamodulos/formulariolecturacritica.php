@@ -25,7 +25,7 @@
         <h4>¡Realiza el simulacro de las pruebas TYT de Lectura Critica!</h4>
         <br>
         <h6>Define las caracteristicas de la prueba</h6>
-        <form>
+        <form action="../simulacropruebas/prueba10critica.html">
             <label for="areas">¿Qué tipo de textos desea practicar?:</label>
             <select class="controls" name="areas" id="areas" required>
                 <option value="todos">Todos</option>
