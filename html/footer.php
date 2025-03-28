@@ -59,20 +59,38 @@
 <script src="../js/loginregistro.js"></script>
 <script src="../js/fotoperfil.js"></script>
 <script>
-    async function abrirModal() {
-        const modal = new bootstrap.Modal(document.getElementById('perfilModal'));
-        const resultado = await cargarDatosPerfil();
 
-        if (resultado.success && resultado.data) {
-            document.getElementById('perfilNombre').textContent = resultado.data.nombres;
-            document.getElementById('perfilApellido').textContent = resultado.data.apellidos;
-            document.getElementById('perfilEmail').textContent = resultado.data.correo;
-            document.getElementById('perfilCelular').textContent = resultado.data.celular;
-            modal.show();
+async function abrirModal() {
+    const modal = new bootstrap.Modal(document.getElementById('perfilModal'));
+    const resultado = await cargarDatosPerfil();
+
+    if (resultado.success && resultado.data) {
+        document.getElementById('perfilNombre').textContent = resultado.data.nombres;
+        document.getElementById('perfilApellido').textContent = resultado.data.apellidos;
+        document.getElementById('perfilEmail').textContent = resultado.data.correo;
+        document.getElementById('perfilCelular').textContent = resultado.data.celular;
+
+        const imgPerfil = document.getElementById('fotoPerfil');
+        
+        // Depuración: Mostrar la ruta de la foto en la consola
+        console.log('Ruta de la foto:', resultado.data.foto_perfil);
+
+        if (resultado.data.foto_perfil) {
+            // Añadir manejo de rutas relativas
+            const rutaFoto = resultado.data.foto_perfil.startsWith('../') 
+                ? resultado.data.foto_perfil 
+                : '../' + resultado.data.foto_perfil;
+            
+            imgPerfil.src = rutaFoto;
         } else {
-            alert('Error al cargar los datos del perfil');
+            imgPerfil.src = '../image/fotopredeterminada.jpg';
         }
+
+        modal.show();
+    } else {
+        alert('Error al cargar los datos del perfil');
     }
+}
 
     function confirmarCerrarSesion() {
         if (confirm('¿Está seguro de que desea cerrar la sesión?')) {

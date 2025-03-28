@@ -25,7 +25,7 @@
         <h4>¡Realiza el simulacro de las pruebas TYT de Comunicación!</h4>
         <br>
         <h6>Define las caracteristicas de la prueba</h6>
-        <form>
+        <form action="../simulacropruebas/prueba10comunicacion.html">
                 <label for="preguntas">¿Qué cantidad de preguntas desea en su prueba?:</label>
                 <select class="controls" name="preguntas" id="preguntas" required>
                     <option value="todas">Todas</option>

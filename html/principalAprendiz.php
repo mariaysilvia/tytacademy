@@ -11,11 +11,11 @@
             </div>
             <div class="modal-body">
                 <div class="perfil-bolita text-center mb-4">
-                    <img id="fotoPerfil" src="../image/" alt="Foto de perfil">
+                    <img id="fotoPerfil">
                 </div>
                 <form id="formFotoPerfil">
-                    <input type="file" name="foto" id="inputFoto" accept="image/*" style="display: none;">
-                    <button type="button" class="btn btn-primary mt-2" onclick="document.getElementById('inputFoto').click();">Seleccionar Foto</button>
+                <input type="file" name="foto" id="inputFoto" accept="image/*" style="display: none;" onchange="mostrarFoto(event);">
+                    <button type="file" class="btn btn-primary mt-2" onclick="document.getElementById('inputFoto').click();">Seleccionar Foto</button>
                     <button type="button" class="btn btn-success mt-2" onclick="subirFoto()">Subir Foto</button>
                 </form>
                 <div class="row">
@@ -133,6 +133,83 @@
 
 
     <div class="columna4">
+        <div class="columna-4">
+            <h1>Configuración de Perfil</h1>
+<div class="container text-center">
+    <h1 class="title">¿Cómo desea iniciar?</h1>
+</div>
+<div class="columna1">
+    <div class="contenedor-1">
+        <div class="columna-1">
+            <h1>Guía para Estudiar Cada Módulo.</h1>
+            <br>
+            <p>
+                En este apartado te guiaremos a través de los temas que pueden aparecer en las pruebas de cada
+                módulo, te explicaremos el tipo de preguntas que encontrarás y, lo más importante,
+                te daremos consejos para que puedas estudiar de forma efectiva.
+            <ul>
+                <li>Lectura Crítica</li>
+                <li>Razonamiento Cuantitativo</li>
+                <li>Competencias Ciudadanas</li>
+                <li>Comunicación Escrita</li>
+                <li>Inglés</li>
+            </ul>
+            </p>
+        </div>
+
+    </div>
+    <img class="imagen1" src="../imagenes/modulosTYTimagen.jpg" alt="">
+</div>
+
+
+<div class="columna2">
+    <div class="contenedor-2">
+        <div class="columna-2">
+            <h1>Domina la Prueba TYT: ¡Practica Ahora!</h1>
+            <br>
+            <p>
+                En este apartado podrás acceder a distintos formularios de acuerdo al módulo que escogiste. Estos
+                formularios contienen preguntas aleatorias proporcionadas
+                por los distintos instructores de esa respectiva área.
+            </p>
+            <p>
+                Gracias a esto, puedes ir preparado para la prueba, ya sea en la duración de cada pregunta, en las
+                alternativas que
+                puedes hacer durante la prueba TYT y, sobre todo, reconociendo cada una de tus falencias para ir
+                mejorando cada vez más en tu rendimiento para la prueba real.
+            </p>
+            <a href="../html/PRUEBAS.html" class="botones">Ver más</a>
+        </div>
+
+    </div>
+    <img class="imagen2" src="../imagenes/pruebasTyt.jpg" alt="">
+</div>
+
+<div class="columna3">
+    <div class="contenedor-3">
+        <div class="columna-3">
+            <h1>Sobre Nosotros</h1>
+            <br>
+            <p>
+                En esta sección podrás conocer a los creadores de este sitio web, su misión, visión y valores.
+                Esto te permitirá comprender mejor la filosofía detrás de este proyecto y la ayuda que se busca
+                ofrecer a los estudiantes.
+
+            </p>
+            <p>
+                Podrás descubrir las motivaciones de los autores y la pasión que los impulsa a crear este espacio de
+                aprendizaje.
+            </p>
+            <a href="../html/nosotros.html" class="botones">Ver más</a>
+
+        </div>
+
+    </div>
+    <img class="imagen3" src="../imagenes/nosotrostyt.jpg" alt="">
+</div>
+
+
+<div class="columna4">
     <div class="columna-4">
         <h1>Configuración de Perfil</h1>
         <br>
@@ -173,17 +250,6 @@
 
 <?php include '../html/footer.php'; ?> <!-- Incluye el footer aquí -->
 
-<script>
-    function subirFoto() {
-        const inputFoto = document.getElementById('inputFoto');
-        const archivo = inputFoto.files[0];
-        if (!archivo) {
-            alert('Por favor, selecciona una foto antes de subirla.');
-            return;
-        }
-        const idAprendiz = 1; // Reemplazar con el ID real del aprendiz
-        subirFotoPerfil(idAprendiz, archivo);
-    }
-</script>
+<script></script>
 </body>
 </html>

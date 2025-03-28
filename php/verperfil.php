@@ -15,12 +15,13 @@ try {
     // Agregar un log para depuración
     error_log("Buscando usuario con ID: " . $id_usuario);
     
-    $stmt = $pdo->prepare("SELECT documento, nombres, apellidos, correo, celular FROM Aprendiz WHERE idAprendiz = ?");
+    $stmt = $pdo->prepare("SELECT documento, nombres, apellidos, correo, celular, foto_perfil FROM Aprendiz WHERE idAprendiz = ?");
     $stmt->execute([$id_usuario]);
     $usuario = $stmt->fetch();
 
     if ($usuario) {
         error_log("Usuario encontrado: " . json_encode($usuario));
+
         echo json_encode([
             'success' => true,
             'data' => [
@@ -28,7 +29,8 @@ try {
                 'nombres' => $usuario['nombres'],
                 'apellidos' => $usuario['apellidos'],
                 'correo' => $usuario['correo'],
-                'celular' => $usuario['celular']
+                'celular' => $usuario['celular'],
+                'foto_perfil' => $usuario['foto_perfil']
             ]
         ]);
     } else {
