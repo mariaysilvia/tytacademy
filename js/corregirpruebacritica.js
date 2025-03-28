@@ -1,89 +1,85 @@
-document.getElementById('formularioPrueba').addEventListener('submit', function (event) {
-    event.preventDefault(); // Evitar el envío predeterminado del formulario
+// Script para corrección de prueba de lectura crítica
+document.getElementById('btnCorregir').addEventListener('click', corregirPrueba);
 
-    let respuestasConEstado = [];
-    let todasPreguntasRespondidas = true;
+function corregirPrueba() {
+    let respuestasConEstado = {};
 
+    // Validar que se hayan respondido todas las preguntas
     for (let i = 1; i <= 20; i++) {
         let pregunta = `p${i}`;
         let seleccionada = document.querySelector(`input[name="${pregunta}"]:checked`);
-        let respuestaSeleccionada = seleccionada ? parseInt(seleccionada.value) : null;
 
         if (!seleccionada) {
-            todasPreguntasRespondidas = false;
-            break;
+            alert(`Debes marcar la respuesta para la pregunta ${i}`);
+            return null;
         }
 
-        respuestasConEstado.push({
-            pregunta: pregunta,
-            respuestaUsuario: respuestaSeleccionada
-        });
+        let respuestaSeleccionada = parseInt(seleccionada.value);
+        respuestasConEstado[i] = respuestaSeleccionada;
     }
 
-    if (!todasPreguntasRespondidas) {
-        alert("Lo siento, debes marcar todas las preguntas.");
-        return;
-    }
-
-    // Enviar respuestas al servidor
+    // Envío de respuestas al servidor
     fetch('../php/corregirpruebacritica.php', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
         body: JSON.stringify(respuestasConEstado)
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.error) {
-            alert(data.error);
-            return;
-        }
-        document.getElementById('resultados').textContent = `Preguntas acertadas: ${data.aciertos}`;
-        document.getElementById('incorrectas').textContent = `Preguntas incorrectas: ${data.incorrectas.length}`;
-        console.log("Respuestas con estado:", data.respuestas);
-    })
-    .catch(error => console.error('Error:', error));
-});
-
-document.getElementById('btnCorregir').addEventListener('click', function () {
-    let respuestasConEstado = [];
-    let todasPreguntasRespondidas = true;
-
-    for (let i = 1; i <= 20; i++) {
-        let pregunta = `p${i}`;
-        let seleccionada = document.querySelector(`input[name="${pregunta}"]:checked`);
-        let respuestaSeleccionada = seleccionada ? parseInt(seleccionada.value) : null;
-
-        if (!seleccionada) {
-            todasPreguntasRespondidas = false;
-            break;
+    .then(response => {
+        // Manejo de errores de respuesta
+        if (!response.ok) {
+            return response.text().then(text => {
+                console.error('Texto de error:', text);
+                throw new Error(`Error HTTP: estado ${response.status}, texto: ${text}`);
+            });
         }
 
-        respuestasConEstado.push({
-            pregunta: pregunta,
-            respuestaUsuario: respuestaSeleccionada
+        // Parseo de la respuesta
+        return response.text().then(text => {
+            try {
+                return JSON.parse(text);
+            } catch (e) {
+                console.error('Error de parseo JSON:', e);
+                console.error('Texto recibido:', text);
+                throw new Error('Respuesta JSON inválida');
+            }
         });
-    }
-
-    if (!todasPreguntasRespondidas) {
-        alert("Lo siento, debes marcar todas las preguntas.");
-        return;
-    }
-
-    // Enviar respuestas al servidor
-    fetch('../php/corregirpruebacritica.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(respuestasConEstado)
     })
-    .then(response => response.json())
     .then(data => {
+        // Manejo de errores del servidor
         if (data.error) {
+            console.error('Error del servidor:', data.error);
             alert(data.error);
-            return;
+            return null;
         }
-        document.getElementById('resultados').textContent = `Preguntas acertadas: ${data.aciertos}`;
-        document.getElementById('incorrectas').textContent = `Preguntas incorrectas: ${data.incorrectas.length}`;
-        console.log("Respuestas con estado:", data.respuestas);
+
+        // Mostrar resultados
+        const resultadosSpan = document.getElementById('resultados');
+        const incorrectasSpan = document.getElementById('incorrectas');
+        
+        if (resultadosSpan) {
+            resultadosSpan.textContent = `Aciertos: ${data.aciertos} de ${data.total_preguntas}`;
+        }
+
+        if (incorrectasSpan) {
+            incorrectasSpan.textContent = `Preguntas incorrectas: ${data.incorrectas.join(', ')}`;
+        }
+
+        // Opcional: mostrar alerta con resultados
+        alert(`Aciertos: ${data.aciertos} de ${data.total_preguntas}\nPreguntas incorrectas: ${data.incorrectas.join(', ')}`);
+
+        return {
+            aciertos: data.aciertos,
+            totalPreguntas: data.total_preguntas,
+            preguntasIncorrectas: data.incorrectas,
+            respuestasDetalladas: data.respuestas
+        };
     })
-    .catch(error => console.error('Error:', error));
-});
+    .catch(error => {
+        console.error('Error en la solicitud:', error);
+        alert('Hubo un problema al procesar la prueba');
+        return null;
+    });
+}

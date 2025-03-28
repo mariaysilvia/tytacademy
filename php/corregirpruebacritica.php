@@ -1,106 +1,90 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Conexión a la base de datos
-    $conn = new mysqli("localhost", "root", "", "basededatostytacademy");
-    if ($conn->connect_error) {
-        die("Error de conexión: " . $conn->connect_error);
+// Activar reporting de errores para depuración
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Establecer encabezados JSON de manera estricta
+header('Content-Type: application/json');
+header('X-Content-Type-Options: nosniff');
+
+try {
+    // Verificar método de solicitud
+    if ($_SERVER["REQUEST_METHOD"] != "POST") {
+        throw new Exception("Método no permitido");
     }
 
-    // Reiniciar todas las respuestas a incorrectas
-    $conn->query("UPDATE Respuesta SET esCorrecta = FALSE");
-
-    // Respuestas correctas con su rango completo (20 preguntas)
-    $respuestasCorrectas = [
-        // Preguntas 1-10
-        ["idPregunta" => 1, "idRespuesta" => 4],
-        ["idPregunta" => 2, "idRespuesta" => 4],
-        ["idPregunta" => 3, "idRespuesta" => 2],
-        ["idPregunta" => 4, "idRespuesta" => 2],
-        ["idPregunta" => 5, "idRespuesta" => 1],
-        ["idPregunta" => 6, "idRespuesta" => 3],
-        ["idPregunta" => 7, "idRespuesta" => 3],
-        ["idPregunta" => 8, "idRespuesta" => 1],
-        ["idPregunta" => 9, "idRespuesta" => 4],
-        ["idPregunta" => 10, "idRespuesta" => 1],
-        
-        // Preguntas 11-20
-        ["idPregunta" => 11, "idRespuesta" => 3],
-        ["idPregunta" => 12, "idRespuesta" => 2],
-        ["idPregunta" => 13, "idRespuesta" => 2],
-        ["idPregunta" => 14, "idRespuesta" => 4],
-        ["idPregunta" => 15, "idRespuesta" => 1],
-        ["idPregunta" => 16, "idRespuesta" => 2],
-        ["idPregunta" => 17, "idRespuesta" => 4],
-        ["idPregunta" => 18, "idRespuesta" => 2],
-        ["idPregunta" => 19, "idRespuesta" => 2],
-        ["idPregunta" => 20, "idRespuesta" => 3],
-    ];
-
-    // Actualizar las respuestas correctas en la base de datos
-    foreach ($respuestasCorrectas as $respuesta) {
-        $idPregunta = $respuesta["idPregunta"];
-        $idRespuesta = $respuesta["idRespuesta"];
-        $conn->query("UPDATE Respuesta SET esCorrecta = TRUE WHERE idPregunta = $idPregunta AND idRespuesta = $idRespuesta");
-    }
-
-    // Crear un mapa de respuestas correctas
-    $respuestasCorrectasMap = [];
-    foreach ($respuestasCorrectas as $respuesta) {
-        $respuestasCorrectasMap["p" . $respuesta["idPregunta"]] = $respuesta["idRespuesta"];
-    }
-
-    // Decodificar las respuestas enviadas por el cliente
+    // Leer datos de entrada
     $respuestasUsuario = json_decode(file_get_contents("php://input"), true);
 
-    // Validar que se hayan respondido las 20 preguntas
-    if (!$respuestasUsuario || count($respuestasUsuario) != 20) {
-        echo json_encode(["error" => "Debes responder exactamente 20 preguntas."]);
-        exit;
+    // Validación básica de JSON
+    if ($respuestasUsuario === null) {
+        throw new Exception("Datos JSON inválidos");
     }
 
-    $cantidadAcertadas = 0;
-    $preguntasIncorrectas = [];
-    $respuestasConEstado = [];
+    // Respuestas correctas (A=1, B=2, C=3, D=4)
+    $respuestasCorrectas = [
+        1 => 4,  // D
+        2 => 4,  // D
+        3 => 2,  // B
+        4 => 2,  // B
+        5 => 1,  // A
+        6 => 3,  // C
+        7 => 3,  // C
+        8 => 1,  // A
+        9 => 4,  // D
+        10 => 1, // A
+        11 => 3, // C
+        12 => 2, // B
+        13 => 2, // B
+        14 => 4, // D
+        15 => 1, // A
+        16 => 2, // B
+        17 => 4, // D
+        18 => 2, // B
+        19 => 2, // B
+        20 => 3  // C
+    ];
 
-    foreach ($respuestasUsuario as $respuesta) {
-        $pregunta = $respuesta["pregunta"];
-        $respuestaUsuario = $respuesta["respuestaUsuario"];
+    $aciertos = 0;
+    $incorrectas = [];
+    $respuestasDetalladas = [];
 
-        // Extraer el número de pregunta
-        $numeroPregunta = substr($pregunta, 1);
-
-        // Verificar si la pregunta está en el rango de 1 a 20
-        if ($numeroPregunta >= 1 && $numeroPregunta <= 20) {
-            $esCorrecta = ($respuestaUsuario !== null && $respuestaUsuario == $respuestasCorrectasMap[$pregunta]);
+    // Comparar respuestas
+    foreach ($respuestasUsuario as $idPregunta => $idRespuestaUsuario) {
+        // Verificar si existe respuesta correcta para esta pregunta
+        if (isset($respuestasCorrectas[$idPregunta])) {
+            $idRespuestaCorrecta = $respuestasCorrectas[$idPregunta];
+            $esCorrecta = ($idRespuestaUsuario == $idRespuestaCorrecta);
 
             if ($esCorrecta) {
-                $cantidadAcertadas++;
+                $aciertos++;
             } else {
-                $preguntasIncorrectas[] = $pregunta;
+                $incorrectas[] = $idPregunta;
             }
 
-            $respuestasConEstado[] = [
-                "pregunta" => $pregunta,
-                "respuestaUsuario" => $respuestaUsuario,
-                "esCorrecta" => $esCorrecta
-            ];
-        } else {
-            // Manejar preguntas fuera del rango
-            $preguntasIncorrectas[] = $pregunta;
-            $respuestasConEstado[] = [
-                "pregunta" => $pregunta,
-                "respuestaUsuario" => $respuestaUsuario,
-                "esCorrecta" => false
+            $respuestasDetalladas[] = [
+                "id_pregunta" => $idPregunta,
+                "respuesta_usuario" => $idRespuestaUsuario,
+                "respuesta_correcta" => $idRespuestaCorrecta,
+                "es_correcta" => $esCorrecta
             ];
         }
     }
 
-    $conn->close();
-
+    // Respuesta JSON
     echo json_encode([
-        "aciertos" => $cantidadAcertadas,
-        "incorrectas" => $preguntasIncorrectas,
-        "respuestas" => $respuestasConEstado
+        "aciertos" => $aciertos,
+        "total_preguntas" => count($respuestasUsuario),
+        "incorrectas" => $incorrectas,
+        "respuestas" => $respuestasDetalladas
     ]);
+    exit;
+
+} catch (Exception $e) {
+    // Enviar error como JSON
+    echo json_encode([
+        'error' => $e->getMessage()
+    ]);
+    exit;
 }
 ?>
