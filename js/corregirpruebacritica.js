@@ -57,15 +57,11 @@ function corregirPrueba() {
 
         // Mostrar resultados
         const resultadosSpan = document.getElementById('resultados');
-        const incorrectasSpan = document.getElementById('incorrectas');
         
         if (resultadosSpan) {
             resultadosSpan.textContent = `Aciertos: ${data.aciertos} de ${data.total_preguntas}`;
         }
 
-        if (incorrectasSpan) {
-            incorrectasSpan.textContent = `Preguntas incorrectas: ${data.incorrectas.join(', ')}`;
-        }
 
         // Opcional: mostrar alerta con resultados
         alert(`Aciertos: ${data.aciertos} de ${data.total_preguntas}\nPreguntas incorrectas: ${data.incorrectas.join(', ')}`);
