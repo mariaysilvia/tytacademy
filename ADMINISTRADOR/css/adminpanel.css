@@ -4,7 +4,7 @@
     --primary-color: #3c72e6;
     --secundary-color: #5aa3e6;
     --dark-color: #000;
-    --clr-light: rgba(132, 139, 200, 0.316);
+    --clr-light: rgba(132, 139, 200, 0.341);
     
     --card-border-radius: 2rem;
     --border-radius-1: 0.4rem;
@@ -30,10 +30,9 @@
   body{
     width: 100vw;
     height: 100vh;
-    font-size: .7rem;
     user-select: none;
     overflow-x: hidden;
-    background: linear-gradient(rgb(223, 223, 231), rgba(56, 86, 255, 0.351));
+    background-color: rgba(56, 86, 255, 0.258);
     font-family: 'Montserrat', sans-serif;
   }
   
@@ -91,7 +90,7 @@
   }
   
   .danger {
-    color: #77b9ff;
+    color: #1a6ec8;
   }
   
   .warning {
@@ -120,131 +119,134 @@
   }
   
   /* ===================
-   Sidebar
+  Sidebar
    ================== */
   
-   aside .sidebar{
+  aside .sidebar{
     background-image: linear-gradient(#f6f6f9, rgb(223, 223, 247));
     display: flex;
     flex-direction: column;
-    height: 86vh;
+    height: 90vh;
     position: relative;
     top: 1rem;
-   }
+  }
   
-   aside h3{
+  aside h3{
     font-weight: 500;
-   }
+    font-size: .9rem;
+  }
   
-   aside .sidebar a{
+  aside .sidebar a{
     display: flex;
-    color: #7d8da1;
+    color: var(--primary-color);
     margin-left: 2rem;
     gap: 1rem;
     align-items: center;
     height: 3.3rem;
     transition: all .1s ease;
-   
-   }
+  }
   
-   aside .sidebar a span{
+  aside .sidebar a span{
     font-size: 1.6rem;
     transition: all .3s ease-in-out;
     
-   }
+  }
   
-   aside .sidebar a:last-child{
+  aside .sidebar a:last-child{
     position: absolute;
     bottom: 1rem; 
     width: 100%;
-   }
+  }
   
-   aside .sidebar a.active{
-     background-color: #f6f6f9;
-     color: var(--primary-color);
-     margin-left: 0;
-     border-left: 5px solid var(--primary-color);
-     margin-left: calc(1rem - 3px);
-   }
-   aside .sidebar a:hover span{
+  aside .sidebar a.active{
+    background-color: #5aa2e6a1;
+    color: #ffffff;
+    margin-left: 0;
+    border-left: 5px solid var(--primary-color);
+    margin-left: calc(1rem - 3px);
+  }
+  aside .sidebar a:hover span{
     margin-left: 1rem;
-   }
+  }
   
-   aside .sidebar a span.msg_count{
-     background-color: var(--secundary-color);
-     color: #ffffff;
-     padding: 2px 5px;
-     font-size: 11px;
-     border-radius: var(--border-radius-1);
-   }
+  aside .sidebar a span.msg_count{
+    background-color: var(--secundary-color);
+    color: #ffffff;
+    padding: 2px 5px;
+    font-size: 11px;
+    border-radius: var(--border-radius-1);
+  }
   
-   /* ----------------------------
-   --------- Main--------------
+  /* ----------------------------
+  --------- Main--------------
    ------------------------------ */
   
 
-   .imagenTYT img {
-    width: 260px;
+  .imagenTYT img {
+    width: 275px;
     height: auto;
     object-fit: cover;
+    background-color: #ffffff5e;
+    border-radius: 15px;
 }
-   main{
+  main{
     margin-top: 1.4rem;
     width: auto;
-    
+}
 
-   }
-   main input {
+  main input {
     background-color: transparent;
     border: 0;
     outline: 0;
     color: #363949;
-   }
+  }
   
-   main .date{
+  main .date{
     display: inline-block;
     background: #ffffff;
     border-radius: var(--border-radius-1);
     margin-top: 1rem;
     padding: 0.5rem 1.6rem;
-   }
+  }
   
   main .insights{
-     display: grid;
-     grid-template-columns: repeat(3,1fr);
-     gap: 1.6rem;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 1.6rem;
   }
+
+
   main .insights>div{
-     background-color: #ffffff;
-     padding: var(--card-padding);
-     border-radius: var(--card-border-radius);
-     margin-top: 1rem;
-     box-shadow: var(--box-shadow);
-     transition: all .3s ease;
+  background-color: #ffffff;
+  padding: var(--card-padding);
+  border-radius: var(--card-border-radius);
+  margin-top: 1rem;
+  box-shadow: var(--box-shadow);
+  transition: all .3s ease;
   }
   
   main .insights > div:hover{
     box-shadow: none;
   }
   main .insights>div  span{
-     background: coral;
-      padding: 0.5rem;
-       border-radius: 50%;
-       color: #ffffff;
-       font-size: 2rem; 
+    background: coral;
+    padding: 0.5rem;
+    border-radius: 50%;
+    color: #ffffff;
+    font-size: 2rem; 
     }
   
   main .insights > div.expenses span{
-     background: var(--secundary-color);
+    background: var(--secundary-color);
   }
   main .insights > div.income span{
     background: #41f1b6;
   }
   
   main .insights > div .middle{
-     display: flex;
-     align-items: center;
-     justify-content: space-between;
+  display: flex;
+  align-items: center;
+    justify-content: space-between;
   }
   main .insights > div .middle h1{
     font-size: 1.6rem;
@@ -286,12 +288,12 @@
   main .insights svg circle{
     fill: none;
     stroke: var(--secundary-color);
-     transform: rotate(270,80,80);
-     stroke-width: 5;
+    transform: rotate(270,80,80);
+    stroke-width: 5;
   }
   main .insights .sales svg circle{
-     stroke-dashoffset: 0;
-     stroke-dasharray: 150;
+    stroke-dashoffset: 0;
+    stroke-dasharray: 150;
   }
   
   main .insights .expenses svg circle{
@@ -320,17 +322,16 @@
   /* recent order */
   
   main .recent_order{
-     margin-top: 2rem;
+    margin-top: 1.5rem;
   }
   
   main .recent_order h2{
       color: var(--primary-color);
-      
       font-weight: 850;
   }
   
   main .recent_order h2{
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.6rem;
   }
 
   main .recent_order table{
@@ -445,16 +446,16 @@
     padding: var(--card-padding);
     border-radius: var(--card-border-radius);
     box-shadow: var(--box-shadow);
-     transition: all .3s ease;
+    transition: all .3s ease;
   }
   .right .recent_updates .updates:hover{
     box-shadow: none;
   }
   .right .recent_updates .update{
-     display: grid;
-     grid-template-columns: 2.6rem auto;
-     gap: 1rem;
-     margin-bottom: 1rem;
+    display: grid;
+    grid-template-columns: 2.6rem auto;
+    gap: 1rem;
+    margin-bottom: 1rem;
   }
   
 
@@ -465,7 +466,7 @@
     margin-top: 2rem;
   }
   .right .sales-analytics h2{
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.4rem;
   }
   .right .sales-analytics .item{
     background-color:#ffffff;

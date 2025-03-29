@@ -30,12 +30,12 @@
   body{
     width: 100vw;
     height: 100vh;
-    font-size: .7rem;
     user-select: none;
     overflow-x: hidden;
-    background: linear-gradient(rgb(223, 223, 231), rgba(56, 86, 255, 0.351));
+    background-color: rgba(56, 86, 255, 0.258);
     font-family: 'Montserrat', sans-serif;
   }
+  
   
   .container  {
     display: grid;
@@ -46,10 +46,6 @@
   }
   
   
-  h1{
-    font-weight: 800;
-    font-size: 2.8rem;
-  }
   h2{
     font-size: 1.7rem;
     text-align: center;
@@ -57,9 +53,6 @@
   }
   h3{
     font-size: 0.90;
-  }
-  h4{
-    font-weight: 0.8rem;
   }
   h5{
     font-size: 0.77rem;
@@ -73,32 +66,11 @@
     overflow: hidden;
     border-radius: 50%;
   }
-  .text-muted{
-    color: #7d8da1;
-  }
-  p{
-    color: #677483;
-  }
-  b{
-    color: #363949;
-  }
-  .primary {
-    color: #7380ec;
-  }
-  
-  .success {
-    color: #41f1b6;
-  }
+
   
   .danger {
     color: #77b9ff;
   }
-  
-  .warning {
-    color: #f45c51;
-  }
-  
-  
   /* aside */
   aside{
     height: 100vh;
@@ -120,61 +92,122 @@
   }
   
   /* ===================
-   Sidebar
+  Sidebar
    ================== */
   
-   aside .sidebar{
+  aside .sidebar{
     background-image: linear-gradient(#f6f6f9, rgb(223, 223, 247));
     display: flex;
     flex-direction: column;
-    height: 86vh;
+    height: 100%;
     position: relative;
     top: 1rem;
-   }
+  }
   
-   aside h3{
+  aside h3{
     font-weight: 500;
-   }
+    font-size: .9rem;
+  }
   
-   aside .sidebar a{
+  aside .sidebar a{
     display: flex;
-    color: #7d8da1;
+    color: var(--primary-color);
     margin-left: 2rem;
     gap: 1rem;
     align-items: center;
     height: 3.3rem;
     transition: all .1s ease;
-   
-   }
+  }
   
-   aside .sidebar a span{
+  aside .sidebar a span{
     font-size: 1.6rem;
     transition: all .3s ease-in-out;
     
-   }
+  }
   
-   aside .sidebar a:last-child{
+  aside .sidebar a:last-child{
     position: absolute;
     bottom: 1rem; 
     width: 100%;
-   }
+  }
   
-   aside .sidebar a.active{
-     background-color: #f6f6f9;
-     color: var(--primary-color);
-     margin-left: 0;
-     border-left: 5px solid var(--primary-color);
-     margin-left: calc(1rem - 3px);
-   }
-   aside .sidebar a:hover span{
+  aside .sidebar a.active{
+    background-color: #5aa2e6a1;
+    color: #ffffff;
+    margin-left: 0;
+    border-left: 5px solid var(--primary-color);
+    margin-left: calc(1rem - 3px);
+  }
+  aside .sidebar a:hover span{
     margin-left: 1rem;
-   }
+  }
   
-   aside .sidebar a span.msg_count{
-     background-color: var(--secundary-color);
-     color: #ffffff;
-     padding: 2px 5px;
-     font-size: 11px;
-     border-radius: var(--border-radius-1);
-   }
-  
+  aside .sidebar a span.msg_count{
+    background-color: var(--secundary-color);
+    color: #ffffff;
+    padding: 2px 5px;
+    font-size: 11px;
+    border-radius: var(--border-radius-1);
+  }
+
+
+  /*registro de instructor*/
+
+  .form-registerINS {
+    width: 950px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 2rem;
+    color: #0c3ca3;
+    box-shadow: 10px 20px 40px rgba(0, 0, 0, 0.2);
+    margin: 50px auto;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+}
+
+
+.form-registerINS h4{
+    font-size: 18px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+.form-registerINS h2{
+    color: var(--primary-color);
+    font-size: 25px;
+    font-weight: 800;
+    margin-bottom: 18px;
+
+}
+
+.controls {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    border: 1px solid var(--secundary-color);
+    font-size: 18px;
+    background-color: #f5f5f5;
+    color: #274488;
+}
+
+
+.form-registerINS a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.form-registerINS a:hover {
+    text-decoration: underline;
+}
+
+.botons {
+    width: 100%;
+    background-color: var(--primary-color);
+    border: none;
+    padding: 12px;
+    color: white;
+    margin: 16px 0;
+    font-size: 18px;
+    cursor: pointer;
+}
