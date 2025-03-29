@@ -62,10 +62,6 @@ function corregirPrueba() {
             resultadosSpan.textContent = `Aciertos: ${data.aciertos} de ${data.total_preguntas}`;
         }
 
-
-        // Opcional: mostrar alerta con resultados
-        alert(`Aciertos: ${data.aciertos} de ${data.total_preguntas}\nPreguntas incorrectas: ${data.incorrectas.join(', ')}`);
-
         return {
             aciertos: data.aciertos,
             totalPreguntas: data.total_preguntas,
