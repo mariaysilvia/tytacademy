@@ -22,7 +22,7 @@ function enviarCorreoBienvenida($nombre, $email, $mensaje) {
     $asunto = "¡Bienvenido $nombre!";
 
     // Leer contenido de bienvenida.html y reemplazar {{nombre}} por el nombre real
-    $cuerpo = file_get_contents('../html/bienvenida.html');
+    $cuerpo = file_get_contents('../ADMINISTRADOR/html/bienvenidainstructor.html');
     if ($cuerpo === false) {
         error_log("❌ No se pudo leer el archivo bienvenida.html");
         return false;

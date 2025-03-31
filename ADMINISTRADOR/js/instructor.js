@@ -1,0 +1,181 @@
+// Función para cargar los módulos dinámicamente desde la base de datos
+function cargarModulos() {
+    const moduloSelect = document.getElementById('modulo');
+    if (!moduloSelect) {
+        console.warn('El elemento con ID "modulo" no existe en esta página. Se omite cargarModulos.');
+        return; // Salir de la función si el elemento no existe
+    }
+
+    fetch('../php/instructor.php', {
+        method: 'POST',
+        body: JSON.stringify({ action: 'getModulos' }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        moduloSelect.innerHTML = '<option value="">Seleccione el módulo al que pertenece:</option>';
+        if (data.success) {
+            data.data.forEach(modulo => {
+                const option = document.createElement('option');
+                option.value = modulo.idModulo;
+                option.textContent = modulo.modulo;
+                moduloSelect.appendChild(option);
+            });
+        } else {
+            alert('Error al cargar los módulos: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error al cargar los módulos:', error);
+        alert('Error al cargar los módulos.');
+    });
+}
+
+// Llamar a cargarModulos solo si es necesario
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('modulo')) {
+        cargarModulos();
+    }
+    if (document.getElementById('listaraprendices')) {
+        cargarAprendices();
+    }
+});
+
+// Función para guardar el instructor
+function guardarInstructor() {
+    const documento = document.getElementById('documento').value;
+    const nombre = document.getElementById('nombres').value;
+    const apellido = document.getElementById('apellidos').value;
+    const email = document.getElementById('correo').value;
+    const clave = document.getElementById('clave').value;
+    const celular = document.getElementById('celular').value;
+    const modulo = document.getElementById('modulo').value;
+
+    // Validar que los campos obligatorios no estén vacíos
+    if (!documento || !nombre || !apellido || !email || !clave || !modulo) {
+        alert('Todos los campos obligatorios deben ser completados.');
+        return;
+    }
+
+    const requestData = {
+        action: 'guardarInstructor',
+        documento: documento,
+        nombre: nombre,
+        apellido: apellido,
+        email: email,
+        clave: clave, // Incluye la clave en los datos enviados
+        celular: celular,
+        modulo: modulo
+    };
+
+    fetch('../php/instructor.php', {
+        method: 'POST',
+        body: JSON.stringify(requestData),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        console.log('Estado de la respuesta:', response.status); // Agregado para depuración
+        return response.text(); // Cambiado a text() para capturar cualquier salida inesperada
+    })
+    .then(text => {
+        console.log('Texto de la respuesta:', text); // Agregado para depuración
+        try {
+            const data = JSON.parse(text); // Intenta convertir el texto a JSON
+            console.log('Respuesta del servidor (JSON):', data); // Agregado para depuración
+            alert(data.message); // Mostrar el mensaje generado desde PHP
+            if (data.success) {
+                document.getElementById('registerINS-form').reset(); // Limpiar el formulario
+            }
+        } catch (error) {
+            console.error('Error al analizar la respuesta JSON:', error);
+            alert('Error inesperado: ' + text); // Mostrar el texto de la respuesta para depuración
+        }
+    })
+    .catch(error => {
+        console.error('Error al guardar el instructor:', error); // Agregado para depuración
+        alert('Error al guardar el instructor: ' + error.message);
+    });
+}
+
+// Función para cargar los aprendices
+function cargarAprendices() {
+    fetch('../php/listaraprendices.php')
+        .then(response => {
+            console.log('Estado HTTP:', response.status); // Agregado para depuración
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Respuesta del servidor:', data); // Agregado para depuración
+            const listaraprendices = document.getElementById('listaraprendices');
+            if (!listaraprendices) {
+                console.error('El elemento con ID "listaraprendices" no existe en esta página.');
+                return;
+            }
+
+            listaraprendices.innerHTML = ''; // Limpiar el contenedor
+
+            if (!data.success) {
+                listaraprendices.innerHTML = `<p>${data.message}</p>`;
+                return;
+            }
+
+            // Iterar sobre cada aprendiz y crear una tarjeta para cada uno
+            data.data.forEach(aprendiz => {
+                const card = document.createElement('div');
+                card.className = 'col-md-4 mb-4';
+                card.innerHTML = `
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">${aprendiz.nombres} ${aprendiz.apellidos}</h5>
+                            <p class="card-text">Documento: ${aprendiz.documento}</p>
+                            <p class="card-text">Correo: ${aprendiz.correo}</p>
+                            <p class="card-text">Celular: ${aprendiz.celular}</p>
+                            <button class="btn btn-primary btn-sm" onclick="abrirModalEditar(${aprendiz.idAprendiz}, '${aprendiz.nombres}', '${aprendiz.apellidos}', '${aprendiz.documento}', '${aprendiz.correo}', '${aprendiz.clave}', '${aprendiz.celular}')">Editar</button>
+                            <button class="btn btn-danger btn-sm" onclick="eliminarAprendiz(${aprendiz.idAprendiz})">Eliminar</button>
+                        </div>
+                    </div>
+                `;
+                listaraprendices.appendChild(card);
+            });
+        })
+        .catch(error => {
+            console.error('Error al cargar aprendices:', error); // Agregado para depuración
+            alert('Error al cargar los aprendices: ' + error.message);
+        });
+}
+
+// Función para eliminar un aprendiz
+function eliminarAprendiz(id) {
+    if (confirm('¿Estás seguro que deseas eliminar este aprendiz?')) {
+        const requestData = {
+            action: 'eliminarAprendiz',
+            id: id
+        };
+
+        fetch('../php/listaraprendices.php', {
+            method: 'POST',
+            body: JSON.stringify(requestData),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message); // Mostrar el mensaje generado desde PHP
+            if (data.success) {
+                cargarAprendices(); // Recargar la lista de aprendices después de eliminar
+            }
+        })
+        .catch(error => {
+            console.error('Error al eliminar el aprendiz:', error);
+            alert('Error al eliminar el aprendiz: ' + error.message);
+        });
+    }
+}

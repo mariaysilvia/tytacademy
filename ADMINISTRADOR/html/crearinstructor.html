@@ -88,20 +88,14 @@
             
             <label for="modulo">Modulo:</label>
             <select class="controls" name="modulo" id="modulo" required>
-                <option value="">Seleccione el modulo al que pertenece: </option>
-                <option value="critica">Lectura crítica</option>
-                <option value="razonamiento">Razonamiento cuantitativo</option>
-                <option value="ciudadana">Competencia ciudadana</option>
-                <option value="comunicacion">Comunicación</option>
-                <option value="ingles">Inglés</option>
+                <option value="">Cargando módulos...</option>
             </select>
             
-            <button class="botons" id="btnGuardarProveedor" onclick="guardarInstructor()">Guardar Instructor</button>
-            <p id="signupMessage"></p>
-        </form>
+            <button class="botons" type="button" id="btnGuardarInstructor" onclick="guardarInstructor()">Guardar Instructor</button>
     </section>
 </div>
 
-
+<!-- Enlace al archivo JavaScript -->
+<script src="../js/instructor.js"></script>
 </body>
 </html>
