@@ -350,9 +350,9 @@
   }
   
   main table tbody td{
-     height: 3.1rem;
-     border-bottom: 1px solid #ffffff;
-     color:#677483;
+    height: 3.1rem;
+    border-bottom: 1px solid #ffffff;
+    color:#677483;
   }
 
   .recent_order td{
@@ -368,7 +368,7 @@
     font-weight: 700;
   }
   main table tbody tr:last-child td{
-     border: none;
+    border: none;
   }
   
   
@@ -587,7 +587,7 @@
   
   
     aside .logo h2{
-         display: inline;
+      display: inline;
     }
     aside .sidebar h3{
       display: inline;
@@ -597,41 +597,41 @@
       height: 3.4rem;
     }
     aside .top div.close  span{
-       display: inline;
-       position: absolute;
-       right: 0;
-       margin-right:30px;
-       font-size: 35px;
-       cursor: pointer;
+      display: inline;
+      position: absolute;
+      right: 0;
+      margin-right:30px;
+      font-size: 35px;
+      cursor: pointer;
     }
   
       .right .top{
-         position: fixed;
-         top: 0;
-         left: 0;
-         display: flex;
-         justify-content: center;
-         align-items: center;
-         padding: 0 0.8rem;
-         background: #ffffff;
-         height: 4.6rem;
-         width: 100%;
-         z-index: 2;
-         box-shadow: 0 1rem 1rem var(--clr-light);
-         margin: 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 0.8rem;
+        background: #ffffff;
+        height: 4.6rem;
+        width: 100%;
+        z-index: 2;
+        box-shadow: 0 1rem 1rem var(--clr-light);
+        margin: 0;
       }
   
   
-   main .insights{
+  main .insights{
     display: grid;
     grid-template-columns: repeat(1,1fr);
     gap: 1.6rem;
     padding: 40px;
-   }
-   main .recent_order{
+  }
+  main .recent_order{
     padding: 30px;
     margin: 0 auto;
-   }
+  }
   
   
   
@@ -645,32 +645,32 @@
       position: absolute;
       left: 50%;
     }
-     .right .profile .info{
+    .right .profile .info{
       display: none;
-     }
+    }
   
-     .right .top button{
-       display: inline-block;
-       background: transparent;
-       cursor: pointer;
-       color: #363949;
-       position: absolute;
-       left: 1rem;
+    .right .top button{
+      display: inline-block;
+      background: transparent;
+      cursor: pointer;
+      color: #363949;
+      position: absolute;
+      left: 1rem;
   
-     }
-     .right .recent_order{
+    }
+    .right .recent_order{
       padding: 0 30px;
-     }
-     .right .recent_updates{
+    }
+    .right .recent_updates{
       padding: 0 40px;
-     }
-     .right .sales-analytics{
+    }
+    .right .sales-analytics{
       padding: 0 40px;
-     }
-     .right .add_product{
+    }
+    .right .add_product{
       padding: 0 40px;
       margin-bottom: 40px;
-     }
+    }
   
   
   }
