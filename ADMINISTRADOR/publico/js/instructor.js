@@ -70,7 +70,7 @@ function guardarInstructor() {
         modulo: modulo
     };
 
-    fetch('../ADMINISTRADOR/controlador/instructor.php', {
+    fetch('../controlador/instructor.php', {
         method: 'POST',
         body: JSON.stringify(requestData),
         headers: {
@@ -159,7 +159,7 @@ function eliminarAprendiz(id) {
             id: id
         };
 
-        fetch('../../ADMINISTRADOR/controlador/listaraprendices.php', {
+        fetch('../controlador/listaraprendices.php', {
             method: 'POST',
             body: JSON.stringify(requestData),
             headers: {

@@ -8,8 +8,8 @@ require '../../vendor/phpmailer/phpmailer/src/SMTP.php';
 
 ob_start();
 
-function enviarCorreoBienvenida($nombre, $email, $mensaje) {
-    error_log("▶️ Función enviarCorreoBienvenida llamada con: Nombre: $nombre, Email: $email");
+function enviarCorreoBienvenida($nombre, $email, $clave, $modulo, $documento) {
+    error_log("▶️ Función enviarCorreoBienvenida llamada con: Nombre: $nombre, Email: $email, Módulo: $modulo, Documento: $documento");
 
     // Validar el correo electrónico
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -17,49 +17,64 @@ function enviarCorreoBienvenida($nombre, $email, $mensaje) {
         return false;
     }
 
+    // Obtener el nombre del módulo
+    include '../../config/conexion.php';
+    $stmt = $pdo->prepare("SELECT modulo FROM Modulo WHERE idModulo = ?");
+    $stmt->execute([$modulo]);
+    $moduloData = $stmt->fetch(PDO::FETCH_ASSOC);
+    $nombreModulo = $moduloData ? $moduloData['modulo'] : 'Módulo no especificado';
 
     // Asunto del correo
-    $asunto = "¡Bienvenido $nombre!";
+    $asunto = "¡Bienvenido a TYT Academy, $nombre!";
 
-    // Leer contenido de bienvenida.html y reemplazar {{nombre}} por el nombre real
+    // Leer contenido de bienvenida.html
     $cuerpo = file_get_contents('../vista/bienvenidainstructor.html');
     if ($cuerpo === false) {
-        error_log("❌ No se pudo leer el archivo bienvenida.html");
+        error_log("❌ No se pudo leer el archivo bienvenidainstructor.html");
         return false;
-    } else {
-        error_log("✅ Archivo bienvenida.html leído correctamente");
     }
-    
-    $cuerpo = str_replace('{{nombre}}', $nombre, $cuerpo);
 
-    // Agregar referencia al CID de la imagen
-    $cuerpo = str_replace('../publico/imagenes/firmaelectronica.jpg', 'cid:firmaelectronica', $cuerpo);
+    // Reemplazar las variables en el template
+    $cuerpo = str_replace('{{nombre}}', $nombre, $cuerpo);
+    $cuerpo = str_replace('{{email}}', $email, $cuerpo);
+    $cuerpo = str_replace('{{clave}}', $clave, $cuerpo);
+    $cuerpo = str_replace('{{modulo}}', $nombreModulo, $cuerpo);
+    $cuerpo = str_replace('{{documento}}', $documento, $cuerpo);
 
     // Configurar PHPMailer
     $mail = new PHPMailer(true);
     try {
+        // Habilitar depuración
+        $mail->SMTPDebug = 2;
+        $mail->Debugoutput = function($str, $level) {
+            error_log("SMTP [$level]: $str");
+        };
+
         // Configuración del servidor SMTP
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'tytacademy28@gmail.com'; // Asegúrate de que este correo sea correcto
-        $mail->Password = 'hyec dmpy qpoe skhl'; // Contraseña de aplicación
+        $mail->Username = 'tytacademy28@gmail.com';
+        $mail->Password = 'hyec dmpy qpoe skhl';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
-        // Habilitar depuración
-        $mail->SMTPDebug = 3; // Cambia a 0 en producción
-        $mail->Debugoutput = function ($str, $level) {
-            error_log("SMTP [$level]: $str");
-        };
-
         // Configuración del correo
-        $mail->setFrom('tytacademy28@gmail.com', 'TYT Academy'); // El remitente debe coincidir con el correo autenticado
+        $mail->setFrom('tytacademy28@gmail.com', 'TYT Academy');
         $mail->addAddress($email, $nombre);
         $mail->addReplyTo('tytacademy28@gmail.com', 'Soporte');
 
-        // Adjuntar la imagen de la firma electrónica
-        $mail->addEmbeddedImage('../publico/imagenes/firmaelectronica.jpg', 'firmaelectronica');
+        // Verificar y adjuntar la imagen de la firma electrónica
+        $rutaImagen = '../../ADMINISTRADOR/publico/imagenes/firmaelectronica.jpg';
+        error_log("Intentando cargar imagen desde: $rutaImagen");
+        
+        if (file_exists($rutaImagen)) {
+            error_log("✅ Imagen encontrada en: $rutaImagen");
+            $mail->addEmbeddedImage($rutaImagen, 'firmaelectronica');
+        } else {
+            error_log("❌ No se encontró la imagen en: $rutaImagen");
+            // Continuar sin la imagen en lugar de fallar
+        }
 
         // Contenido del correo
         $mail->isHTML(true);
@@ -69,20 +84,23 @@ function enviarCorreoBienvenida($nombre, $email, $mensaje) {
         // Enviar el correo
         error_log("📧 Enviando correo a $email...");
         $mail->send();
-        error_log("Correo enviado exitosamente a $email");
+        error_log("✅ Correo enviado exitosamente a $email");
         return true;
     } catch (Exception $e) {
-        error_log("Error al enviar correo: {$mail->ErrorInfo}");
+        error_log("❌ Error al enviar correo: " . $e->getMessage());
+        error_log("Detalles del error: " . $mail->ErrorInfo);
         return false;
     }
 }
 
-if (isset($_GET['nombre'], $_GET['email'], $_GET['mensaje'])) {
+if (isset($_GET['nombre'], $_GET['email'], $_GET['clave'], $_GET['modulo'], $_GET['documento'])) {
     $nombre = htmlspecialchars($_GET['nombre']);
     $email = filter_var($_GET['email'], FILTER_SANITIZE_EMAIL);
-    $mensaje = htmlspecialchars($_GET['mensaje']);
+    $clave = htmlspecialchars($_GET['clave']);
+    $modulo = htmlspecialchars($_GET['modulo']);
+    $documento = htmlspecialchars($_GET['documento']);
 
-    if (enviarCorreoBienvenida($nombre, $email, $mensaje)) {
+    if (enviarCorreoBienvenida($nombre, $email, $clave, $modulo, $documento)) {
         echo "El mensaje de bienvenida se ha enviado correctamente.";
     } else {
         echo "Hubo un error al enviar el mensaje.";
