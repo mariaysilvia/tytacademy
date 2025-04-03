@@ -1,7 +1,5 @@
 
 <?php include '../vista/navbar.php'; ?> <!-- Incluye el navbar aquí -->
-
-
 <section class="modulostarjetas">
     <div class="container-cards">
 <!--Lectura critica-->
@@ -15,7 +13,7 @@
                 <i class="fa-regular fa-clock"></i><strong>20 Preguntas</strong>
             </ul>
             <div class="card-body">
-            <a href="../formulariosiniciomodulos/formulariolecturacritica.php" class="card-link">Realizar Prueba</a>
+            <a href="../../formulariosiniciomodulos/formulariolecturacritica.php" class="card-link">Realizar Prueba</a>
             </div>
         </div>
 
@@ -30,7 +28,7 @@
                 <i class="fa-regular fa-clock"></i><strong>20 Preguntas</strong>
             </ul>
             <div class="card-body">
-            <a href="../formulariosiniciomodulos/formulariorazonamiento.php" class="card-link">Realizar Prueba</a>
+            <a href="../../formulariosiniciomodulos/formulariorazonamiento.php" class="card-link">Realizar Prueba</a>
             </div>
         </div>
 
@@ -45,7 +43,7 @@
                 <i class="fa-regular fa-clock"></i><strong>20 Preguntas</strong>
             </ul>
             <div class="card-body">
-            <a href="../formulariosiniciomodulos/formulariosciudadana.php" class="card-link">Realizar Prueba</a>
+            <a href="../../formulariosiniciomodulos/formulariosciudadana.php" class="card-link">Realizar Prueba</a>
             </div>
         </div>
 
@@ -60,7 +58,7 @@
                 <i class="fa-regular fa-clock"></i><strong>20 Preguntas</strong>
             </ul>
             <div class="card-body">
-            <a href="../formulariosiniciomodulos/formularioscomunicacion.php" class="card-link">Realizar Prueba</a>
+            <a href="../../formulariosiniciomodulos/formularioscomunicacion.php" class="card-link">Realizar Prueba</a>
             </div>
         </div>
 
@@ -75,7 +73,7 @@
                 <i class="fa-regular fa-clock"></i><strong>20 Preguntas</strong>
             </ul>
             <div class="card-body">
-            <a href="../formulariosiniciomodulos/formularioingles.php" class="card-link">Realizar Prueba</a>
+            <a href="../../formulariosiniciomodulos/formularioingles.php" class="card-link">Realizar Prueba</a>
             </div>
         </div>
     </div>

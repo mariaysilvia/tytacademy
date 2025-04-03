@@ -94,7 +94,21 @@
         <img class="imagen3" src="../publico/imagenes/nosotrostyt.jpg" alt="">
     </div>
 
-
+    <div class="columna4">
+        <div class="columna-4">
+            <h1>Configuración de Perfil</h1>
+            <br>
+            <p>
+                En este apartado podrás visualizar tu perfil de usuario dentro del sitio web, donde tendrás la opción de editar, eliminar e incluso cambiar tu foto.
+            </p>
+            <p>
+                Gracias a esto, podrás llevar un control de tu progreso, así como de los formularios que ya has presentado y otras opciones disponibles en esta sección.
+            </p>
+            <a href="#" class="botones">Ver más</a>
+    
+        </div>
+        <img class="imagen4" src="../publico/imagenes/perfiltyt.jpg" alt="">
+    </div>
 
 
 </section>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TYT ACADEMY</title>
-    <link rel="stylesheet" href="../css/formulariosparamodulos.css">
+    <link rel="stylesheet" href="formulariosparamodulos.css">
     <link rel="icon" href="../imagenes/lecturacriticamodulo.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,11 +15,11 @@
 <body>
     <div id="video-background">
         <video autoplay muted loop>
-            <source src="../videos/competencia.mp4" type="video/mp4">
+            <source src="imagenesVideos/COMPETENCIA.mp4" type="video/mp4">
         </video>
     </div>
     <section class="form-register">
-            <img src="../imagenes/tytacademy.png" alt="TYTAcademy">
+            <img src="imagenesVideos/tytacademy.png" alt="TYTAcademy">
         </a>
         <h2>¿Quieres prepararte para Competencia Ciudadana?</h2>
         <h4>¡Realiza el simulacro de las pruebas TYT de Competencia Ciudadana!</h4>
@@ -34,9 +34,9 @@
                     </select>
                 
             <input class="botons" type="submit" value="Comenzar">
-            <p><a href="../html/PRUEBAS.php">Cambiar de modulo</a></p>
+            <p><a href="../APRENDIZ/vista/PRUEBAS.php">Cambiar de modulo</a></p>
         </form>
     </section>
 
 
-    <?php include '../html/footer.php'; ?> <!-- Incluye el footer aquí -->
+    <?php include '../APRENDIZ/vista/footer.php'; ?> <!-- Incluye el footer aquí -->
