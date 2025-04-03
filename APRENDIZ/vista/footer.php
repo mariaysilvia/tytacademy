@@ -1,6 +1,5 @@
 
 <!--footer-->
-
 <footer class="footer-distributed">
     <div class="footer-left">
         <div class="logo">

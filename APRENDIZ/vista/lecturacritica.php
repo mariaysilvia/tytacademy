@@ -1,4 +1,3 @@
-
 <?php include '../vista/navbar.php'; ?> <!-- Incluye el navbar aquí -->
 
     </header>
@@ -6,7 +5,7 @@
     <!--banner de lectura critica-->
 <section class="bannerLC contenedor">
     <video autoplay muted loop>
-        <source src="../videos/lecturacritica.mp4" type="video/mp4">
+        <source src="../publico/videos/lecturacritica.mp4" type="video/mp4">
     </video>
     <div class="bannerLC-content">
         <section class="bannerLC_title">
