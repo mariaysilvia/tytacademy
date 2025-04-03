@@ -1,36 +1,184 @@
+
+:root {
+
+    --primary-color: #3c72e6;
+    --secundary-color: #5aa3e6;
+    --dark-color: #000;
+    --clr-light: rgba(132, 139, 200, 0.316);
+    --card-border-radius: 2rem;
+    --border-radius-1: 0.4rem;
+    --border-radius-2: 0.8rem;
+    --border-radius-3: 1.2rem;
+
+    --card-padding: 1.8rem;
+    --padding-1: 1.2rem;
+    --box-shadow: 0 2rem 3rem var(--clr-light);
+
+}
+
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: 0;
+    text-decoration: none;
+    list-style: none;
+    appearance: none;
+}
+
+    body{
+    width: 100vw;
+    height: 100vh;
+    user-select: none;
+    overflow-x: hidden;
+    background-color: rgba(56, 86, 255, 0.258);
+    font-family: 'Montserrat', sans-serif;
+}
+
+    .container  {
+    display: grid;
+    width: 96%;
+    gap: 1.8rem;
+    grid-template-columns: 14rem auto 16rem;
+    margin: 0 auto;
+}
+    h2{
+    font-size: 1.7rem;
+    text-align: center;
+    font-weight: 840;
+}
+
+    h3{
+    font-size: 0.90;
+}
+    h5{
+    font-size: 0.77rem;
+}
+    small{
+    font-size: 0.85rem;
+}
+    .profile-photo img{
+    width: 2.8rem;
+    height: 2.8rem;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.tituloA {
+    color: #074587;
+    text-align: center;
+    margin-top: 7rem;
+}
+
+  /* aside */
+    aside{
+    height: 100vh;
+}
+    aside .top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.4rem;
+}
+
+    aside .logo{
+    display: flex;
+    gap: 1rem;
+}
+
+    aside .top div.close span{
+    display: none;
+}
+
+/* ===================
+Sidebar
+   ================== */
+
+    aside .sidebar{
+    background-image: linear-gradient(#f6f6f9, rgb(223, 223, 247));
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    top: 1rem;
+}
+
+    aside h3{
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+    aside .sidebar a{
+    display: flex;
+    color: var(--primary-color);
+    margin-left: 2rem;
+    gap: 1rem;
+    align-items: center;
+    height: 3.3rem;
+    transition: all .1s ease;
+}
+
+
+    aside .sidebar a span{
+    font-size: 1.6rem;
+    transition: all .3s ease-in-out;
+    
+}
+
+    aside .sidebar a:last-child{
+    position: absolute;
+    bottom: 1rem; 
+    width: 100%;
+}
+
+    aside .sidebar a.active{
+    background-color: #5aa2e6a1;
+    color: #ffffff;
+    margin-left: 0;
+    border-left: 5px solid var(--primary-color);
+    margin-left: calc(1rem - 3px);
+}
+
+    aside .sidebar a:hover span{
+    margin-left: 1rem;
+}
+
+    aside .sidebar a span.msg_count{
+    background-color: var(--secundary-color);
+    color: #ffffff;
+    padding: 2px 5px;
+    font-size: 11px;
+    border-radius: var(--border-radius-1);
+}
+
+
+/*cartas de la vista de aprendices*/
 .card-aprendiz {
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    padding: 15px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background-color: white;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--box-shadow);
+    padding: var(--card-padding);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 300px;
 }
 
-.card-aprendiz:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+.card-aprendiz .text-container {
+    text-align: left;
 }
 
-.card-header {
-    font-size: 18px;
+.card-aprendiz h3 {
+    font-size: 1.2rem;
     font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 5px;
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
 }
 
-.card-body {
-    font-size: 14px;
-    color: #555;
-    line-height: 1.6;
-}
-
-.card-footer {
-    margin-top: 10px;
-    text-align: right;
+.card-aprendiz p {
+    font-size: 0.9rem;
+    color: var(--dark-color);
+    margin-bottom: 0;
 }
 
 .card-footer .btn {
@@ -38,7 +186,7 @@
 }
 
 .btn-primary {
-    background-color: #007bff;
+    background-color: var(--primary-color);
     border: none;
     color: #fff;
     padding: 5px 10px;
@@ -48,11 +196,11 @@
 }
 
 .btn-primary:hover {
-    background-color: #0056b3;
+    background-color: var(--secundary-color);
 }
 
 .btn-danger {
-    background-color: #dc3545;
+    background-color: #e63c3c;
     border: none;
     color: #fff;
     padding: 5px 10px;
@@ -62,5 +210,5 @@
 }
 
 .btn-danger:hover {
-    background-color: #a71d2a;
+    background-color: #e6745a;
 }
