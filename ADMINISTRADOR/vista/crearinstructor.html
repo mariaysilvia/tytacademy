@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin TYTACADEMY</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0" />
+<link rel="stylesheet" href="../publico/css/crearinstructor.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+    <aside>
+
+        <div class="top">
+        <div class="logo">
+            <h2>Admin <span class="danger">Panel</span></h2>
+        </div>
+        <div class="close" id="close_btn">
+            <span class="material-symbols-sharp">
+            close
+            </span>
+        </div>
+        </div>
+
+        <div class="sidebar">
+
+        <a href="../vista/adminpanel.html">
+            <span class="material-symbols-sharp">person_outline </span>
+            <h3>Administrador</h3>
+        </a>
+        <a href="#" class="active">
+            <span class="material-symbols-sharp">groups</span>
+            <h3>Instructores</h3>
+        </a>
+        <a href="#">
+            <span class="material-symbols-sharp">how_to_reg</span>
+            <h3>Aprendices</h3>
+            <span class="msg_count">14</span>
+        </a>
+        <a href="#">
+            <span class="material-symbols-sharp">file_open</span>
+            <h3>Pruebas</h3>
+        </a>
+        <a href="#">
+            <span class="material-symbols-sharp">logout </span>
+            <h3>Cerrar sesión</h3>
+        </a>
+    </div>
+
+    </aside>
+
+
+        <div class="form-container">
+            <section class="form-registerINS">
+            <img src="../publico/imagenesadmin/tytacademy.png" alt="TYTAcademy">
+        </a>
+        <h2>¿Desea registrar a un instructor?</h2>
+        <h4>¡Ingrese los pasos para continuar!</h4>
+
+        <form id="registerINS-form">
+            <label for="documento">Documento:</label>
+            <input class="controls" type="text" name="documento" id="documento" 
+                placeholder="Ingrese el documento del instructor." 
+                pattern="[0-9]*" 
+                title="Solo se permiten números"
+                required>
+            <label for="nombres">Nombre:</label>
+            <input class="controls" type="text" name="nombres" id="nombres" 
+                placeholder="Ingrese su nombre." required>
+    
+            <label for="apellidos">Apellido:</label>
+            <input class="controls" type="text" name="apellidos" id="apellidos" 
+                placeholder="Ingrese su apellido." required>
+    
+            <label for="correo">Correo Electrónico:</label>
+            <input class="controls" type="email" name="correo" id="correo" 
+                placeholder="Ingrese su correo electrónico." required>
+    
+            <label for="clave">Clave:</label>
+            <input class="controls" type="password" name="clave" id="clave" 
+                placeholder="Ingrese su contraseña." required>
+    
+            <label for="celular">Celular:</label>
+            <input class="controls" type="text" name="celular" id="celular" 
+                placeholder="Ingrese su celular.">
+            
+            <label for="modulo">Modulo:</label>
+            <select class="controls" name="modulo" id="modulo" required>
+                <option value="">Cargando módulos...</option>
+            </select>
+            
+            <button class="botons" type="button" id="btnGuardarInstructor" onclick="guardarInstructor()">Guardar Instructor</button>
+    </section>
+</div>
+
+<!-- Enlace al archivo JavaScript -->
+<script src="../publico/js/instructor.js"></script>
+</body>
+</html>
