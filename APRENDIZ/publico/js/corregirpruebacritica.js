@@ -19,7 +19,7 @@ function corregirPrueba() {
     }
 
     // Envío de respuestas al servidor
-    fetch('../controlador/corregirpruebacritica.php', {
+    fetch('../APRENDIZ/controlador/corregirpruebacritica.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

@@ -19,7 +19,7 @@ function corregirPrueba() {
     }
 
     // Envío de respuestas al servidor
-    fetch('../controlador/corregirpruebaingles.php', {
+    fetch('../APRENDIZ/controlador/corregirpruebaingles.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -61,7 +61,6 @@ function corregirPrueba() {
         if (resultadosSpan) {
             resultadosSpan.textContent = `Aciertos: ${data.aciertos} de ${data.total_preguntas}`;
         }
-
 
         return {
             aciertos: data.aciertos,
