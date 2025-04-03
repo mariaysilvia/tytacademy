@@ -12,7 +12,7 @@ ob_start();
 
 try {
     // Verificar si el archivo de conexión existe
-    $conexionPath = '../config/conexion.php';
+    $conexionPath = '../../config/conexion.php';
     if (!file_exists($conexionPath)) {
         throw new Exception("Archivo de conexión no encontrado en: " . realpath($conexionPath));
     }
@@ -60,7 +60,7 @@ try {
         $idAprendiz = $_SESSION['usuario_id'];
 
         // Ruta del directorio de imágenes con más detalles de verificación
-        $directorioBase = $_SERVER['DOCUMENT_ROOT'] . '/trabajos/PruebasTYT/image/';
+        $directorioBase = $_SERVER['DOCUMENT_ROOT'] . '/trabajos/PruebasTYT/APRENDIZ/image/';
         
         // Log adicional para depuración
         error_log("Ruta base del directorio: " . $directorioBase);

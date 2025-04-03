@@ -1,4 +1,3 @@
-
 <?php include '../vista/navbarADMIN.php'; ?> <!-- Incluye el navbar aquí -->
 <main>
       <div class="imagenTYT">

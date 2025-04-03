@@ -7,7 +7,7 @@ if (!isset($_SESSION['usuario_id'])) {
     exit;
 }
 
-require_once '.config/conexion.php';
+require_once '../../config/conexion.php';
 
 try {
     $id_usuario = $_SESSION['usuario_id'];

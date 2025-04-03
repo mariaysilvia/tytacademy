@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json');
 ob_start(); // Inicia el buffer de salida
-include '../config/conexion.php'; // Asegúrate de que la ruta sea correcta
+include '../../config/conexion.php'; // Asegúrate de que la ruta sea correcta
 
 // Mostrar errores para depuración (puedes desactivarlo en producción)
 ini_set('display_errors', 1);

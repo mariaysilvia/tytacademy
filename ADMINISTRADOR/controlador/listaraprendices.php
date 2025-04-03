@@ -3,7 +3,7 @@ header('Content-Type: application/json');
 ob_start(); // Inicia el buffer de salida
 
 // Ajusta la ruta de 'conexion.php' según su ubicación real
-include '../config/conexion.php'; // Cambia esta ruta si es necesario
+include '../../config/conexion.php'; // Ruta corregida
 
 try {
     // Consulta para obtener los aprendices
