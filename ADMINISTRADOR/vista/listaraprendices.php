@@ -1,15 +1,5 @@
-<<<<<<<< HEAD:ADMINISTRADOR/vista/listaraprendices.html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Aprendices</title>
-    <link rel="stylesheet" href="../publico/css/listaraprendices.css">
-</head>
-========
-<?php include '../html/navbarADMIN.php'; ?> <!-- Incluye el navbar aquí -->
->>>>>>>> 75f01eef7f041d9f729c427dc2ec45dedeb8b1b0:ADMINISTRADOR/vista/listaraprendices.php
+
+<?php include '../vista/navbarADMIN.php'; ?> <!-- Incluye el navbar aquí -->
 <body>
 
     <div class="container">

@@ -6,9 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin TYTACADEMY</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0" />
-<link rel="stylesheet" href="../css/adminpanel.css">
-<link rel="stylesheet" href="../css/crearinstructor.css">
-<link rel="stylesheet" href="../css/listaraprendices.css">
+<link rel="stylesheet" href="../publico/css/adminpanel.css">
+<link rel="stylesheet" href="../publico/css/crearinstructor.css">
+<link rel="stylesheet" href="../publico/css/listaraprendices.css">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -28,15 +28,15 @@
 
         <div class="sidebar">
 
-        <a href="../html/adminpanel.php" class="active">
+        <a href="../vista/adminpanel.php" class="active">
             <span class="material-symbols-sharp">person_outline </span>
             <h3>Administrador</h3>
         </a>
-        <a href="../html/crearinstructor.php">
+        <a href="../vista/crearinstructor.php">
             <span class="material-symbols-sharp">groups</span>
             <h3>Instructores</h3>
         </a>
-        <a href="../html/listaraprendices.php">
+        <a href="../vista/listaraprendices.php">
             <span class="material-symbols-sharp">how_to_reg</span>
             <h3>Aprendices</h3>
             <span class="msg_count">2</span>
