@@ -2,26 +2,22 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-/**
- * Clase EmailModel
- * Maneja todas las operaciones relacionadas con el envío de correos electrónicos
- */
+//Clase EmailModel
+//Maneja todas las operaciones relacionadas con el envío de correos electrónicos
+//utilizando la librería PHPMailer.
 class EmailModel {
+    //Instancia de conexión a la base de datos
     private $pdo;
     
-    /**
-     * Constructor de la clase
-     * @param PDO $pdo Conexión a la base de datos
-     */
+    //Constructor de la clase
+    //@param PDO $pdo Conexión a la base de datos
     public function __construct($pdo) {
         $this->pdo = $pdo;
     }
     
-    /**
-     * Obtiene el nombre del módulo desde la base de datos
-     * @param int $idModulo ID del módulo
-     * @return string Nombre del módulo
-     */
+    //Obtiene el nombre del módulo desde la base de datos
+    //int $idModulo ID del módulo a consultar
+    // Nombre del módulo o mensaje de error si no se encuentra
     public function obtenerNombreModulo($idModulo) {
         $stmt = $this->pdo->prepare("SELECT modulo FROM Modulo WHERE idModulo = ?");
         $stmt->execute([$idModulo]);
@@ -29,11 +25,9 @@ class EmailModel {
         return $moduloData ? $moduloData['modulo'] : 'Módulo no especificado';
     }
     
-    /**
-     * Envía un correo de bienvenida al instructor
-     * @param array $datos Datos del instructor
-     * @return bool Resultado del envío
-     */
+    //Envía un correo de bienvenida al instructor
+    // $datos Datos del instructor (nombre, email, clave, módulo, documento)
+    //True si el correo se envió correctamente, False en caso contrario
     public function enviarCorreoBienvenida($datos) {
         require_once '../../vendor/phpmailer/phpmailer/src/Exception.php';
         require_once '../../vendor/phpmailer/phpmailer/src/PHPMailer.php';
@@ -115,12 +109,12 @@ class EmailModel {
         }
     }
     
-    /**
-     * Prepara el cuerpo del correo reemplazando las variables en el template
-     * @param array $datos Datos del instructor
-     * @param string $nombreModulo Nombre del módulo
-     * @return string Cuerpo del correo
-     */
+    
+     // Prepara el cuerpo del correo reemplazando las variables en el template
+     // $datos Datos del instructor
+     //$nombreModulo Nombre del módulo
+     // Cuerpo del correo
+    
     private function prepararCuerpoCorreo($datos, $nombreModulo) {
         $cuerpo = file_get_contents('../vista/bienvenidainstructor.html');
         if ($cuerpo === false) {
@@ -137,9 +131,7 @@ class EmailModel {
         return $cuerpo;
     }
     
-    /**
-     * Agrega la firma electrónica al correo
-     */
+     //Agrega la firma electrónica al correo
     private function agregarFirmaElectronica() {
         $rutaImagen = '../publico/imagenes/firmaelectronica.jpg';
         if (file_exists($rutaImagen)) {
