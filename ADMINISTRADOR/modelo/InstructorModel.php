@@ -56,10 +56,10 @@ class InstructorModel {
      */
     public function validarDatos($datos) {
         return !empty($datos['documento']) && 
-               !empty($datos['nombre']) && 
-               !empty($datos['apellido']) && 
-               !empty($datos['email']) && 
-               !empty($datos['clave']) && 
-               !empty($datos['modulo']);
+            !empty($datos['nombre']) && 
+            !empty($datos['apellido']) && 
+            !empty($datos['email']) && 
+            !empty($datos['clave']) && 
+            !empty($datos['modulo']);
     }
 } 

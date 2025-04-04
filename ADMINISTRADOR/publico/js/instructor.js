@@ -142,7 +142,7 @@ function cargarAprendices() {
                 const card = document.createElement('div');
                 card.className = 'col-md-4 mb-4';
                 card.innerHTML = `
-                    <div class="card">
+                    <div class="card-aprendiz">
                         <div class="card-body">
                             <h5 class="card-title">${aprendiz.nombres} ${aprendiz.apellidos}</h5>
                             <p class="card-text">Documento: ${aprendiz.documento}</p>
