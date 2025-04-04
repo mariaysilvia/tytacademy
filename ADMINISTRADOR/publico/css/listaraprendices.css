@@ -153,15 +153,21 @@ Sidebar
 
 
 /*cartas de la vista de aprendices*/
+.card-container { 
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; 
+    gap: 20px; 
+}
+
 .card-aprendiz {
     background-color: white;
     border-radius: var(--card-border-radius);
     box-shadow: var(--box-shadow);
     padding: var(--card-padding);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 300px;
+    width: 300px; 
+    min-width: 300px;
+    flex: 0 0 300px;
 }
 
 .card-aprendiz .text-container {
@@ -178,13 +184,14 @@ Sidebar
 .card-aprendiz p {
     font-size: 0.9rem;
     color: var(--dark-color);
-    margin-bottom: 0;
+    margin-bottom: 0.2rem; 
 }
 
 .card-footer .btn {
     margin-left: 5px;
 }
 
+/* Estilos de botones*/
 .btn-primary {
     background-color: var(--primary-color);
     border: none;
