@@ -137,12 +137,15 @@ function cargarAprendices() {
                 return;
             }
 
+            // Crear el contenedor para las tarjetas
+            const cardContainer = document.createElement('div');
+            cardContainer.classList.add('card-container');
+
             // Iterar sobre cada aprendiz y crear una tarjeta para cada uno
             data.data.forEach(aprendiz => {
                 const card = document.createElement('div');
-                card.className = 'col-md-4 mb-4';
+                card.className = 'card-aprendiz';
                 card.innerHTML = `
-                    <div class="card-aprendiz">
                         <div class="card-body">
                             <h5 class="card-title">${aprendiz.nombres} ${aprendiz.apellidos}</h5>
                             <p class="card-text">Documento: ${aprendiz.documento}</p>
@@ -151,11 +154,11 @@ function cargarAprendices() {
                             <button class="btn btn-primary btn-sm" onclick="abrirModalEditar(${aprendiz.idAprendiz}, '${aprendiz.nombres}', '${aprendiz.apellidos}', '${aprendiz.documento}', '${aprendiz.correo}', '${aprendiz.clave}', '${aprendiz.celular}')">Editar</button>
                             <button class="btn btn-danger btn-sm" onclick="eliminarAprendiz(${aprendiz.idAprendiz})">Eliminar</button>
                         </div>
-                    </div>
                 `;
-                listaraprendices.appendChild(card);
+                cardContainer.appendChild(card);
             });
-        })
+                listaraprendices.appendChild(cardContainer);
+            })
         .catch(error => {
             console.error('Error al cargar aprendices:', error); // Agregado para depuración
             alert('Error al cargar los aprendices: ' + error.message);
