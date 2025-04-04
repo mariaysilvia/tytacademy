@@ -1,91 +1,122 @@
 <?php
-header('Content-Type: application/json');
-ob_start(); // Inicia el buffer de salida
-include '../../config/conexion.php'; // Ruta corregida
-
-// Mostrar errores para depuración
+// Habilitar errores para depuración
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-$data = json_decode(file_get_contents("php://input"));
-error_log("Datos recibidos: " . json_encode($data));
+// Configurar el tipo de contenido como JSON
+header('Content-Type: application/json');
+
+// Iniciar el buffer de salida
+ob_start();
 
 try {
-    if ($data && isset($data->action)) {
-        error_log("Acción recibida: " . $data->action);
-        
-        if ($data->action === 'getModulos') {
-            // Consulta para obtener los módulos disponibles
-            $stmt = $pdo->query("SELECT idModulo, modulo FROM Modulo");
-            $modulos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // Incluir archivos necesarios
+    require_once '../../config/conexion.php';
+    
+    // Verificar si la conexión a la base de datos está establecida
+    if (!isset($pdo) || !$pdo) {
+        throw new Exception('Error: No se pudo establecer la conexión a la base de datos');
+    }
 
-            ob_clean();
-            if (empty($modulos)) {
-                echo json_encode(['success' => false, 'message' => 'No hay módulos disponibles.']);
-            } else {
-                echo json_encode(['success' => true, 'data' => $modulos]);
+    // Verificar si los modelos existen
+    if (!file_exists('../modelo/InstructorModel.php')) {
+        throw new Exception('Error: No se encontró el archivo InstructorModel.php');
+    }
+
+    require_once '../modelo/InstructorModel.php';
+
+    // Obtener y decodificar los datos JSON
+    $input = file_get_contents("php://input");
+    if ($input === false) {
+        throw new Exception('Error al leer los datos de entrada');
+    }
+
+    $data = json_decode($input, true);
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        throw new Exception('Error al decodificar JSON: ' . json_last_error_msg());
+    }
+
+    // Crear instancia del modelo de instructor
+    $instructorModel = new InstructorModel($pdo);
+
+    if ($data && isset($data['action'])) {
+        if ($data['action'] === 'getModulos') {
+            try {
+                $modulos = $instructorModel->getModulos();
+                
+                if (empty($modulos)) {
+                    echo json_encode(['success' => false, 'message' => 'No hay módulos disponibles.']);
+                } else {
+                    echo json_encode(['success' => true, 'data' => $modulos]);
+                }
+            } catch (Exception $e) {
+                throw new Exception('Error al obtener módulos: ' . $e->getMessage());
             }
-        } elseif ($data->action === 'guardarInstructor') {
-            error_log("Datos recibidos para guardar: " . json_encode($data));
+            exit;
+        } 
+        
+        elseif ($data['action'] === 'guardarInstructor') {
+            // Solo cargar EmailModel cuando sea necesario
+            if (!file_exists('../modelo/EmailModel.php')) {
+                throw new Exception('Error: No se encontró el archivo EmailModel.php');
+            }
+            require_once '../modelo/EmailModel.php';
+            $emailModel = new EmailModel($pdo);
 
-            // Validación de campos obligatorios
-            $documento = $data->documento;
-            $nombre = $data->nombre;
-            $apellido = $data->apellido;
-            $email = $data->email;
-            $clave = password_hash($data->clave, PASSWORD_BCRYPT);
-            $celular = $data->celular;
-            $modulo = $data->modulo;
-
-            if (!$documento || !$nombre || !$apellido || !$email || !$clave || !$modulo) {
-                error_log("❌ Campos obligatorios faltantes");
-                ob_clean();
+            if (!$instructorModel->validarDatos($data)) {
                 echo json_encode(['success' => false, 'message' => 'Todos los campos obligatorios deben ser completados.']);
                 exit;
             }
 
-            // Preparar la consulta SQL con PDO
-            $stmt = $pdo->prepare("INSERT INTO Instructor (documento, nombre, apellido, email, clave, celular, idModulo) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            // Guardar la clave original antes de encriptarla
+            $data['clave_original'] = $data['clave'];
+            $data['clave'] = password_hash($data['clave'], PASSWORD_BCRYPT);
             
-            if ($stmt->execute([$documento, $nombre, $apellido, $email, $clave, $celular, $modulo])) {
-                error_log("✅ Instructor guardado exitosamente");
-                
-                // Intentar enviar el correo
+            if ($instructorModel->guardarInstructor($data)) {
                 try {
-                    require_once 'emailinstructor.php';
-                    $correoEnviado = enviarCorreoBienvenida($nombre, $email, $data->clave, $modulo, $documento);
-                    
-                    if ($correoEnviado) {
-                        ob_clean();
-                        echo json_encode(['success' => true, 'message' => 'Instructor guardado exitosamente y correo enviado.']);
+                    // Enviar correo de bienvenida
+                    if ($emailModel->enviarCorreoBienvenida($data)) {
+                        echo json_encode([
+                            'success' => true, 
+                            'message' => 'Instructor guardado exitosamente y correo enviado.'
+                        ]);
                     } else {
-                        ob_clean();
-                        echo json_encode(['success' => true, 'message' => 'Instructor guardado exitosamente, pero hubo un error al enviar el correo.']);
+                        echo json_encode([
+                            'success' => true, 
+                            'message' => 'Instructor guardado exitosamente, pero hubo un error al enviar el correo.'
+                        ]);
                     }
                 } catch (Exception $e) {
-                    error_log("Error al enviar el correo: " . $e->getMessage());
-                    ob_clean();
-                    echo json_encode(['success' => true, 'message' => 'Instructor guardado exitosamente, pero hubo un error al enviar el correo.']);
+                    error_log("Error al enviar correo: " . $e->getMessage());
+                    echo json_encode([
+                        'success' => true, 
+                        'message' => 'Instructor guardado exitosamente, pero hubo un error al enviar el correo.'
+                    ]);
                 }
             } else {
-                error_log("❌ Error al ejecutar la consulta SQL: " . json_encode($stmt->errorInfo()));
-                ob_clean();
                 echo json_encode(['success' => false, 'message' => 'Error al guardar el instructor en la base de datos.']);
             }
+            exit;
         } else {
-            ob_clean();
             echo json_encode(['success' => false, 'message' => 'Acción no válida.']);
+            exit;
         }
     } else {
-        ob_clean();
         echo json_encode(['success' => false, 'message' => 'Datos inválidos.']);
+        exit;
     }
 } catch (Exception $e) {
-    error_log("Error en el servidor: " . $e->getMessage());
+    // Limpiar cualquier salida previa
     ob_clean();
-    echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+    // Enviar error en formato JSON
+    echo json_encode([
+        'success' => false, 
+        'message' => 'Error en el servidor: ' . $e->getMessage()
+    ]);
+    exit;
 }
 
+// Limpiar el buffer y enviar la salida
 ob_end_flush();
 ?>

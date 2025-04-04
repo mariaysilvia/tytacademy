@@ -3,33 +3,44 @@ function cargarModulos() {
     const moduloSelect = document.getElementById('modulo');
     if (!moduloSelect) {
         console.warn('El elemento con ID "modulo" no existe en esta página. Se omite cargarModulos.');
-        return; // Salir de la función si el elemento no existe
+        return;
     }
 
-    fetch('../controlador/instructor.php', {
+    fetch('../../ADMINISTRADOR/controlador/instructor.php', {
         method: 'POST',
         body: JSON.stringify({ action: 'getModulos' }),
         headers: {
             'Content-Type': 'application/json'
         }
     })
-    .then(response => response.json())
-    .then(data => {
-        moduloSelect.innerHTML = '<option value="">Seleccione el módulo al que pertenece:</option>';
-        if (data.success) {
-            data.data.forEach(modulo => {
-                const option = document.createElement('option');
-                option.value = modulo.idModulo;
-                option.textContent = modulo.modulo;
-                moduloSelect.appendChild(option);
-            });
-        } else {
-            alert('Error al cargar los módulos: ' + data.message);
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
+        return response.text().then(text => {
+            try {
+                return JSON.parse(text);
+            } catch (e) {
+                throw new Error('La respuesta no es un JSON válido: ' + text);
+            }
+        });
+    })
+    .then(data => {
+        if (!data.success) {
+            throw new Error(data.message || 'Error al cargar los módulos');
+        }
+        
+        moduloSelect.innerHTML = '<option value="">Seleccione el módulo al que pertenece:</option>';
+        data.data.forEach(modulo => {
+            const option = document.createElement('option');
+            option.value = modulo.idModulo;
+            option.textContent = modulo.modulo;
+            moduloSelect.appendChild(option);
+        });
     })
     .catch(error => {
         console.error('Error al cargar los módulos:', error);
-        alert('Error al cargar los módulos.');
+        alert('Error al cargar los módulos: ' + error.message);
     });
 }
 

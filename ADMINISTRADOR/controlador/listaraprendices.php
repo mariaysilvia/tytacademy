@@ -4,16 +4,15 @@ ob_start(); // Inicia el buffer de salida
 
 // Ajusta la ruta de 'conexion.php' según su ubicación real
 include '../../config/conexion.php'; // Ruta corregida
+require_once '../modelo/AprendizModel.php';
 
 try {
-    // Consulta para obtener los aprendices
-    $sql = "SELECT idAprendiz, documento, nombres, apellidos, correo, contraseña AS clave, celular FROM Aprendiz";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute();
-
-    // Obtener los resultados
-    $aprendices = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+    // Crear instancia del modelo
+    $aprendizModel = new AprendizModel($pdo);
+    
+    // Obtener los aprendices
+    $aprendices = $aprendizModel->obtenerAprendices();
+    
     // Verificar si hay aprendices
     if (empty($aprendices)) {
         ob_clean(); // Limpia cualquier salida previa
