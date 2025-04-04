@@ -45,4 +45,4 @@
         </form>
     </section>
 
-    <?php include '../APRENDIZ/vista/footer.php'; ?> <!-- Incluye el footer aquí -->
+    <?php include 'footerFORMULARIOS.php'; ?> <!-- Incluye el footer aquí -->
