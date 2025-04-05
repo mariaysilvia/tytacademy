@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="../publico/css/adminpanel.css">
 <link rel="stylesheet" href="../publico/css/crearinstructor.css">
 <link rel="stylesheet" href="../publico/css/listaraprendices.css">
+<link rel="stylesheet" href="../publico/css/listarinstructores.css">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
