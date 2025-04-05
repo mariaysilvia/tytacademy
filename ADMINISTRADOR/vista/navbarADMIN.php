@@ -38,7 +38,7 @@
             <h3>Crear instructores</h3>
         </a>
 
-        <a href="../vista/crearinstructor.php">
+        <a href="../vista/listarinstructores.php">
             <span class="material-symbols-sharp">groups</span>
             <h3>Ver Instructores</h3>
         </a>

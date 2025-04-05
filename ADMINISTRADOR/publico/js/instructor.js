@@ -52,6 +52,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('listaraprendices')) {
         cargarAprendices();
     }
+    if (document.getElementById('listarinstructores')) {
+        cargarInstructores();
+    }
 });
 
 // Función para guardar el instructor
@@ -192,4 +195,89 @@ function eliminarAprendiz(id) {
             alert('Error al eliminar el aprendiz: ' + error.message);
         });
     }
+
 }
+
+// Función para cargar los instructores
+function cargarInstructores() {
+    fetch('../controlador/listarinstructores.php')
+        .then(response => {
+            console.log('Estado HTTP:', response.status);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Respuesta del servidor:', data);
+            const listarinstructores = document.getElementById('listarinstructores');
+            if (!listarinstructores) {
+                console.error('El elemento con ID "listarinstructores" no existe en esta página.');
+                return;
+            }
+
+            listarinstructores.innerHTML = ''; // Limpiar el contenedor
+
+            if (!data.success) {
+                listarinstructores.innerHTML = `<p>${data.message}</p>`;
+                return;
+            }
+
+            // Crear el contenedor para las tarjetas
+            const cardContainer = document.createElement('div');
+            cardContainer.classList.add('card-container');
+
+            // Iterar sobre cada instructor y crear una tarjeta para cada uno
+            data.data.forEach(instructor => {
+                const card = document.createElement('div');
+                card.className = 'card-instructor';
+                card.innerHTML = `
+                    <div class="card-body">
+                        <h5 class="card-title">${instructor.nombre} ${instructor.apellido}</h5>
+                        <p class="card-text">Documento: ${instructor.documento}</p>
+                        <p class="card-text">Correo: ${instructor.email}</p>
+                        <p class="card-text">Celular: ${instructor.celular}</p>
+                        <p class="card-text">Módulo: ${instructor.idModulo}</p>
+                        <button class="btn btn-primary btn-sm" onclick="abrirModalEditarInstructor(${instructor.idInstructor}, '${instructor.nombre}', '${instructor.apellido}', '${instructor.documento}', '${instructor.email}', '${instructor.celular}', '${instructor.idModulo}')">Editar</button>
+                        <button class="btn btn-danger btn-sm" onclick="eliminarInstructor(${instructor.idInstructor})">Eliminar</button>
+                    </div>
+                `;
+                cardContainer.appendChild(card);
+            });
+            listarinstructores.appendChild(cardContainer);
+        })
+        .catch(error => {
+            console.error('Error al cargar instructores:', error);
+            alert('Error al cargar los instructores: ' + error.message);
+        });
+}
+
+// Función para eliminar un instructor
+function eliminarInstructor(id) {
+    if (confirm('¿Estás seguro que deseas eliminar este instructor?')) {
+        const requestData = {
+            action: 'eliminarInstructor',
+            id: id
+        };
+
+        fetch('../controlador/listarinstructores.php', {
+            method: 'POST',
+            body: JSON.stringify(requestData),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            if (data.success) {
+                cargarInstructores(); // Recargar la lista de instructores después de eliminar
+            }
+        })
+        .catch(error => {
+            console.error('Error al eliminar el instructor:', error);
+            alert('Error al eliminar el instructor: ' + error.message);
+        });
+    }
+}
+

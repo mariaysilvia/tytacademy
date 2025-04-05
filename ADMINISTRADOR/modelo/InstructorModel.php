@@ -51,4 +51,35 @@ class InstructorModel {
             return [];
         }
     }
-} 
+    //Obtiene todos los instructores de la base de datos
+    //Lista de instructores con todos  sus datos
+    public function obtener() {
+        $sql = "SELECT idInstructor, documento, nombre, apellido, email, clave, celular, idModulo FROM Instructor;";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    //Verifica si hay instructores en la base de datos
+    // True si hay instructores, False si no hay ninguno
+    public function hayinstructores() {
+        $sql = "SELECT COUNT(*) FROM Instructor";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
+    }
+    
+    //Elimina un instructor de la base de datos
+    //@param int $id ID del instructor a eliminar
+    //True si se eliminó correctamente, False en caso contrario
+    public function eliminarInstructor($id) {
+        try {
+            $stmt = $this->pdo->prepare("DELETE FROM Instructor WHERE idInstructor = ?");
+            return $stmt->execute([$id]);
+        } catch (PDOException $e) {
+            error_log("Error al eliminar instructor: " . $e->getMessage());
+            return false;
+        }
+    }
+    
+}

@@ -98,6 +98,22 @@ try {
                 echo json_encode(['success' => false, 'message' => 'Error al guardar el instructor en la base de datos.']);
             }
             exit;
+        } 
+        elseif ($data['action'] === 'actualizarInstructor') {
+            // Validar que los campos obligatorios no estén vacíos
+            if (empty($data['id']) || empty($data['nombre']) || empty($data['apellido']) || 
+                empty($data['documento']) || empty($data['email']) || empty($data['modulo'])) {
+                echo json_encode(['success' => false, 'message' => 'Todos los campos obligatorios deben ser completados.']);
+                exit;
+            }
+            
+            // Actualizar el instructor
+            if ($instructorModel->actualizarInstructor($data)) {
+                echo json_encode(['success' => true, 'message' => 'Instructor actualizado exitosamente.']);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Error al actualizar el instructor en la base de datos.']);
+            }
+            exit;
         } else {
             echo json_encode(['success' => false, 'message' => 'Acción no válida.']);
             exit;
