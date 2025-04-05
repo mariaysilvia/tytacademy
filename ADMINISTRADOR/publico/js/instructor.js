@@ -144,6 +144,11 @@ function cargarAprendices() {
             const cardContainer = document.createElement('div');
             cardContainer.classList.add('card-container');
 
+                        // Calcular columnas necesarias (mínimo 3)
+                        const columnCount = Math.max(3, Math.ceil(data.data.length / 2));
+                        cardContainer.style.gridTemplateColumns = `repeat(${columnCount}, 1fr)`;
+                        cardContainer.style.width = `calc(300px * ${columnCount} + 20px * ${columnCount - 1})`;
+
             // Iterar sobre cada aprendiz y crear una tarjeta para cada uno
             data.data.forEach(aprendiz => {
                 const card = document.createElement('div');
@@ -151,9 +156,9 @@ function cargarAprendices() {
                 card.innerHTML = `
                         <div class="card-body">
                             <h5 class="card-title">${aprendiz.nombres} ${aprendiz.apellidos}</h5>
-                            <p class="card-text">Documento: ${aprendiz.documento}</p>
-                            <p class="card-text">Correo: ${aprendiz.correo}</p>
-                            <p class="card-text">Celular: ${aprendiz.celular}</p>
+                            <p class="card-text"><strong>Documento: </strong>${aprendiz.documento}</p>
+                            <p class="card-text"><Strong>Correo: </Strong>${aprendiz.correo}</p>
+                            <p class="card-text"><Strong>Celular: </Strong>${aprendiz.celular}</p>
                             <button class="btn btn-primary btn-sm" onclick="abrirModalEditar(${aprendiz.idAprendiz}, '${aprendiz.nombres}', '${aprendiz.apellidos}', '${aprendiz.documento}', '${aprendiz.correo}', '${aprendiz.clave}', '${aprendiz.celular}')">Editar</button>
                             <button class="btn btn-danger btn-sm" onclick="eliminarAprendiz(${aprendiz.idAprendiz})">Eliminar</button>
                         </div>
@@ -223,9 +228,14 @@ function cargarInstructores() {
                 return;
             }
 
-            // Crear el contenedor para las tarjetas
-            const cardContainer = document.createElement('div');
-            cardContainer.classList.add('card-container');
+                // Crear el contenedor para las tarjetas
+                const cardContainer = document.createElement('div');
+                cardContainer.classList.add('card-container');
+    
+                            // Calcular columnas necesarias (mínimo 3)
+                            const columnCount = Math.max(3, Math.ceil(data.data.length / 2));
+                            cardContainer.style.gridTemplateColumns = `repeat(${columnCount}, 1fr)`;
+                            cardContainer.style.width = `calc(300px * ${columnCount} + 20px * ${columnCount - 1})`;
 
             // Iterar sobre cada instructor y crear una tarjeta para cada uno
             data.data.forEach(instructor => {
@@ -234,10 +244,10 @@ function cargarInstructores() {
                 card.innerHTML = `
                     <div class="card-body">
                         <h5 class="card-title">${instructor.nombre} ${instructor.apellido}</h5>
-                        <p class="card-text">Documento: ${instructor.documento}</p>
-                        <p class="card-text">Correo: ${instructor.email}</p>
-                        <p class="card-text">Celular: ${instructor.celular}</p>
-                        <p class="card-text">Módulo: ${instructor.idModulo}</p>
+                        <p class="card-text"><Strong>Documento: </Strong>${instructor.documento}</p>
+                        <p class="card-text"><Strong>Correo: </Strong>${instructor.email}</p>
+                        <p class="card-text"><Strong>Celular: </Strong>${instructor.celular}</p>
+                        <p class="card-text"><Strong>Módulo: </Strong>${instructor.idModulo}</p>
                         <button class="btn btn-primary btn-sm" onclick="abrirModalEditarInstructor(${instructor.idInstructor}, '${instructor.nombre}', '${instructor.apellido}', '${instructor.documento}', '${instructor.email}', '${instructor.celular}', '${instructor.idModulo}')">Editar</button>
                         <button class="btn btn-danger btn-sm" onclick="eliminarInstructor(${instructor.idInstructor})">Eliminar</button>
                     </div>

@@ -1,11 +1,11 @@
-
 <?php include '../vista/navbarADMIN.php'; ?> <!-- Incluye el navbar aquí -->
 <body>
-
-    <div class="container">
-    <h1>Lista<span class="mt-4 tituloA">Aprendiz</span></h1>
-        <div id="listarinstructores" class="row mt-4">
-            <!-- Las tarjetas de los aprendices se agregarán aquí dinámicamente -->
+    <div class="containerI">
+    <h1>Lista de <span class="tituloI">los Instructores</span></h1>
+        <div id="listarinstructores">
+            <div class="card-container">
+                <!-- Las tarjetas de los aprendices se agregarán aquí dinámicamente -->
+            </div>
         </div>
     </div>
     <!-- Enlace al archivo JavaScript -->

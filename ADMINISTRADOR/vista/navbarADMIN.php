@@ -39,7 +39,7 @@
         </a>
 
         <a href="../vista/listarinstructores.php">
-            <span class="material-symbols-sharp">groups</span>
+            <span class="material-symbols-sharp">clinical_notes</span>
             <h3>Ver Instructores</h3>
         </a>
         <a href="../vista/listaraprendices.php">

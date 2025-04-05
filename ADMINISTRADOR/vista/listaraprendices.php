@@ -2,10 +2,12 @@
 <?php include '../vista/navbarADMIN.php'; ?> <!-- Incluye el navbar aquí -->
 <body>
 
-    <div class="container">
-    <h1>Lista<span class="mt-4 tituloA">Aprendiz</span></h1>
-        <div id="listaraprendices" class="row mt-4">
-            <!-- Las tarjetas de los aprendices se agregarán aquí dinámicamente -->
+    <div class="containerA">
+    <h1>Lista de <span class="tituloA">los Aprendices</span></h1>
+        <div id="listaraprendices">
+            <div class="card-container">
+                <!-- Las tarjetas de los aprendices se agregarán aquí dinámicamente -->
+            </div>
         </div>
     </div>
     <!-- Enlace al archivo JavaScript -->
