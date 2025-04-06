@@ -16,9 +16,20 @@ class InstructorModel {
     // $datos Datos del instructor a validar
     // True si los datos son válidos, False en caso contrario
     public function validarDatos($datos) {
-        return !empty($datos['nombre']) && 
+        return !empty($datos['documento']) && 
+            !empty($datos['nombre']) && 
+            !empty($datos['apellido']) && 
             !empty($datos['email']) && 
             !empty($datos['clave']) && 
+            !empty($datos['modulo']);
+    }
+    
+    public function validarDatosEdicion($datos) {
+        return !empty($datos['id']) &&
+            !empty($datos['nombre']) && 
+            !empty($datos['apellido']) && 
+            !empty($datos['documento']) && 
+            !empty($datos['email']) && 
             !empty($datos['modulo']);
     }
     
@@ -27,11 +38,14 @@ class InstructorModel {
     //True si se guardó correctamente, False en caso contrario
     public function guardarInstructor($datos) {
         try {
-            $stmt = $this->pdo->prepare("INSERT INTO Instructor (nombre, email, clave, idModulo) VALUES (?, ?, ?, ?)");
+            $stmt = $this->pdo->prepare("INSERT INTO Instructor (documento, nombre, apellido, email, clave, celular, idModulo) VALUES (?, ?, ?, ?, ?, ?, ?)");
             return $stmt->execute([
+                $datos['documento'],
                 $datos['nombre'],
+                $datos['apellido'],
                 $datos['email'],
                 $datos['clave'],
+                $datos['celular'],
                 $datos['modulo']
             ]);
         } catch (PDOException $e) {
@@ -54,10 +68,17 @@ class InstructorModel {
     //Obtiene todos los instructores de la base de datos
     //Lista de instructores con todos  sus datos
     public function obtener() {
-        $sql = "SELECT idInstructor, documento, nombre, apellido, email, clave, celular, idModulo FROM Instructor;";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        try {
+            $sql = "SELECT i.idInstructor, i.documento, i.nombre, i.apellido, i.email, i.clave, i.celular, i.idModulo, m.modulo as nombreModulo 
+                    FROM Instructor i 
+                    LEFT JOIN Modulo m ON i.idModulo = m.idModulo";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Error al obtener instructores: " . $e->getMessage());
+            return [];
+        }
     }
     
     //Verifica si hay instructores en la base de datos
@@ -82,4 +103,53 @@ class InstructorModel {
         }
     }
     
+    public function obtenerInstructor($id) {
+        try {
+            $stmt = $this->pdo->prepare("SELECT idInstructor, documento, nombre, apellido, email, celular, idModulo FROM Instructor WHERE idInstructor = ?");
+            $stmt->execute([$id]);
+            $instructor = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            // Si se encontró el instructor, obtener el nombre del módulo
+            if ($instructor) {
+                $stmtModulo = $this->pdo->prepare("SELECT modulo FROM Modulo WHERE idModulo = ?");
+                $stmtModulo->execute([$instructor['idModulo']]);
+                $modulo = $stmtModulo->fetch(PDO::FETCH_ASSOC);
+                
+                if ($modulo) {
+                    $instructor['nombreModulo'] = $modulo['modulo'];
+                }
+            }
+            
+            return $instructor;
+        } catch (PDOException $e) {
+            error_log("Error al obtener instructor: " . $e->getMessage());
+            return false;
+        }
+    }
+    
+    public function editarInstructor($datos) {
+        try {
+            $stmt = $this->pdo->prepare("UPDATE Instructor SET 
+                documento = ?, 
+                nombre = ?, 
+                apellido = ?, 
+                email = ?, 
+                celular = ?, 
+                idModulo = ? 
+                WHERE idInstructor = ?");
+            
+            return $stmt->execute([
+                $datos['documento'],
+                $datos['nombre'],
+                $datos['apellido'],
+                $datos['email'],
+                $datos['celular'],
+                $datos['modulo'],
+                $datos['id']
+            ]);
+        } catch (PDOException $e) {
+            error_log("Error al editar instructor: " . $e->getMessage());
+            return false;
+        }
+    }
 }

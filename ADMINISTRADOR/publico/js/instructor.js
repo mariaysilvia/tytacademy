@@ -1,12 +1,14 @@
 // Función para cargar los módulos dinámicamente desde la base de datos
 function cargarModulos() {
     const moduloSelect = document.getElementById('modulo');
-    if (!moduloSelect) {
-        console.warn('El elemento con ID "modulo" no existe en esta página. Se omite cargarModulos.');
+    const editModuloSelect = document.getElementById('edit_modulo');
+    
+    // Si no hay ningún select de módulos en la página, salir silenciosamente
+    if (!moduloSelect && !editModuloSelect) {
         return;
     }
 
-    fetch('../../ADMINISTRADOR/controlador/instructor.php', {
+    fetch('../controlador/instructor.php', {
         method: 'POST',
         body: JSON.stringify({ action: 'getModulos' }),
         headers: {
@@ -30,13 +32,27 @@ function cargarModulos() {
             throw new Error(data.message || 'Error al cargar los módulos');
         }
         
-        moduloSelect.innerHTML = '<option value="">Seleccione el módulo al que pertenece:</option>';
-        data.data.forEach(modulo => {
-            const option = document.createElement('option');
-            option.value = modulo.idModulo;
-            option.textContent = modulo.modulo;
-            moduloSelect.appendChild(option);
-        });
+        // Llenar el select de módulos si existe
+        if (moduloSelect) {
+            moduloSelect.innerHTML = '<option value="">Seleccione el módulo al que pertenece:</option>';
+            data.data.forEach(modulo => {
+                const option = document.createElement('option');
+                option.value = modulo.idModulo;
+                option.textContent = modulo.modulo;
+                moduloSelect.appendChild(option);
+            });
+        }
+        
+        // Llenar el select de módulos del modal de edición si existe
+        if (editModuloSelect) {
+            editModuloSelect.innerHTML = '<option value="">Seleccione el módulo al que pertenece:</option>';
+            data.data.forEach(modulo => {
+                const option = document.createElement('option');
+                option.value = modulo.idModulo;
+                option.textContent = modulo.modulo;
+                editModuloSelect.appendChild(option);
+            });
+        }
     })
     .catch(error => {
         console.error('Error al cargar los módulos:', error);
@@ -46,7 +62,8 @@ function cargarModulos() {
 
 // Llamar a cargarModulos solo si es necesario
 document.addEventListener('DOMContentLoaded', () => {
-    if (document.getElementById('modulo')) {
+    // Solo cargar módulos si estamos en la página de crear instructor o en el modal de edición
+    if (document.getElementById('modulo') || document.getElementById('edit_modulo')) {
         cargarModulos();
     }
     if (document.getElementById('listaraprendices')) {
@@ -79,7 +96,95 @@ function guardarInstructor() {
         nombre: nombre,
         apellido: apellido,
         email: email,
-        clave: clave, // Incluye la clave en los datos enviados
+        clave: clave,
+        celular: celular || '', // Asegurarse de que celular no sea null
+        modulo: modulo
+    };
+
+    fetch('../controlador/instructor.php', {
+        method: 'POST',
+        body: JSON.stringify(requestData),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.text())
+    .then(text => {
+        try {
+            const data = JSON.parse(text);
+            alert(data.message);
+            if (data.success) {
+                document.getElementById('registerINS-form').reset();
+            }
+        } catch (error) {
+            console.error('Error al analizar la respuesta JSON:', error);
+            alert('Error inesperado: ' + text);
+        }
+    })
+    .catch(error => {
+        console.error('Error al guardar el instructor:', error);
+        alert('Error al guardar el instructor: ' + error.message);
+    });
+}
+
+// Función para editar instructor
+function editarInstructor(id) {
+    // Obtener los datos del instructor
+    const requestData = {
+        action: 'obtenerInstructor',
+        id: id
+    };
+
+    fetch('../controlador/listarinstructores.php', {
+        method: 'POST',
+        body: JSON.stringify(requestData),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const instructor = data.data;
+            // Llenar el formulario con los datos del instructor
+            document.getElementById('idInstructor').value = instructor.idInstructor;
+            document.getElementById('nombre').value = instructor.nombre;
+            document.getElementById('apellido').value = instructor.apellido;
+            document.getElementById('documento').value = instructor.documento;
+            document.getElementById('email').value = instructor.email;
+            document.getElementById('celular').value = instructor.celular || '';
+            document.getElementById('idModulo').value = instructor.idModulo;
+            
+            // Mostrar el modal de edición
+            const modal = new bootstrap.Modal(document.getElementById('instructorModal'));
+            modal.show();
+        } else {
+            alert('Error al obtener los datos del instructor: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error al obtener los datos del instructor:', error);
+        alert('Error al obtener los datos del instructor: ' + error.message);
+    });
+}
+
+// Función para guardar los cambios del instructor editado
+function guardarCambiosInstructor() {
+    const id = document.getElementById('edit_id').value;
+    const documento = document.getElementById('edit_documento').value;
+    const nombre = document.getElementById('edit_nombres').value;
+    const apellido = document.getElementById('edit_apellidos').value;
+    const email = document.getElementById('edit_correo').value;
+    const celular = document.getElementById('edit_celular').value;
+    const modulo = document.getElementById('edit_modulo').value;
+
+    const requestData = {
+        action: 'editarInstructor',
+        id: id,
+        documento: documento,
+        nombre: nombre,
+        apellido: apellido,
+        email: email,
         celular: celular,
         modulo: modulo
     };
@@ -91,27 +196,25 @@ function guardarInstructor() {
             'Content-Type': 'application/json'
         }
     })
-    .then(response => {
-        console.log('Estado de la respuesta:', response.status); // Agregado para depuración
-        return response.text(); // Cambiado a text() para capturar cualquier salida inesperada
-    })
-    .then(text => {
-        console.log('Texto de la respuesta:', text); // Agregado para depuración
-        try {
-            const data = JSON.parse(text); // Intenta convertir el texto a JSON
-            console.log('Respuesta del servidor (JSON):', data); // Agregado para depuración
-            alert(data.message); // Mostrar el mensaje generado desde PHP
-            if (data.success) {
-                document.getElementById('registerINS-form').reset(); // Limpiar el formulario
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+        if (data.success) {
+            // Cerrar el modal
+            const modalElement = document.getElementById('editarInstructorModal');
+            if (modalElement) {
+                const modal = bootstrap.Modal.getInstance(modalElement);
+                if (modal) {
+                    modal.hide();
+                }
             }
-        } catch (error) {
-            console.error('Error al analizar la respuesta JSON:', error);
-            alert('Error inesperado: ' + text); // Mostrar el texto de la respuesta para depuración
+            // Recargar la lista de instructores
+            cargarInstructores();
         }
     })
     .catch(error => {
-        console.error('Error al guardar el instructor:', error); // Agregado para depuración
-        alert('Error al guardar el instructor: ' + error.message);
+        console.error('Error:', error);
+        alert('Error al guardar los cambios');
     });
 }
 
@@ -207,14 +310,12 @@ function eliminarAprendiz(id) {
 function cargarInstructores() {
     fetch('../controlador/listarinstructores.php')
         .then(response => {
-            console.log('Estado HTTP:', response.status);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             return response.json();
         })
         .then(data => {
-            console.log('Respuesta del servidor:', data);
             const listarinstructores = document.getElementById('listarinstructores');
             if (!listarinstructores) {
                 console.error('El elemento con ID "listarinstructores" no existe en esta página.');
@@ -228,14 +329,14 @@ function cargarInstructores() {
                 return;
             }
 
-                // Crear el contenedor para las tarjetas
-                const cardContainer = document.createElement('div');
-                cardContainer.classList.add('card-container');
-    
-                            // Calcular columnas necesarias (mínimo 3)
-                            const columnCount = Math.max(3, Math.ceil(data.data.length / 2));
-                            cardContainer.style.gridTemplateColumns = `repeat(${columnCount}, 1fr)`;
-                            cardContainer.style.width = `calc(300px * ${columnCount} + 20px * ${columnCount - 1})`;
+            // Crear el contenedor para las tarjetas
+            const cardContainer = document.createElement('div');
+            cardContainer.classList.add('card-container');
+
+            // Calcular columnas necesarias (mínimo 3)
+            const columnCount = Math.max(3, Math.ceil(data.data.length / 2));
+            cardContainer.style.gridTemplateColumns = `repeat(${columnCount}, 1fr)`;
+            cardContainer.style.width = `calc(300px * ${columnCount} + 20px * ${columnCount - 1})`;
 
             // Iterar sobre cada instructor y crear una tarjeta para cada uno
             data.data.forEach(instructor => {
@@ -244,16 +345,19 @@ function cargarInstructores() {
                 card.innerHTML = `
                     <div class="card-body">
                         <h5 class="card-title">${instructor.nombre} ${instructor.apellido}</h5>
-                        <p class="card-text"><Strong>Documento: </Strong>${instructor.documento}</p>
-                        <p class="card-text"><Strong>Correo: </Strong>${instructor.email}</p>
-                        <p class="card-text"><Strong>Celular: </Strong>${instructor.celular}</p>
-                        <p class="card-text"><Strong>Módulo: </Strong>${instructor.idModulo}</p>
-                        <button class="btn btn-primary btn-sm" onclick="abrirModalEditarInstructor(${instructor.idInstructor}, '${instructor.nombre}', '${instructor.apellido}', '${instructor.documento}', '${instructor.email}', '${instructor.celular}', '${instructor.idModulo}')">Editar</button>
-                        <button class="btn btn-danger btn-sm" onclick="eliminarInstructor(${instructor.idInstructor})">Eliminar</button>
+                        <p class="card-text"><strong>Documento: </strong>${instructor.documento}</p>
+                        <p class="card-text"><strong>Correo: </strong>${instructor.email}</p>
+                        <p class="card-text"><strong>Celular: </strong>${instructor.celular ? instructor.celular : 'No registrado'}</p>
+                        <p class="card-text"><strong>Módulo: </strong>${instructor.nombreModulo || instructor.idModulo}</p>
+                        <div class="button-group">
+                            <button class="btn btn-primary btn-sm" onclick="editarInstructor(${instructor.idInstructor})">Editar</button>
+                            <button class="btn btn-danger btn-sm" onclick="eliminarInstructor(${instructor.idInstructor})">Eliminar</button>
+                        </div>
                     </div>
                 `;
                 cardContainer.appendChild(card);
             });
+
             listarinstructores.appendChild(cardContainer);
         })
         .catch(error => {

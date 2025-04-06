@@ -99,19 +99,40 @@ try {
             }
             exit;
         } 
-        elseif ($data['action'] === 'actualizarInstructor') {
-            // Validar que los campos obligatorios no estén vacíos
-            if (empty($data['id']) || empty($data['nombre']) || empty($data['apellido']) || 
-                empty($data['documento']) || empty($data['email']) || empty($data['modulo'])) {
+        elseif ($data['action'] === 'obtenerInstructor') {
+            $id = null;
+            
+            // Intentar obtener el ID de los parámetros GET
+            if (isset($_GET['id'])) {
+                $id = $_GET['id'];
+            } 
+            // Si no está en GET, intentar obtenerlo del cuerpo de la solicitud
+            else if (isset($data['id'])) {
+                $id = $data['id'];
+            }
+            
+            if ($id) {
+                $instructor = $instructorModel->obtenerInstructor($id);
+                if ($instructor) {
+                    echo json_encode(['success' => true, 'data' => $instructor]);
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'No se encontró el instructor.']);
+                }
+            } else {
+                echo json_encode(['success' => false, 'message' => 'ID de instructor no proporcionado.']);
+            }
+            exit;
+        }
+        elseif ($data['action'] === 'editarInstructor') {
+            if (!$instructorModel->validarDatosEdicion($data)) {
                 echo json_encode(['success' => false, 'message' => 'Todos los campos obligatorios deben ser completados.']);
                 exit;
             }
             
-            // Actualizar el instructor
-            if ($instructorModel->actualizarInstructor($data)) {
+            if ($instructorModel->editarInstructor($data)) {
                 echo json_encode(['success' => true, 'message' => 'Instructor actualizado exitosamente.']);
             } else {
-                echo json_encode(['success' => false, 'message' => 'Error al actualizar el instructor en la base de datos.']);
+                echo json_encode(['success' => false, 'message' => 'Error al actualizar el instructor.']);
             }
             exit;
         } else {
