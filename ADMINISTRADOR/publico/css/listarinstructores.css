@@ -61,8 +61,8 @@
     border-radius: var(--card-border-radius);
     box-shadow: var(--box-shadow);
     padding: 15px;
-    width: 280px;
-    height: 200px;
+    width: 380px;
+    height: 250px;
     position: relative;
 }
 
