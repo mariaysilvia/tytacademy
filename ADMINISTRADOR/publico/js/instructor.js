@@ -130,42 +130,50 @@ function guardarInstructor() {
 // Función para editar instructor
 function editarInstructor(id) {
     // Obtener los datos del instructor
-    const requestData = {
-        action: 'obtenerInstructor',
-        id: id
-    };
-
-    fetch('../controlador/listarinstructores.php', {
+    fetch('../controlador/instructor.php', {
         method: 'POST',
-        body: JSON.stringify(requestData),
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify({
+            action: 'obtenerInstructor',
+            id: id
+        })
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            const instructor = data.data;
-            // Llenar el formulario con los datos del instructor
-            document.getElementById('idInstructor').value = instructor.idInstructor;
-            document.getElementById('nombre').value = instructor.nombre;
-            document.getElementById('apellido').value = instructor.apellido;
-            document.getElementById('documento').value = instructor.documento;
-            document.getElementById('email').value = instructor.email;
-            document.getElementById('celular').value = instructor.celular || '';
-            document.getElementById('idModulo').value = instructor.idModulo;
-            
-            // Mostrar el modal de edición
-            const modal = new bootstrap.Modal(document.getElementById('instructorModal'));
-            modal.show();
-        } else {
-            alert('Error al obtener los datos del instructor: ' + data.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error al obtener los datos del instructor:', error);
-        alert('Error al obtener los datos del instructor: ' + error.message);
-    });
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const instructor = data.data;
+                // Llenar el modal con los datos del instructor
+                document.getElementById('edit_documento').value = instructor.documento;
+                document.getElementById('edit_nombres').value = instructor.nombre;
+                document.getElementById('edit_apellidos').value = instructor.apellido;
+                document.getElementById('edit_correo').value = instructor.email;
+                document.getElementById('edit_celular').value = instructor.celular || '';
+                document.getElementById('edit_modulo').value = instructor.idModulo;
+                document.getElementById('edit_id').value = instructor.idInstructor;
+                
+                // Abrir el modal usando la API de Bootstrap 5
+                const modalElement = document.getElementById('editarInstructorModal');
+                if (modalElement) {
+                    // Verificar si ya existe una instancia del modal
+                    let modal = bootstrap.Modal.getInstance(modalElement);
+                    if (!modal) {
+                        // Si no existe, crear una nueva instancia
+                        modal = new bootstrap.Modal(modalElement);
+                    }
+                    modal.show();
+                } else {
+                    console.error('El elemento modal no existe en la página');
+                }
+            } else {
+                alert('Error al obtener los datos del instructor');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error al obtener los datos del instructor');
+        });
 }
 
 // Función para guardar los cambios del instructor editado
@@ -262,7 +270,6 @@ function cargarAprendices() {
                             <p class="card-text"><strong>Documento: </strong>${aprendiz.documento}</p>
                             <p class="card-text"><Strong>Correo: </Strong>${aprendiz.correo}</p>
                             <p class="card-text"><Strong>Celular: </Strong>${aprendiz.celular}</p>
-                            <button class="btn btn-primary btn-sm" onclick="abrirModalEditar(${aprendiz.idAprendiz}, '${aprendiz.nombres}', '${aprendiz.apellidos}', '${aprendiz.documento}', '${aprendiz.correo}', '${aprendiz.clave}', '${aprendiz.celular}')">Editar</button>
                             <button class="btn btn-danger btn-sm" onclick="eliminarAprendiz(${aprendiz.idAprendiz})">Eliminar</button>
                         </div>
                 `;
@@ -278,6 +285,7 @@ function cargarAprendices() {
 
 // Función para eliminar un aprendiz
 function eliminarAprendiz(id) {
+    console.log('ID del aprendiz a eliminar:', id); // Depuración
     if (confirm('¿Estás seguro que deseas eliminar este aprendiz?')) {
         const requestData = {
             action: 'eliminarAprendiz',
@@ -293,6 +301,7 @@ function eliminarAprendiz(id) {
         })
         .then(response => response.json())
         .then(data => {
+            console.log('Respuesta del servidor:', data); // Depuración
             alert(data.message); // Mostrar el mensaje generado desde PHP
             if (data.success) {
                 cargarAprendices(); // Recargar la lista de aprendices después de eliminar
@@ -303,7 +312,6 @@ function eliminarAprendiz(id) {
             alert('Error al eliminar el aprendiz: ' + error.message);
         });
     }
-
 }
 
 // Función para cargar los instructores

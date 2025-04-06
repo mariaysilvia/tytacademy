@@ -29,4 +29,10 @@ class AprendizModel {
         $stmt->execute();
         return $stmt->fetchColumn() > 0;
     }
+    //Funcion para eliminar un aprendiz 
+public function eliminarAprendiz($id) {
+    $sql = "DELETE FROM Aprendiz WHERE idAprendiz = :id";
+    $stmt = $this->pdo->prepare($sql);
+    return $stmt->execute(['id' => $id]);
+}
 } 
