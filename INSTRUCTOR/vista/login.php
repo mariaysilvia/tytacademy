@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TYT ACADEMY</title>
     <link rel="stylesheet" href="">
-    <link rel="icon" href="../publico/imagenes/lecturacriticamodulo.png" type="image/x-icon">
+    <link rel="icon" href="../publico/imagenesinstructor/computador.png" type="image/x-icon">
+    <link rel="stylesheet" href="../publico/css/iniciarsesioninstructor.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
