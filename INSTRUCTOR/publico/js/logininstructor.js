@@ -27,7 +27,7 @@ function iniciarLogin() {
             if (data.success) {
                 mostrarMensaje('¡Inicio de sesión exitoso!', 'exito');
                 setTimeout(function() {
-                    window.location.href = '../../INSTRUCTOR/vista/navbarINSTRUCTOR.php';
+                    window.location.href = '../../INSTRUCTOR/vista/inicioinstructor.php';
                 }, 1000);
             } else {
                 mostrarMensaje(data.message || 'Error en el inicio de sesión', 'error');
