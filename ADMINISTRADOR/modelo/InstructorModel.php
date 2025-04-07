@@ -152,4 +152,38 @@ class InstructorModel {
             return false;
         }
     }
+    
+    /**
+     * Verifica las credenciales de un instructor para el inicio de sesión
+     * @param string $documento Documento del instructor
+     * @param string $email Email del instructor
+     * @param string $clave Clave del instructor
+     * @return array|false Datos del instructor si las credenciales son correctas, false en caso contrario
+     */
+    public function login($documento, $email, $clave) {
+        try {
+            $stmt = $this->pdo->prepare("SELECT idInstructor, documento, nombre, apellido, email, idModulo FROM Instructor 
+                                        WHERE documento = ? AND email = ? AND clave = ?");
+            $stmt->execute([$documento, $email, $clave]);
+            $instructor = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if ($instructor) {
+                // Obtener el nombre del módulo
+                $stmtModulo = $this->pdo->prepare("SELECT modulo FROM Modulo WHERE idModulo = ?");
+                $stmtModulo->execute([$instructor['idModulo']]);
+                $modulo = $stmtModulo->fetch(PDO::FETCH_ASSOC);
+                
+                if ($modulo) {
+                    $instructor['nombreModulo'] = $modulo['modulo'];
+                }
+                
+                return $instructor;
+            }
+            
+            return false;
+        } catch (PDOException $e) {
+            error_log("Error en login de instructor: " . $e->getMessage());
+            return false;
+        }
+    }
 }

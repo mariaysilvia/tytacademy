@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TYT ACADEMY</title>
-    <link rel="stylesheet" href="../publico/css/iniciarsesion.css">
+    <link rel="stylesheet" href="">
     <link rel="icon" href="../publico/imagenes/lecturacriticamodulo.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,21 +30,19 @@
                 <input class="controls" type="text" name="documento" id="documento" placeholder="Ingrese su documento." required>
                 
                 <label for="correo">Correo Electrónico:</label>
-            <input class="controls" type="email" name="correo" id="correo" placeholder="Ingrese su correo electrónico." required>
+                <input class="controls" type="email" name="correo" id="correo" placeholder="Ingrese su correo electrónico." required>
                 
                 <label for="clave">Clave:</label>
                 <input class="controls" type="password" name="clave" id="clave" placeholder="Ingrese su clave." required>
                 
                 <input class="botons" type="submit" value="Iniciar sesión">
-                <p><a href="../vista/index.html">¿Desea volver al inicio?</a>
-
+                <p><a href="../vista/index.html">¿Desea volver al inicio?</a></p>
             </form>
             <!-- Elemento para mostrar mensajes del sistema -->
-            <div id="loginMessage"></div>
+            <div id="loginMessage" class="mensaje" style="display: none;"></div>
         </div>
     </section> 
 <!--footer-->
-
 <footer class="footer-distributed">
     <div class="footer-left">
         <div class="logo">
@@ -64,7 +62,6 @@
 
     </div>
     <div class="footer-center">
-
         <div>
             <i class="fa-solid fa-location-dot"></i>
             <p><span>SENA</span>CIMM</p>
@@ -91,14 +88,10 @@
         <a href="https://x.com/AcademyTyt28" target="_blank"><i class="fa-brands fa-twitter"></i></a>
     </div>
     </div>
-
-    
-
-
-
 </footer>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="../publico/js/loginregistro.js"></script>
+<!-- Agregar el script de JavaScript -->
+<script src="../publico/js/logininstructor.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
+</html> 
