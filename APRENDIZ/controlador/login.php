@@ -3,6 +3,7 @@ session_start();
 header('Content-Type: application/json');
 
 require_once '../../config/conexion.php';
+require_once '../modelo/AprendizModel.php';
 
 try {
     // Obtener datos del formulario
@@ -16,35 +17,28 @@ try {
         exit;
     }
 
-    // Buscar usuario por documento y correo
-    $stmt = $pdo->prepare("SELECT * FROM Aprendiz WHERE documento = ? AND correo = ?");
-    $stmt->execute([$documento, $correo]);
-    $usuario = $stmt->fetch();
+    // Crear instancia del modelo
+    $aprendizModel = new AprendizModel($pdo);
+    
+    // Intentar login
+    $usuario = $aprendizModel->login($documento, $correo, $contraseña);
 
     if ($usuario) {
-        // Verificar la contraseña
-        if (password_verify($contraseña, $usuario['contraseña'])) {
         // Iniciar sesión
-            $_SESSION['usuario_id'] = $usuario['idAprendiz'];
-            $_SESSION['documento'] = $usuario['documento'];
-            $_SESSION['nombres'] = $usuario['nombres'];
-            $_SESSION['apellidos'] = $usuario['apellidos'];
-            $_SESSION['correo'] = $usuario['correo'];
+        $_SESSION['usuario_id'] = $usuario['idAprendiz'];
+        $_SESSION['documento'] = $usuario['documento'];
+        $_SESSION['nombres'] = $usuario['nombres'];
+        $_SESSION['apellidos'] = $usuario['apellidos'];
+        $_SESSION['correo'] = $usuario['correo'];
 
         echo json_encode([
             'success' => true,
-                'message' => 'Inicio de sesión exitoso'
-            ]);
-        } else {
-            echo json_encode([
-                'success' => false, 
-                'message' => 'Contraseña incorrecta'
-            ]);
-        }
+            'message' => 'Inicio de sesión exitoso'
+        ]);
     } else {
         echo json_encode([
             'success' => false, 
-            'message' => 'No existe un usuario con ese documento y correo'
+            'message' => 'Credenciales incorrectas'
         ]);
     }
 } catch(PDOException $e) {

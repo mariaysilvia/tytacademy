@@ -10,6 +10,9 @@ error_reporting(E_ALL);
 // Inicio de captura de salida
 ob_start();
 
+require_once '../../config/conexion.php';
+require_once '../modelo/AprendizModel.php';
+
 try {
     // Verificar si el archivo de conexión existe
     $conexionPath = '../../config/conexion.php';
@@ -31,43 +34,29 @@ try {
     error_log("FILES recibido: " . print_r($_FILES, true));
     error_log("Directorio actual: " . getcwd());
 
+    if (!isset($_SESSION['usuario_id']) || empty($_SESSION['usuario_id'])) {
+        throw new Exception("ID de aprendiz no proporcionado o sesión no iniciada");
+    }
+
+    $idAprendiz = $_SESSION['usuario_id'];
+    $aprendizModel = new AprendizModel($pdo);
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Manejar la acción para obtener el ID del aprendiz
         if (isset($_POST['action']) && $_POST['action'] === 'getIdAprendiz') {
-            if (!isset($_SESSION['usuario_id']) || empty($_SESSION['usuario_id'])) {
-                echo json_encode([
-                    "success" => false,
-                    "message" => "Sesión no iniciada o ID de aprendiz no disponible"
-                ]);
-            } else {
-                echo json_encode([
-                    "success" => true,
-                    "idAprendiz" => $_SESSION['usuario_id']
-                ]);
-            }
-            exit;
-        }
-
-        // Validar que la sesión contiene el ID del usuario
-        if (!isset($_SESSION['usuario_id']) || empty($_SESSION['usuario_id'])) {
             echo json_encode([
-                "success" => false,
-                "message" => "ID de aprendiz no proporcionado o sesión no iniciada"
+                "success" => true,
+                "idAprendiz" => $aprendizModel->obtenerIdAprendiz($idAprendiz)
             ]);
             exit;
         }
 
-        $idAprendiz = $_SESSION['usuario_id'];
-
-        // Ruta del directorio de imágenes con más detalles de verificación
+        // Ruta del directorio de imágenes
         $directorioBase = $_SERVER['DOCUMENT_ROOT'] . '/trabajos/PruebasTYT/APRENDIZ/image/';
-        
-        // Log adicional para depuración
         error_log("Ruta base del directorio: " . $directorioBase);
 
         // Verificar si el directorio de imágenes existe
         if (!is_dir($directorioBase)) {
-            // Intentar crear el directorio si no existe
             if (!mkdir($directorioBase, 0777, true)) {
                 throw new Exception("No se pudo crear el directorio de imágenes: " . $directorioBase);
             }
@@ -79,33 +68,22 @@ try {
             $extension = pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION);
             $nombreArchivo = uniqid('foto_', true) . '.' . $extension;
             $rutaDestino = $directorioBase . $nombreArchivo;
-            
-            // Ruta relativa para guardar en base de datos
             $rutaRelativa = 'image/' . $nombreArchivo;
 
             error_log("Ruta destino completa: " . $rutaDestino);
             error_log("Ruta relativa: " . $rutaRelativa);
 
-            // Intentar mover el archivo
+            // Mover el archivo
             if (move_uploaded_file($_FILES['foto']['tmp_name'], $rutaDestino)) {
-                // Preparar la consulta con PDO
-                $stmt = $pdo->prepare("UPDATE Aprendiz SET foto_perfil = :rutaFoto WHERE idAprendiz = :idAprendiz");
-                
-                if (!$stmt) {
-                    throw new Exception("Error preparando consulta: " . print_r($pdo->errorInfo(), true));
-                }
-
-                $stmt->bindParam(':rutaFoto', $rutaRelativa);
-                $stmt->bindParam(':idAprendiz', $idAprendiz, PDO::PARAM_INT);
-                
-                if ($stmt->execute()) {
+                // Actualizar la foto en la base de datos
+                if ($aprendizModel->actualizarFotoPerfil($idAprendiz, $rutaRelativa)) {
                     echo json_encode([
                         "success" => true, 
                         "message" => "Foto actualizada correctamente",
                         "rutaFoto" => $rutaRelativa
                     ]);
                 } else {
-                    throw new Exception("Error al actualizar la foto: " . print_r($stmt->errorInfo(), true));
+                    throw new Exception("Error al actualizar la foto en la base de datos");
                 }
             } else {
                 throw new Exception("No se pudo mover el archivo a " . $rutaDestino);

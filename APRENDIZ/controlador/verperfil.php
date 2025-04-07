@@ -8,6 +8,7 @@ if (!isset($_SESSION['usuario_id'])) {
 }
 
 require_once '../../config/conexion.php';
+require_once '../modelo/AprendizModel.php';
 
 try {
     $id_usuario = $_SESSION['usuario_id'];
@@ -15,23 +16,15 @@ try {
     // Agregar un log para depuración
     error_log("Buscando usuario con ID: " . $id_usuario);
     
-    $stmt = $pdo->prepare("SELECT documento, nombres, apellidos, correo, celular, foto_perfil FROM Aprendiz WHERE idAprendiz = ?");
-    $stmt->execute([$id_usuario]);
-    $usuario = $stmt->fetch();
+    $aprendizModel = new AprendizModel($pdo);
+    $usuario = $aprendizModel->obtenerPerfil($id_usuario);
 
     if ($usuario) {
         error_log("Usuario encontrado: " . json_encode($usuario));
 
         echo json_encode([
             'success' => true,
-            'data' => [
-                'documento' => $usuario['documento'],
-                'nombres' => $usuario['nombres'],
-                'apellidos' => $usuario['apellidos'],
-                'correo' => $usuario['correo'],
-                'celular' => $usuario['celular'],
-                'foto_perfil' => $usuario['foto_perfil']
-            ]
+            'data' => $usuario
         ]);
     } else {
         error_log("Usuario no encontrado para ID: " . $id_usuario);
