@@ -162,22 +162,38 @@ class InstructorModel {
      */
     public function login($documento, $email, $clave) {
         try {
-            $stmt = $this->pdo->prepare("SELECT idInstructor, documento, nombre, apellido, email, idModulo FROM Instructor 
-                                        WHERE documento = ? AND email = ? AND clave = ?");
-            $stmt->execute([$documento, $email, $clave]);
+            error_log("InstructorModel: Intentando login con documento: $documento, email: $email");
+            
+            // Obtener el instructor por documento y email
+            $stmt = $this->pdo->prepare("SELECT idInstructor, documento, nombre, apellido, email, clave, idModulo 
+                                        FROM Instructor 
+                                        WHERE documento = ? AND email = ?");
+            $stmt->execute([$documento, $email]);
             $instructor = $stmt->fetch(PDO::FETCH_ASSOC);
             
             if ($instructor) {
-                // Obtener el nombre del módulo
-                $stmtModulo = $this->pdo->prepare("SELECT modulo FROM Modulo WHERE idModulo = ?");
-                $stmtModulo->execute([$instructor['idModulo']]);
-                $modulo = $stmtModulo->fetch(PDO::FETCH_ASSOC);
-                
-                if ($modulo) {
-                    $instructor['nombreModulo'] = $modulo['modulo'];
+                error_log("InstructorModel: Instructor encontrado, verificando contraseña");
+                // Verificar si la contraseña coincide con la hasheada
+                if (password_verify($clave, $instructor['clave'])) {
+                    error_log("InstructorModel: Contraseña verificada correctamente");
+                    // Si coincide, eliminamos la clave del array antes de devolverlo
+                    unset($instructor['clave']);
+                    
+                    // Obtener el nombre del módulo
+                    $stmtModulo = $this->pdo->prepare("SELECT modulo FROM Modulo WHERE idModulo = ?");
+                    $stmtModulo->execute([$instructor['idModulo']]);
+                    $modulo = $stmtModulo->fetch(PDO::FETCH_ASSOC);
+                    
+                    if ($modulo) {
+                        $instructor['nombreModulo'] = $modulo['modulo'];
+                    }
+                    
+                    return $instructor;
+                } else {
+                    error_log("InstructorModel: Contraseña incorrecta");
                 }
-                
-                return $instructor;
+            } else {
+                error_log("InstructorModel: No se encontró instructor con documento: $documento y email: $email");
             }
             
             return false;

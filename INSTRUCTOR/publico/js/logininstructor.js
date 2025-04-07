@@ -1,61 +1,61 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const loginForm = document.getElementById('login-form');
-    const loginMessage = document.getElementById('loginMessage');
-
-    loginForm.addEventListener('submit', function(e) {
+function iniciarLogin() {
+    const form = document.getElementById('login-form');
+    form.onsubmit = function(e) {
         e.preventDefault();
+        
+        const formData = new FormData();
+        formData.append('documento', document.getElementById('documento').value);
+        formData.append('correo', document.getElementById('correo').value);
+        formData.append('clave', document.getElementById('clave').value);
 
-        const documento = document.getElementById('documento').value;
-        const correo = document.getElementById('correo').value;
-        const clave = document.getElementById('clave').value;
-
-        // Validación básica
-        if (!documento || !correo || !clave) {
+        if (!formData.get('documento') || !formData.get('correo') || !formData.get('clave')) {
             mostrarMensaje('Por favor complete todos los campos', 'error');
-            return;
+            return false;
         }
 
-        // Crear objeto con los datos
-        const datos = {
-            documento: documento,
-            email: correo,
-            clave: clave
-        };
-
-        // Enviar solicitud al servidor
-        fetch('../INSTRUCTOR/controlador/logininstructor.php', {
+        fetch('../../INSTRUCTOR/controlador/logininstructor.php', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(datos)
+            body: formData
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.exito) {
+        .then(function(response) {
+            if (!response.ok) {
+                throw new Error('Error en la respuesta del servidor');
+            }
+            return response.json();
+        })
+        .then(function(data) {
+            if (data.success) {
                 mostrarMensaje('¡Inicio de sesión exitoso!', 'exito');
-                // Redirigir al panel del instructor después de 1 segundo
-                setTimeout(() => {
-                    window.location.href = '../INSTRUCTOR/vista/panelinstructor.php';
+                setTimeout(function() {
+                    window.location.href = '../../INSTRUCTOR/vista/navbarINSTRUCTOR.php';
                 }, 1000);
             } else {
-                mostrarMensaje(data.mensaje || 'Error en el inicio de sesión', 'error');
+                mostrarMensaje(data.message || 'Error en el inicio de sesión', 'error');
             }
         })
-        .catch(error => {
+        .catch(function(error) {
             console.error('Error:', error);
             mostrarMensaje('Error en el servidor', 'error');
         });
-    });
 
-    function mostrarMensaje(mensaje, tipo) {
-        loginMessage.textContent = mensaje;
-        loginMessage.className = tipo === 'error' ? 'mensaje error' : 'mensaje exito';
-        loginMessage.style.display = 'block';
+        return false;
+    };
+}
 
-        // Ocultar el mensaje después de 3 segundos
-        setTimeout(() => {
-            loginMessage.style.display = 'none';
-        }, 3000);
-    }
-}); 
+function mostrarMensaje(mensaje, tipo) {
+    const mensajeElement = document.getElementById('loginMessage');
+    mensajeElement.textContent = mensaje;
+    mensajeElement.className = tipo === 'error' ? 'mensaje error' : 'mensaje exito';
+    mensajeElement.style.display = 'block';
+
+    setTimeout(function() {
+        mensajeElement.style.display = 'none';
+    }, 3000);
+}
+
+// Iniciar cuando el documento esté listo
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', iniciarLogin);
+} else {
+    iniciarLogin();
+} 
