@@ -6,7 +6,7 @@ async function eliminarPregunta(idPregunta) {
     
     try {
         const response = await fetch(`../controlador/pregunta.php?accion=eliminar&id=${idPregunta}`, {
-            method: 'POST'
+            method: 'GET'
         });
         const data = await response.json();
         

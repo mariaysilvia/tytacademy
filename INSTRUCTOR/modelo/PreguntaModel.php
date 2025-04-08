@@ -163,12 +163,12 @@ class PreguntaModel {
             $query = "SELECT p.idPregunta, p.pregunta, p.imagen, p.idtipoPregunta, p.idtemaModulo, 
                       tp.nombreTipoPregunta as tipoPregunta, tm.nombreTema as temaModulo 
                       FROM Pregunta p 
-                      JOIN tipoPregunta tp ON p.idtipoPregunta = tp.idtipoPregunta 
-                      JOIN temaModulo tm ON p.idtemaModulo = tm.idtemaModulo 
+            JOIN tipoPregunta tp ON p.idtipoPregunta = tp.idtipoPregunta 
+            JOIN temaModulo tm ON p.idtemaModulo = tm.idtemaModulo 
                       WHERE p.idModulo = ?";
             
             $stmt = $this->conexion->prepare($query);
-            $stmt->execute([$idModulo]);
+        $stmt->execute([$idModulo]);
             $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
             
             if (empty($resultado)) {
