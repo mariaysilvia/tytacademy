@@ -41,8 +41,8 @@ try {
                         if (!isset($_GET['id'])) {
                             throw new Exception('ID de pregunta no proporcionado');
                         }
-                        
-                        $pregunta = $preguntaModel->getPreguntaPorId($_GET['id']);
+                    
+                        $pregunta = $preguntaModel->getPreguntaPorId($_GET['id']); 
                         if (!$pregunta || $pregunta['idModulo'] != $instructor['idModulo']) {
                             throw new Exception('Pregunta no encontrada o no autorizada');
                         }
@@ -78,65 +78,127 @@ try {
             
         case 'POST':
             try {
-                // Validar campos requeridos
-                $camposRequeridos = ['pregunta', 'idtipoPregunta', 'idtemaModulo', 'opcionA', 'opcionB', 'opcionC', 'opcionD', 'respuestaCorrecta'];
-                foreach ($camposRequeridos as $campo) {
-                    if (!isset($_POST[$campo]) || empty($_POST[$campo])) {
-                        throw new Exception("El campo $campo es requerido");
+                // Verificar si es una acción de edición
+                if (isset($_GET['accion']) && $_GET['accion'] === 'editar') {
+                    // Validar campos requeridos para edición
+                    $camposRequeridos = ['idPregunta', 'pregunta', 'opcionA', 'opcionB', 'opcionC', 'opcionD', 'respuestaCorrecta'];
+                    foreach ($camposRequeridos as $campo) {
+                        if (!isset($_POST[$campo]) || empty($_POST[$campo])) {
+                            throw new Exception("El campo $campo es requerido");
+                        }
+                    }
+                    
+                    // Procesar imagen de la pregunta si existe
+                    $imagenPregunta = null;
+                    if (isset($_FILES['imagenPregunta']) && $_FILES['imagenPregunta']['error'] === UPLOAD_ERR_OK) {
+                        $imagenPregunta = $_FILES['imagenPregunta'];
+                    }
+                    
+                    // Obtener la pregunta original para mantener el tipo y tema
+                    $preguntaOriginal = $preguntaModel->getPreguntaPorId($_POST['idPregunta']);
+                    if (!$preguntaOriginal) {
+                        throw new Exception("Pregunta no encontrada");
+                    }
+                    
+                    // Preparar datos de la pregunta para actualización
+                    $datosPregunta = [
+                        'idPregunta' => $_POST['idPregunta'],
+                        'pregunta' => $_POST['pregunta'],
+                        'idtipoPregunta' => $preguntaOriginal['idtipoPregunta'],
+                        'idtemaModulo' => $preguntaOriginal['idtemaModulo'],
+                        'idModulo' => $preguntaOriginal['idModulo'],
+                        'imagenPregunta' => $imagenPregunta
+                    ];
+                    
+                    // Preparar datos de las respuestas
+                    $respuestas = [
+                        [
+                            'texto' => $_POST['opcionA'],
+                            'esCorrecta' => $_POST['respuestaCorrecta'] == 0
+                        ],
+                        [
+                            'texto' => $_POST['opcionB'],
+                            'esCorrecta' => $_POST['respuestaCorrecta'] == 1
+                        ],
+                        [
+                            'texto' => $_POST['opcionC'],
+                            'esCorrecta' => $_POST['respuestaCorrecta'] == 2
+                        ],
+                        [
+                            'texto' => $_POST['opcionD'],
+                            'esCorrecta' => $_POST['respuestaCorrecta'] == 3
+                        ]
+                    ];
+                    
+                    // Actualizar pregunta y respuestas
+                    $resultado = $preguntaModel->actualizarPregunta($datosPregunta, $respuestas);
+                    
+                    if ($resultado) {
+                        echo json_encode(['success' => true, 'message' => 'Pregunta actualizada exitosamente']);
+                    } else {
+                        echo json_encode(['success' => false, 'message' => 'Error al actualizar la pregunta']);
+                    }
+                } else {
+                    // Código existente para crear una nueva pregunta
+                    // Validar campos requeridos
+                    $camposRequeridos = ['pregunta', 'idtipoPregunta', 'idtemaModulo', 'opcionA', 'opcionB', 'opcionC', 'opcionD', 'respuestaCorrecta'];
+                    foreach ($camposRequeridos as $campo) {
+                        if (!isset($_POST[$campo]) || empty($_POST[$campo])) {
+                            throw new Exception("El campo $campo es requerido");
+                        }
+                    }
+                    
+                    // Procesar imagen de la pregunta si existe
+                    $imagenPregunta = null;
+                    if (isset($_FILES['imagenPregunta']) && $_FILES['imagenPregunta']['error'] === UPLOAD_ERR_OK) {
+                        $imagenPregunta = $_FILES['imagenPregunta'];
+                    }
+                    
+                    // Preparar datos de la pregunta
+                    $datosPregunta = [
+                        'pregunta' => $_POST['pregunta'],
+                        'idtipoPregunta' => $_POST['idtipoPregunta'],
+                        'idtemaModulo' => $_POST['idtemaModulo'],
+                        'imagenPregunta' => $imagenPregunta
+                    ];
+                    
+                    // Verificar si el instructor tiene un módulo asignado
+                    if (!isset($instructor['idModulo']) || empty($instructor['idModulo'])) {
+                        throw new Exception("El instructor no tiene un módulo asignado");
+                    }
+                    
+                    $datosPregunta['idModulo'] = $instructor['idModulo'];
+                    
+                    // Preparar datos de las respuestas
+                    $respuestas = [
+                        [
+                            'texto' => $_POST['opcionA'],
+                            'esCorrecta' => $_POST['respuestaCorrecta'] == 0
+                        ],
+                        [
+                            'texto' => $_POST['opcionB'],
+                            'esCorrecta' => $_POST['respuestaCorrecta'] == 1
+                        ],
+                        [
+                            'texto' => $_POST['opcionC'],
+                            'esCorrecta' => $_POST['respuestaCorrecta'] == 2
+                        ],
+                        [
+                            'texto' => $_POST['opcionD'],
+                            'esCorrecta' => $_POST['respuestaCorrecta'] == 3
+                        ]
+                    ];
+                    
+                    // Guardar pregunta y respuestas
+                    $resultado = $preguntaModel->guardarPregunta($datosPregunta, $respuestas);
+                    
+                    if ($resultado) {
+                        echo json_encode(['success' => true, 'message' => 'Pregunta guardada exitosamente']);
+                    } else {
+                        error_log("Error al guardar la pregunta: No se pudo completar la operación");
+                        echo json_encode(['success' => false, 'message' => 'Error al guardar la pregunta. Por favor, intente nuevamente.']);
                     }
                 }
-                
-                // Procesar imagen de la pregunta si existe
-                $imagenPregunta = null;
-                if (isset($_FILES['imagenPregunta']) && $_FILES['imagenPregunta']['error'] === UPLOAD_ERR_OK) {
-                    $imagenPregunta = $_FILES['imagenPregunta'];
-                }
-                
-                // Preparar datos de la pregunta
-                $datosPregunta = [
-                    'pregunta' => $_POST['pregunta'],
-                    'idtipoPregunta' => $_POST['idtipoPregunta'],
-                    'idtemaModulo' => $_POST['idtemaModulo'],
-                    'imagenPregunta' => $imagenPregunta
-                ];
-                
-                // Verificar si el instructor tiene un módulo asignado
-                if (!isset($instructor['idModulo']) || empty($instructor['idModulo'])) {
-                    throw new Exception("El instructor no tiene un módulo asignado");
-                }
-                
-                $datosPregunta['idModulo'] = $instructor['idModulo'];
-                
-                // Preparar datos de las respuestas
-                $respuestas = [
-                    [
-                        'texto' => $_POST['opcionA'],
-                        'esCorrecta' => $_POST['respuestaCorrecta'] == 0
-                    ],
-                    [
-                        'texto' => $_POST['opcionB'],
-                        'esCorrecta' => $_POST['respuestaCorrecta'] == 1
-                    ],
-                    [
-                        'texto' => $_POST['opcionC'],
-                        'esCorrecta' => $_POST['respuestaCorrecta'] == 2
-                    ],
-                    [
-                        'texto' => $_POST['opcionD'],
-                        'esCorrecta' => $_POST['respuestaCorrecta'] == 3
-                    ]
-                ];
-                
-                // Guardar pregunta y respuestas
-                $resultado = $preguntaModel->guardarPregunta($datosPregunta, $respuestas);
-                
-                if ($resultado) {
-                    echo json_encode(['success' => true, 'message' => 'Pregunta guardada exitosamente']);
-                } else {
-                    error_log("Error al guardar la pregunta: No se pudo completar la operación");
-                    echo json_encode(['success' => false, 'message' => 'Error al guardar la pregunta. Por favor, intente nuevamente.']);
-                }
-                
             } catch (Exception $e) {
                 error_log('Error en pregunta.php: ' . $e->getMessage());
                 echo json_encode(['success' => false, 'message' => $e->getMessage()]);

@@ -16,7 +16,7 @@
 }
 
 /* Contenedor principal de las tarjetas en general */
-.containerI {
+.containerI{
     margin-left: 6rem;
     width: calc(100% - 5rem);
     padding: 1rem;
@@ -27,7 +27,7 @@
 }
 
 /* Título */
-.tituloI {
+.tituloI{
     color: #3c72e6f2;
     display: inline-block;
     margin-bottom: 3rem;
@@ -44,7 +44,7 @@
 }
 
 /* Grid de tarjetas (3 columnas × 2 filas = 6 tarjetas visibles) */
-.card-container {
+.card-containerI {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
@@ -82,7 +82,6 @@
     color: #343232;
     margin-bottom: 10px;
 }
-
 #listarinstructores::-webkit-scrollbar {
     height: 10px;
 }
@@ -92,21 +91,6 @@
 }
 
 /* Estilos de botones*/
-.btn-primary {
-    background-color: #3c72e6;
-    border: none;
-    color: #fff;
-    font-size: 14px;
-    padding: 6px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.btn-primary:hover {
-    background-color: var(--secundary-color);
-}
-
 .btn-danger {
     background-color: #e63c3c;
     border: none;

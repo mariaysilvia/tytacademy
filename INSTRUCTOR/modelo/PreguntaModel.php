@@ -189,7 +189,7 @@ class PreguntaModel {
     private function procesarImagen($imagen) {
         try {
             // Definir el directorio para las imágenes
-            $directorio = "/trabajos/PruebasTYT/INSTRUCTOR/publico/imagenes/";
+            $directorio = "/trabajos/PruebasTYT/INSTRUCTOR/publico/imagenes/";   
             $directorioAbsoluto = $_SERVER['DOCUMENT_ROOT'] . $directorio;
             
             // Verificar si el directorio existe, si no, crearlo
@@ -306,6 +306,71 @@ class PreguntaModel {
         } catch (PDOException $e) {
             $this->conexion->rollBack();
             error_log("Error en eliminarPregunta: " . $e->getMessage());
+            return false;
+        }
+    }
+    
+    // Actualiza una pregunta existente y sus respuestas
+    // @param array $datosPregunta Datos actualizados de la pregunta
+    // @param array $respuestas Respuestas actualizadas de la pregunta
+    // @return bool True si se actualizó correctamente
+    public function actualizarPregunta($datosPregunta, $respuestas) {
+        try {
+            // Verificar que la pregunta exista
+            $preguntaOriginal = $this->getPreguntaPorId($datosPregunta['idPregunta']);
+            if (!$preguntaOriginal) {
+                error_log("Error en actualizarPregunta: La pregunta con ID " . $datosPregunta['idPregunta'] . " no existe");
+                return false;
+            }
+            
+            $this->conexion->beginTransaction();
+            
+            // Procesar imagen si existe
+            $rutaImagen = $preguntaOriginal['imagen']; // Mantener la imagen original por defecto
+            if (isset($datosPregunta['imagenPregunta']) && $datosPregunta['imagenPregunta'] !== null) {
+                $nuevaRutaImagen = $this->procesarImagen($datosPregunta['imagenPregunta']);
+                if ($nuevaRutaImagen !== null) {
+                    // Si hay una imagen anterior, eliminarla
+                    if (!empty($preguntaOriginal['imagen']) && file_exists($preguntaOriginal['imagen'])) {
+                        unlink($preguntaOriginal['imagen']);
+                    }
+                    $rutaImagen = $nuevaRutaImagen;
+                }
+            }
+            
+            // Actualizar pregunta
+            $query = "UPDATE Pregunta SET pregunta = ?, imagen = ? WHERE idPregunta = ?";
+            $stmt = $this->conexion->prepare($query);
+            $stmt->execute([
+                $datosPregunta['pregunta'],
+                $rutaImagen,
+                $datosPregunta['idPregunta']
+            ]);
+            
+            // Eliminar respuestas anteriores
+            $queryEliminar = "DELETE FROM Respuesta WHERE idPregunta = ?";
+            $stmtEliminar = $this->conexion->prepare($queryEliminar);
+            $stmtEliminar->execute([$datosPregunta['idPregunta']]);
+            
+            // Insertar nuevas respuestas
+            $query = "INSERT INTO Respuesta (respuesta, idPregunta, esCorrecta) VALUES (?, ?, ?)";
+            $stmt = $this->conexion->prepare($query);
+            
+            foreach ($respuestas as $respuesta) {
+                $stmt->execute([
+                    $respuesta['texto'],
+                    $datosPregunta['idPregunta'],
+                    $respuesta['esCorrecta'] ? 1 : 0
+                ]);
+            }
+            
+            $this->conexion->commit();
+            error_log("Pregunta actualizada exitosamente con ID: " . $datosPregunta['idPregunta']);
+            return true;
+            
+        } catch (Exception $e) {
+            $this->conexion->rollBack();
+            error_log("Error en actualizarPregunta: " . $e->getMessage());
             return false;
         }
     }

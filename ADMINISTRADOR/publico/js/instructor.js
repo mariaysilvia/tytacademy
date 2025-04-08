@@ -402,4 +402,3 @@ function eliminarInstructor(id) {
         });
     }
 }
-

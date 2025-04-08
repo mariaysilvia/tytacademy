@@ -67,6 +67,15 @@ async function manejarEnvioFormulario(e) {
         }
     });
     
+    // No incluimos idtipoPregunta ni idtemaModulo en el formData
+    formData.delete('idtipoPregunta');
+    formData.delete('idtemaModulo');
+    
+    // Agregar las opciones de respuesta al formData
+    formData.append('opcionA', document.getElementById('opcionA-text').value);
+    formData.append('opcionB', document.getElementById('opcionB-text').value);
+    formData.append('opcionC', document.getElementById('opcionC-text').value);
+    formData.append('opcionD', document.getElementById('opcionD-text').value);
     formData.append('respuestaCorrecta', respuestaCorrecta);
     
     try {
