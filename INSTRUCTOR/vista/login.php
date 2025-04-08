@@ -16,12 +16,12 @@
 <body>
     <div id="video-background">
         <video autoplay muted loop>
-            <source src="../publico/videos/fonditilloAZUL.mp4" type="video/mp4">
+            <source src="../publico/imagenesinstructor/fonditilloAZUL.mp4" type="video/mp4">
         </video>
     </div>
     <section class="form-register">
         <a href="../vista/principal.html">
-            <img src="../publico/imagenes/tytacademy.png" alt="TYTAcademy">
+            <img src="../publico/imagenesinstructor/tytacademy.png" alt="TYTAcademy">
         </a>
         <h2>Inicio de sesión del instructor</h2>
         <div class="form-container">
@@ -43,56 +43,10 @@
             <div id="loginMessage" class="mensaje" style="display: none;"></div>
         </div>
     </section> 
-<!--footer-->
-<footer class="footer-distributed">
-    <div class="footer-left">
-        <div class="logo">
-            <img src="../publico/imagenes/tytacademy.png" alt="TYTAcademy">
-        </div>
-        <p class="footer-links">
-            <a href="#">Inicio</a>
-            |
-            <a href="#">Nosotros</a>
-            |
-            <a href="#">Contactos</a>
-            |
-            <a href="#">SENA</a>
-        </p>
 
-        <p class="footer-company-name">Copyright 2025 <strong> TYTACADEMY </strong> Derechos reservados</p>
+    <!--boton de ir hacia arriba-->
 
-    </div>
-    <div class="footer-center">
-        <div>
-            <i class="fa-solid fa-location-dot"></i>
-            <p><span>SENA</span>CIMM</p>
-        </div>
-
-        <div>
-            <i class="fa fa-phone"></i>
-            <p>3206831437 </p> | <p> 3132630302</p> 
-        </div>
-
-        <div>
-            <i class="fa fa-envelope"></i><!--correo tyt-->
-            <p><a href="mailto:tytacademy28@gmail.com">tytacademy28@gmail.com</a></p>
-        </div>
-    </div>
-
-    <div class="footer-right">
-        <p class="footer-company-about">
-        <span>Sobre el sitio web.</span>
-        <strong>TYT ACADEMY</strong> Estudia para las pruebas TYT de manera rapida y efectiva. <p>Simulacros aleatorios que te ayudan a un mejor desempeño para el resultado que tanto aspiras a obtener.
-    </p>
-    <div class="footer-icons">
-        <a href="https://www.instagram.com/tytacademy28/?next=%2F" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-        <a href="https://x.com/AcademyTyt28" target="_blank"><i class="fa-brands fa-twitter"></i></a>
-    </div>
-    </div>
-</footer>
-
-<!-- Agregar el script de JavaScript -->
-<script src="../publico/js/logininstructor.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</body>
-</html> 
+<div id="button-up">
+    <i class="fa-solid fa-chevron-up"></i>
+</div>
+    <?php include '../vista/footerINSTRUCTOR.php'; ?> <!-- Incluye el footer aquí -->

@@ -1,93 +1,102 @@
-<?php include '../vista/navbarINSTRUCTOR.php'; ?> <!-- Incluye el navbar aquí -->
+<?php 
+session_start();
+if (!isset($_SESSION['instructor'])) {
+    header('Location: login.php');
+    exit();
+}
+include 'navbarINSTRUCTOR.php'; 
 
+require_once '../../config/conexion.php';
+require_once '../modelo/PreguntaModel.php';
+
+$instructor = $_SESSION['instructor'];
+$preguntaModel = new PreguntaModel($pdo);
+
+// Obtener las preguntas del instructor
+$idModulo = $instructor['idModulo'];
+$preguntas = $preguntaModel->getPreguntasModulo($idModulo);
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Pruebas TYT</title>
+    <link rel="stylesheet" href="../publico/css/creaciondelaspruebas.css">
+    <style>
+        .card {
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .card-img-top {
+            max-height: 200px;
+            object-fit: contain;
+        }
+        .pregunta-imagen {
+            max-width: 100%;
+            max-height: 200px;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
     <div id="video-background">
         <video autoplay muted loop>
             <source src="../publico/imagenesinstructor/fonfocreaciondelaspruebas.mp4" type="video/mp4">
         </video>
     </div>
 
-
-    <!--cartas para la aparicion de las preguntas-->
-<br>
-<br>
-
-<div class="row row-cols-1 row-cols-md-2 g-4">
-<br>
-<br>
-<div class="card mb-4" style="width: 18rem;">
-    <img src="../publico/imagenesinstructor/comunicaciontexto-1.png" class="card-img-top" alt="...">
-    <div class="card-body">
-    <h6 class="card-title"><strong>Modulo: </strong>Comunicación</h6>
-    <p class="card-text">¿Como puede desarrollar su texto?</p>
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Mis Preguntas</h1>
+        
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            <?php if (empty($preguntas)): ?>
+                <div class="col-12">
+                    <div class="alert alert-info">
+                        No tienes preguntas creadas todavía. <a href="creaciondelaspruebasTYT.php">Crear una pregunta</a>
+                    </div>
+                </div>
+            <?php else: ?>
+                <?php foreach ($preguntas as $pregunta): ?>
+                    <div class="col">
+                        <div class="card mb-4" style="width: 18rem;" data-pregunta-id="<?php echo $pregunta['idPregunta']; ?>">
+                            <?php if (!empty($pregunta['imagen'])): ?>
+                                <img src="<?php echo htmlspecialchars($pregunta['imagen']); ?>" class="card-img-top pregunta-imagen" alt="Imagen de la pregunta">
+                            <?php endif; ?>
+                            
+                            <div class="card-body">
+                                <h6 class="card-title"><strong>Modulo: </strong><?php echo htmlspecialchars($pregunta['temaModulo']); ?></h6>
+                                <p class="card-text"><?php echo htmlspecialchars($pregunta['pregunta']); ?></p>
+                            </div>
+                            
+                            <?php
+                            // Obtener las respuestas de la pregunta
+                            $respuestas = $preguntaModel->getRespuestasPregunta($pregunta['idPregunta']);
+                            if (!empty($respuestas)):
+                            ?>
+                            <ul class="list-group list-group-flush">
+                                <?php foreach ($respuestas as $respuesta): ?>
+                                    <li class="list-group-item <?php echo $respuesta['esCorrecta'] ? 'list-group-item-success' : ''; ?>">
+                                        <strong><?php echo $respuesta['esCorrecta'] ? '✓ ' : ''; ?></strong>
+                                        <?php echo htmlspecialchars($respuesta['respuesta']); ?>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                            <?php endif; ?>
+                            
+                            <div class="card-body">
+                                <a href="editarpregunta.html?id=<?php echo $pregunta['idPregunta']; ?>" class="card-link">Editar</a>
+                                <a href="#" class="card-link text-danger" data-eliminar-pregunta="<?php echo $pregunta['idPregunta']; ?>">Eliminar</a>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
     </div>
-    <ul class="list-group list-group-flush">
-    <li class="list-group-item"><strong>A. </strong> Jugar al PC.</li>
-    <li class="list-group-item"><strong>B. </strong> Leyendo muchos libros.</li>
-    <li class="list-group-item"><strong>C. </strong> Si.</li>
-    <li class="list-group-item"><strong>D. </strong> Nada.</li>
-    </ul>
-    <div class="card-body">
-    <a href="#" class="card-link">Editar</a>
-    <a href="#" class="card-link">Eliminar</a>
-    </div>
-</div>
-
-<div class="card mb-4" style="width: 18rem;">
-    <img src="../publico/imagenesinstructor/texto_1-10LC.png" class="card-img-top" alt="...">
-    <div class="card-body">
-    <h6 class="card-title"><strong>Modulo: </strong>Lectura Critica</h6>
-    <p class="card-text">¿Cuál es la importancia de la lectura critica en las pruebas tyt?</p>
-    </div>
-    <ul class="list-group list-group-flush">
-    <li class="list-group-item"><strong>A. </strong> Si.</li>
-    <li class="list-group-item"><strong>B. </strong> No.</li>
-    <li class="list-group-item"><strong>C. </strong> Creo.</li>
-    <li class="list-group-item"><strong>D. </strong> Obvio.</li>
-    </ul>
-    <div class="card-body">
-    <a href="#" class="card-link">Editar</a>
-    <a href="#" class="card-link">Eliminar</a>
-    </div>
-</div>
-
-<div class="card mb-4" style="width: 18rem;">
-    <img src="../publico/imagenesinstructor/inglestexto_1.png" class="card-img-top" alt="...">
-    <div class="card-body">
-    <h6 class="card-title"><strong>Modulo: </strong>Inglés</h6>
-    <p class="card-text">¿What is your favorite food?</p>
-    </div>
-    <ul class="list-group list-group-flush">
-    <li class="list-group-item"><strong>A. </strong> Yes, I have 16 years old.</li>
-    <li class="list-group-item"><strong>B. </strong> Yes, 1:00pm.</li>
-    <li class="list-group-item"><strong>C. </strong> No, my name is parlotita.</li>
-    <li class="list-group-item"><strong>D. </strong> My favorite food is pizza.</li>
-    </ul>
-    <div class="card-body">
-    <a href="#" class="card-link">Editar</a>
-    <a href="#" class="card-link">Eliminar</a>
-    </div>
-</div>
-
-<div class="card mb-4" style="width: 18rem;">
-    <h6>Un tren sale de la ciudad A a las 8:00 AM y viaja a una velocidad constante de 60 km/h.
-    Otro tren sale de la ciudad B a las 9:00 AM y viaja en la misma dirección a una velocidad constante de 80 km/h.
-    Si la distancia entre la ciudad A y la ciudad B es de 200 km, ¿a qué hora se encontrarán los dos trenes?</h6>
-    <div class="card-body">
-    <h6 class="card-title"><strong>Modulo: </strong>Razonamiento Cuantitativo</h6>
-    <p class="card-text">¿Como puedes hacer la ecuación del texto?</p>
-    </div>
-    <ul class="list-group list-group-flush">
-    <li class="list-group-item"><strong>A. </strong> 1236 metros.</li>
-    <li class="list-group-item"><strong>B. </strong> 123 litros.</li>
-    <li class="list-group-item"><strong>C. </strong> No.</li>
-    <li class="list-group-item"><strong>D. </strong> Si.</li>
-    </ul>
-    <div class="card-body">
-    <a href="#" class="card-link">Editar</a>
-    <a href="#" class="card-link">Eliminar</a>
-    </div>
-</div>
-
-</div>
-
-<?php include '../vista/footerINSTRUCTOR.php'; ?> <!-- Incluye el footer aquí -->
+    
+    <script src="../publico/js/verlaspruebasTYT.js"></script>
+    <?php include 'footerINSTRUCTOR.php'; ?>
+</body>
+</html>

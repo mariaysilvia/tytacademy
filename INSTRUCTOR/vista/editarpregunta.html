@@ -1,18 +1,9 @@
-<?php 
-session_start();
-if (!isset($_SESSION['instructor'])) {
-    header('Location: login.php');
-    exit();
-}
-include 'navbarINSTRUCTOR.php'; 
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creación de Preguntas</title>
+    <title>Editar Pregunta</title>
     <link rel="stylesheet" href="../publico/css/creaciondelaspruebas.css">
 </head>
 <body>
@@ -25,9 +16,11 @@ include 'navbarINSTRUCTOR.php';
     <div id="mensaje" class="mensaje" style="display: none;"></div>
 
     <div class="container">
-        <h1>Creación de Preguntas</h1>
+        <h1>Editar Pregunta</h1>
         
-        <form id="formPregunta" enctype="multipart/form-data">
+        <form id="formEditarPregunta" enctype="multipart/form-data">
+            <input type="hidden" id="idPregunta" name="idPregunta">
+            
             <div class="form-group">
                 <label for="idtipoPregunta">Tipo de Pregunta:</label>
                 <select id="idtipoPregunta" name="idtipoPregunta" required>
@@ -49,7 +42,9 @@ include 'navbarINSTRUCTOR.php';
             
             <div class="form-group">
                 <label for="imagenPregunta">Imagen de la Pregunta (opcional):</label>
+                <div id="imagenActual" class="mb-2"></div>
                 <input type="file" id="imagenPregunta" name="imagenPregunta" accept="image/*">
+                <small class="form-text text-muted">Deja este campo vacío si no deseas cambiar la imagen.</small>
             </div>
             
             <div class="form-group">
@@ -75,21 +70,17 @@ include 'navbarINSTRUCTOR.php';
                         <label for="opcionD">Opción D</label>
                         <textarea id="opcionD-text" rows="2" cols="50" placeholder="Ingrese su opción."></textarea>
                     </div>
-                    <div class="linea"></div>
-                    <div class="opcion-container">
-                        <label for="más">¿Desea agregar más opciones?</label>
-                        <a href="#" class="opcion-enlace" onclick="agregarOpcion(); return false;">Más opciones</a>
-                    </div>
                 </div>
             </div>
             
             <div class="form-group">
-                <button type="submit">Guardar Pregunta</button>
+                <button type="submit">Guardar Cambios</button>
+                <a href="verlaspruebasTYT.php" class="btn btn-secondary">Cancelar</a>
             </div>
         </form>
     </div>
     
     <script src="../publico/js/opcionesdelaspruebas.js"></script>
-    <script src="../publico/js/creacionpreguntas.js"></script>
+    <script src="../publico/js/editarpregunta.js"></script>
 </body>
-</html>
+</html> 

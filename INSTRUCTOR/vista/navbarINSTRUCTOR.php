@@ -52,7 +52,7 @@
             </div>
             <div class="modal-body">
                 <div class="text-center mb-4">
-                    <img src="../publico/imagenes/fotoanteojos.jpg" class="rounded-circle" alt="Foto de perfil" style="width: 150px; height: 150px; object-fit: cover;">
+                    <img src="" class="rounded-circle" alt="Foto de perfil" style="width: 150px; height: 150px; object-fit: cover;">
                 </div>
                 <div class="row">
                     <div class="col-md-12">
