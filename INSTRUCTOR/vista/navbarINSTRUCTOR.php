@@ -18,30 +18,30 @@
 </head>
 
 <header>
-        <div class="header_superior">
-            <div class="logo"> 
-                <img src="../publico/imagenesinstructor/tytacademy.png" alt="TYT Academy Logo">
-            </div>
+    <div class="header_superior">
+        <div class="logo"> 
+            <img src="../publico/imagenesinstructor/tytacademy.png" alt="TYT Academy Logo">
         </div>
-        <div class="container_menu">
-            <div class="menu">
-                <nav>
-                    <ul>
-                        <li><a href="../vista/inicioinstructor.php" id="selected"></a></li><!--inicio-->
-                        <br>
-                        <li><a href="../vista/pruebasINSTRUCTOR.php">Pruebas</a></li>
-                        <li><a href="#" onclick="abrirModal()">Mi perfil</a>
-                            <ul>
-                                <li><a href="#" onclick="abrirModal()">Ver perfil</a></li>
-                                <li><a href="#">Cerrar sesión</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+    </div>
+    <div class="container_menu">
+        <div class="menu">
+            <nav>
+                <ul>
+                    <li><a href="../vista/inicioinstructor.php" id="selected"></a></li>
+                    <br>
+                    <li><a href="../vista/pruebasINSTRUCTOR.php">Pruebas</a></li>
+                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#verPerfilModal">Mi perfil</a>
+                        <ul>
+                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#verPerfilModal">Ver perfil</a></li>
+                            <li><a href="#">Cerrar sesión</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
         </div>
-        
-        <!-- Modal para Ver Perfil -->
+    </div>
+</header>
+
 <!-- Modal para Ver Perfil -->
 <div class="modal fade" id="verPerfilModal" tabindex="-1" aria-labelledby="verPerfilModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -56,10 +56,15 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
+                        <p><strong>Documento:</strong> <span id="perfilDocumento" class="dato-perfil"></span></p>
                         <p><strong>Nombre:</strong> <span id="perfilNombre" class="dato-perfil"></span></p>
                         <p><strong>Apellido:</strong> <span id="perfilApellido" class="dato-perfil"></span></p>
-                        <p><strong>Correo:</strong> <span id="perfilEmail" class="dato-perfil"></span></p>
-                        <p><strong>Contraseña:</strong> <span id="perfilRol" class="dato-perfil"></span></p>
+                        <p><strong>Email:</strong> <span id="perfilEmail" class="dato-perfil"></span></p>
+                        <p><strong>Contraseña:</strong> <span id="perfilClave" class="dato-perfil"></span></p>
+                        <p><strong>Celular:</strong> <span id="perfilCelular" class="dato-perfil"></span></p>
+                        <p><strong>Estado:</strong> <span id="perfilEstado" class="dato-perfil"></span></p>
+                        <p><strong>Módulo:</strong> <span id="perfilModulo" class="dato-perfil" style="pointer-events: none; color: gray;"></span></p>
+                        <small class="text-muted">El módulo no puede ser editado.</small>
                     </div>
                 </div>
             </div>
@@ -72,13 +77,8 @@
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="../publico/js/perfilInstructor.js"></script>
 
-        
-        <script>
-            function abrirModal() {
-                var myModal = new bootstrap.Modal(document.getElementById('verPerfilModal'));
-                myModal.show();
-            }
-        </script>
-        
-</header>
+</body>
+</html>

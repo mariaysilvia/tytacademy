@@ -43,6 +43,9 @@ try {
     if ($instructor) {
         // Iniciar sesión
         if ($loginModel->iniciarSesion($instructor)) {
+            // Asegúrate de que se guarde el ID del instructor en la sesión
+            $_SESSION['id_instructor'] = $instructor['idInstructor'];
+    
             echo json_encode([
                 'success' => true,
                 'message' => 'Login exitoso',
