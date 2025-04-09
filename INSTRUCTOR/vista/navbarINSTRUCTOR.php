@@ -52,7 +52,7 @@
             </div>
             <div class="modal-body">
                 <div class="text-center mb-4">
-                    <img src="" class="rounded-circle" alt="Foto de perfil" style="width: 150px; height: 150px; object-fit: cover;">
+                    <img src="../publico/imagenperfil/fotopredeterminada.jpg" class="rounded-circle" alt="Foto de perfil" style="width: 150px; height: 150px; object-fit: cover;">
                 </div>
                 <div class="row">
                     <div class="col-md-12">
@@ -60,9 +60,7 @@
                         <p><strong>Nombre:</strong> <span id="perfilNombre" class="dato-perfil"></span></p>
                         <p><strong>Apellido:</strong> <span id="perfilApellido" class="dato-perfil"></span></p>
                         <p><strong>Email:</strong> <span id="perfilEmail" class="dato-perfil"></span></p>
-                        <p><strong>Contraseña:</strong> <span id="perfilClave" class="dato-perfil"></span></p>
                         <p><strong>Celular:</strong> <span id="perfilCelular" class="dato-perfil"></span></p>
-                        <p><strong>Estado:</strong> <span id="perfilEstado" class="dato-perfil"></span></p>
                         <p><strong>Módulo:</strong> <span id="perfilModulo" class="dato-perfil" style="pointer-events: none; color: gray;"></span></p>
                         <small class="text-muted">El módulo no puede ser editado.</small>
                     </div>
