@@ -276,14 +276,7 @@ body{
     font-weight: 600;
 }
 .services p{
-    font-size: 25px;
-    font-style: italic;
-    
-}
-.services h5{
-    font-size: 27px;
-    font-weight: 700;
-    color: var(--primary-color);
+    font-size: 22px;
 }
 
 .title::before{
@@ -310,42 +303,49 @@ body{
 }
 
 /*modulos*/
-.module-cards {
+.tarjetas {
     display: flex;
     justify-content: space-around; 
     flex-wrap: wrap; 
 }
 
-.module-card {
+.card {
     width: 250px;
-    height: 350px;
+    height: 270px;
     border: 5px solid #ccc;
     border-radius: 5px;
     margin: 15px;
     padding: 13px;
     text-align: center;
     box-shadow: 4px 4px 13px rgba(16, 3, 69, 0.426); 
-    background-color: #fff;
 }
 
-.module-card:hover { 
+.card:hover { 
     box-shadow: 4px 4px 17px var(--secundary-color); 
     transition: box-shadow 0.3s ease; 
 }
+.card img{
+    width: 190px;
+    height: 235px;
+    border-radius: 17px;
 
-.module-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 6px;
     display: block;
-    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.module-card p {
-    font-size: 20px;
-    margin: 10px 0;
-    font-weight: 700;
-    color: #17377d;
+.card p{
+    font-size: 21px;
+}
+
+.card i{
+    color: blue;
+    width: 22px;
+    height: 22px;
+    
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /*acordeon*/
@@ -458,7 +458,6 @@ body{
     color: #17377d;
 
 }
-
 /*boton de ir arriba*/
 
 #button-up{
@@ -662,151 +661,5 @@ body{
 @media (max-width: 500px) {
     .logo {
         max-width: 150px;
-    }
-}
-
-/* Estilos generales */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.container {
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
-}
-
-/* Estilos del contenedor de login */
-.login-container {
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-}
-
-.login-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.login-header h2 {
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.login-header p {
-    color: #666;
-    font-size: 14px;
-}
-
-/* Estilos del formulario */
-.login-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.form-group label {
-    color: #555;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.form-group input {
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 14px;
-    transition: border-color 0.3s ease;
-}
-
-.form-group input:focus {
-    outline: none;
-    border-color: #667eea;
-}
-
-/* Estilos del botón */
-.btn-login {
-    background: #667eea;
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
-}
-
-.btn-login:hover {
-    background: #764ba2;
-}
-
-/* Estilos del mensaje */
-.mensaje {
-    padding: 12px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: 14px;
-}
-
-.mensaje.error {
-    background: #ffe6e6;
-    color: #ff3333;
-    border: 1px solid #ffcccc;
-}
-
-.mensaje.exito {
-    background: #e6ffe6;
-    color: #33cc33;
-    border: 1px solid #ccffcc;
-}
-
-/* Estilos del footer */
-.form-footer {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 14px;
-    color: #666;
-}
-
-.form-footer a {
-    color: #667eea;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.form-footer a:hover {
-    text-decoration: underline;
-}
-
-/* Estilos responsivos */
-@media (max-width: 480px) {
-    .container {
-        padding: 10px;
-    }
-    
-    .login-container {
-        padding: 20px;
     }
 }
