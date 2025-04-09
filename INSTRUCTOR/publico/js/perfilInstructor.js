@@ -20,7 +20,6 @@ function cargarPerfil() {
                 document.getElementById('perfilApellido').textContent = data.instructor.apellido || '';
                 document.getElementById('perfilEmail').textContent = data.instructor.email || '';
                 document.getElementById('perfilCelular').textContent = data.instructor.celular || '';
-                document.getElementById('perfilEstado').textContent = data.instructor.estado || '';
                 document.getElementById('perfilModulo').textContent = data.instructor.nombreModulo || '';
             } else {
                 throw new Error(data.message || 'Error al cargar el perfil');
