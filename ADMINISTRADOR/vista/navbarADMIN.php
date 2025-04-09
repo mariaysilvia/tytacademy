@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="../publico/css/listaraprendices.css">
 <link rel="stylesheet" href="../publico/css/listarinstructores.css">
 <link rel="stylesheet" href="../publico/css/adminpanel.css">
+<link rel="stylesheet" href="../publico/css/redesSociales.css">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -35,7 +36,7 @@
             <h3>Administrador</h3>
         </a>
         <a href="../vista/crearinstructor.php">
-            <span class="material-symbols-sharp">groups</span>
+            <span class="material-symbols-sharp">person_add</span>
             <h3>Crear instructores</h3>
         </a>
 
@@ -51,6 +52,11 @@
         <a href="#">
             <span class="material-symbols-sharp">file_open</span>
             <h3>Pruebas</h3>
+        </a>
+
+        <a href="../vista/redesSociales.php">
+            <span class="material-symbols-sharp">share</span>
+            <h3>Redes Sociales</h3>
         </a>
         <a href="#">
             <span class="material-symbols-sharp">logout </span>
