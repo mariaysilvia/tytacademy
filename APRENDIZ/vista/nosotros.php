@@ -28,6 +28,7 @@
             <p> 
                 Los estudiantes de la ficha 2941294 del programa de Tecnología en Análisis y Desarrollo de Software del SENA CIMM Duitama,
                 han creado este sitio web utilizando lenguajes de programación.
+                <br>
                 <img src="../publico/imagenes/guadalupe.jpeg" alt="">
                 <p class="user-details"><b>Integrante del grupo</b><br>Maria Guadalupe Patiño Perez.</p>
             </p>
@@ -37,6 +38,7 @@
         <div class="col-md-5 testimonials">
             <p>Los estudiantes de la ficha 2941294 del programa de Tecnología en Análisis y Desarrollo de Software del SENA CIMM Duitama,
                 han creado este sitio web utilizando lenguajes de programación.
+                <br>
                 <img src="../publico/imagenes/silvia.jpeg" alt="">
                 <p class="user-details"><b>Integrante del grupo </b><br>Silvia Daniela Gonzalez Castro</p>
             </p>
@@ -53,7 +55,7 @@
 <!--sobre nosotros-->
 
     <section id="about-us">
-        <div class="container">
+        <div class="containerN">
             <div class="container text-center">
                 <h1 class="title">¿Porqué se desarrolló este sitio web?</h1>
                 <br>
@@ -97,7 +99,7 @@
                 <div class="card-body">
                     <br>
                     <h5>Nuestra Misión</h5>
-                    <section class="container my-3">
+                    <section class="containerM my-3">
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#MisionModal">
                             Ver más
                         </button>
@@ -130,7 +132,7 @@
                 <div class="card-body">
                     <br>
                     <h5>Nuestra Visión</h5>
-                    <section class="container my-3">
+                    <section class="containerV my-3">
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#VisionModal">
                             Ver más
                         </button>
@@ -164,7 +166,7 @@
                 <div class="card-body">
                     <br>
                     <h5>Nuestros Valores</h5>
-                    <section class="container my-3">
+                    <section class="containerL my-3">
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ValoresModal">
                             Ver más
                         </button>
@@ -204,7 +206,7 @@
 <br>
 <br>    
     <section id="about-us">
-        <div class="container">
+        <div class="containerQ">
             <div class="container text-center">
                 <h1 class="title">¿Para quienes se desarrolló?</h1>
                 <br>
