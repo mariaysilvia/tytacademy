@@ -19,30 +19,31 @@
         </video>
     </div>
     <section class="form-register">
-            <img src="imagenesVideos/tytacademy.png" alt="TYTAcademy">
-        </a>
+        <img src="imagenesVideos/tytacademy.png" alt="TYTAcademy">
         <h2>¿Quieres prepararte para Lectura Critica?</h2>
         <h4>¡Realiza el simulacro de las pruebas TYT de Lectura Critica!</h4>
         <br>
         <h6>Define las caracteristicas de la prueba</h6>
-        <form action="../simulacropruebas/prueba10critica.html">
+        <form action="../simulacropruebas/prueba10critica.html" method="GET" id="formPrueba">
             <label for="areas">¿Qué tipo de textos desea practicar?:</label>
             <select class="controls" name="areas" id="areas" required>
                 <option value="todos">Todos</option>
                 <option value="area1">Discontinuos</option>
                 <option value="area2">Continuos</option>
-                </select>
+            </select>
 
-                <label for="preguntas">¿Qué cantidad de preguntas desea en su prueba?:</label>
-                <select class="controls" name="preguntas" id="preguntas" required>
-                    <option value="todas">Todas</option>
-                    <option value="10">10 Preguntas</option>
-                    <option value="20">20 Preguntas</option>
-                    </select>
-                
+            <label for="preguntas">¿Qué cantidad de preguntas desea en su prueba?:</label>
+            <select class="controls" name="preguntas" id="preguntas" required>
+                <option value="todas">Todas</option>
+                <option value="10">10 Preguntas</option>
+                <option value="20">20 Preguntas</option>
+            </select>
+            
             <input class="botons" type="submit" value="Comenzar">
             <p><a href="../APRENDIZ/vista/PRUEBAS.php">Cambiar de modulo</a></p>
         </form>
     </section>
 
-    <?php include 'footerFORMULARIOS.php'; ?> <!-- Incluye el footer aquí -->
+    <?php include 'footerFORMULARIOS.php'; ?>
+</body>
+</html>

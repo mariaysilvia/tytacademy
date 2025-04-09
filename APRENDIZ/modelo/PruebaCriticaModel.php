@@ -32,9 +32,28 @@ class PruebaCriticaModel extends PruebaModel {
         ];
     }
 
-    protected function guardarResultados($aciertos, $totalPreguntas) {
-        // Aquí se implementaría la lógica para guardar los resultados en la base de datos
-        // Por ahora es un placeholder
-        return true;
+    public function guardarResultados($idAprendiz, $preguntas, $respuestas) {
+        try {
+            $this->pdo->beginTransaction();
+
+            // Insertar el intento de prueba
+            $stmt = $this->pdo->prepare("INSERT INTO IntentosPrueba (idAprendiz, tipoPrueba, fecha) VALUES (?, ?, NOW())");
+            $stmt->execute([$idAprendiz, $this->tipoPrueba]);
+            $idIntento = $this->pdo->lastInsertId();
+
+            // Insertar las respuestas
+            $stmt = $this->pdo->prepare("INSERT INTO RespuestasAprendiz (idIntento, idPregunta, idRespuesta) VALUES (?, ?, ?)");
+            
+            foreach ($respuestas as $idPregunta => $idRespuesta) {
+                $stmt->execute([$idIntento, $idPregunta, $idRespuesta]);
+            }
+
+            $this->pdo->commit();
+            return true;
+        } catch (PDOException $e) {
+            $this->pdo->rollBack();
+            error_log("Error al guardar resultados: " . $e->getMessage());
+            return false;
+        }
     }
 } 
