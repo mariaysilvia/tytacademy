@@ -341,15 +341,15 @@ video {
     box-shadow: 4px 4px 8px 4px rgba(0,0,0,0.5);
 }
 
-/*informacion*/
-.title {
+/*TITULOS DE TODO */
+.titleING {
     color: #222121;
     font-size: 40px;
     font-weight: 800;
     margin-bottom: 20px;
 
 }
-.title::before{
+.titleING::before{
     content: '';
     background: var(--primary-color);
     height: 5px;
@@ -360,7 +360,7 @@ video {
     transform: translateY(63px);
 }
 
-.title::after{
+.titleING::after{
     content: '';
     background: var(--primary-color);
     height: 10px;
@@ -371,6 +371,7 @@ video {
     display: block;
     transform: translateY(8px);
 }
+
 .botones{
     border: none;
     background-color: var(--secundary-color);
@@ -576,6 +577,8 @@ video {
 .contenedor-2ING {
     display: flex;
 }
+
+
 /*boton de ir arriba*/
 
 #button-up{
@@ -601,6 +604,8 @@ video {
     transform: scale(1.1);
     border-color: rgba(0,0,0,0.1);
 }
+
+
 
 /*footer*/
 

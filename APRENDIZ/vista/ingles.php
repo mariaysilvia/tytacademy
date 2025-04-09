@@ -59,7 +59,8 @@
             </p>
             <h4 id="list-item-3">Tipo de preguntas</h4>
             <p>Las preguntas presentadas en este modulo son de selección multiple con unica respuesta:
-            <img src="../publico/imagenes/preguntaINGLES.png" alt=""><br>
+            <img src="../publico/imagenes/preguntadeingles.png" alt=""><br>
+            <img src="../publico/imagenes/respuestapreguntaINGLES.png" alt=""><br>
             Se podria decir que la forma de contestarlas es mediante un cuadernillo de respuestas señalando una sola:
             <img src="../publico/imagenes/respuestaINGLES.png" alt="">
             </p>
