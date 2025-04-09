@@ -317,61 +317,160 @@ function eliminarAprendiz(id) {
 // Función para cargar los instructores
 function cargarInstructores() {
     fetch('../controlador/listarinstructores.php')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
-            const listarinstructores = document.getElementById('listarinstructores');
-            if (!listarinstructores) {
-                console.error('El elemento con ID "listarinstructores" no existe en esta página.');
-                return;
-            }
+            const cardContainer = document.querySelector('.card-containerI');
+            cardContainer.innerHTML = '';
 
-            listarinstructores.innerHTML = ''; // Limpiar el contenedor
-
-            if (!data.success) {
-                listarinstructores.innerHTML = `<p>${data.message}</p>`;
-                return;
-            }
-
-            // Crear el contenedor para las tarjetas
-            const cardContainer = document.createElement('div');
-            cardContainer.classList.add('card-container');
-
-            // Calcular columnas necesarias (mínimo 3)
-            const columnCount = Math.max(3, Math.ceil(data.data.length / 2));
-            cardContainer.style.gridTemplateColumns = `repeat(${columnCount}, 1fr)`;
-            cardContainer.style.width = `calc(300px * ${columnCount} + 20px * ${columnCount - 1})`;
-
-            // Iterar sobre cada instructor y crear una tarjeta para cada uno
             data.data.forEach(instructor => {
                 const card = document.createElement('div');
-                card.className = 'card-instructor';
+                card.className = 'cardI';
                 card.innerHTML = `
-                    <div class="card-body">
-                        <h5 class="card-title">${instructor.nombre} ${instructor.apellido}</h5>
-                        <p class="card-text"><strong>Documento: </strong>${instructor.documento}</p>
-                        <p class="card-text"><strong>Correo: </strong>${instructor.email}</p>
-                        <p class="card-text"><strong>Celular: </strong>${instructor.celular ? instructor.celular : 'No registrado'}</p>
-                        <p class="card-text"><strong>Módulo: </strong>${instructor.nombreModulo || instructor.idModulo}</p>
-                        <div class="button-group">
-                            <button class="btn btn-primary btn-sm" onclick="editarInstructor(${instructor.idInstructor})">Editar</button>
-                            <button class="btn btn-danger btn-sm" onclick="eliminarInstructor(${instructor.idInstructor})">Eliminar</button>
+                    <div class="card-contentI">
+                        <div class="card-headerI">
+                            <h3>${instructor.nombre} ${instructor.apellido}</h3>
+                            <div class="card-actionsI">
+                                <button class="edit-btn" onclick="toggleEditMode(${instructor.idInstructor})">
+                                    <span class="material-symbols-sharp">edit</span>
+                                </button>
+                                <button class="delete-btn" onclick="eliminarInstructor(${instructor.idInstructor})">
+                                    <span class="material-symbols-sharp">delete</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-bodyI">
+                            <div class="info-groupI">
+                                <label>Documento:</label>
+                                <span class="view-mode" id="documento_${instructor.idInstructor}">${instructor.documento}</span>
+                                <input type="text" class="edit-mode" id="edit_documento_${instructor.idInstructor}" value="${instructor.documento}" style="display: none;">
+                            </div>
+                            <div class="info-groupI">
+                                <label>Nombres:</label>
+                                <span class="view-mode" id="nombres_${instructor.idInstructor}">${instructor.nombre}</span>
+                                <input type="text" class="edit-mode" id="edit_nombres_${instructor.idInstructor}" value="${instructor.nombre}" style="display: none;">
+                            </div>
+                            <div class="info-groupI">
+                                <label>Apellidos:</label>
+                                <span class="view-mode" id="apellidos_${instructor.idInstructor}">${instructor.apellido}</span>
+                                <input type="text" class="edit-mode" id="edit_apellidos_${instructor.idInstructor}" value="${instructor.apellido}" style="display: none;">
+                            </div>
+                            <div class="info-groupI">
+                                <label>Correo:</label>
+                                <span class="view-mode" id="correo_${instructor.idInstructor}">${instructor.email}</span>
+                                <input type="email" class="edit-mode" id="edit_correo_${instructor.idInstructor}" value="${instructor.email}" style="display: none;">
+                            </div>
+                            <div class="info-groupI">
+                                <label>Celular:</label>
+                                <span class="view-mode" id="celular_${instructor.idInstructor}">${instructor.celular || 'No especificado'}</span>
+                                <input type="text" class="edit-mode" id="edit_celular_${instructor.idInstructor}" value="${instructor.celular || ''}" style="display: none;">
+                            </div>
+                            <div class="info-groupI">
+                                <label>Módulo:</label>
+                                <span class="view-mode" id="modulo_${instructor.idInstructor}">${instructor.nombreModulo || 'No asignado'}</span>
+                                <select class="edit-mode" id="edit_modulo_${instructor.idInstructor}" style="display: none;">
+                                    <option value="">Seleccione un módulo</option>
+                                </select>
+                            </div>
+                            <div class="edit-actions" style="display: none;">
+                                <button class="save-btn" onclick="guardarCambiosInstructor(${instructor.idInstructor})">Guardar</button>
+                                <button class="cancel-btn" onclick="toggleEditMode(${instructor.idInstructor})">Cancelar</button>
+                            </div>
                         </div>
                     </div>
                 `;
                 cardContainer.appendChild(card);
+                
+                // Cargar opciones del módulo para el select
+                const moduloSelect = document.getElementById(`edit_modulo_${instructor.idInstructor}`);
+                if (moduloSelect) {
+                    fetch('../controlador/instructor.php', {
+                        method: 'POST',
+                        body: JSON.stringify({ action: 'getModulos' }),
+                        headers: { 'Content-Type': 'application/json' }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            data.data.forEach(modulo => {
+                                const option = document.createElement('option');
+                                option.value = modulo.idModulo;
+                                option.textContent = modulo.modulo;
+                                if (modulo.idModulo === instructor.idModulo) {
+                                    option.selected = true;
+                                }
+                                moduloSelect.appendChild(option);
+                            });
+                        }
+                    });
+                }
             });
-
-            listarinstructores.appendChild(cardContainer);
         })
         .catch(error => {
-            console.error('Error al cargar instructores:', error);
-            alert('Error al cargar los instructores: ' + error.message);
+            console.error('Error:', error);
+            alert('Error al cargar los instructores');
         });
+}
+
+function toggleEditMode(id) {
+    const card = document.querySelector(`#documento_${id}`).closest('.cardI');
+    const viewModeElements = card.querySelectorAll('.view-mode');
+    const editModeElements = card.querySelectorAll('.edit-mode');
+    const editActions = card.querySelector('.edit-actions');
+    
+    if (viewModeElements[0].style.display !== 'none') {
+        // Cambiar a modo edición
+        viewModeElements.forEach(el => el.style.display = 'none');
+        editModeElements.forEach(el => el.style.display = 'block');
+        editActions.style.display = 'block';
+    } else {
+        // Cambiar a modo visualización
+        viewModeElements.forEach(el => el.style.display = 'inline');
+        editModeElements.forEach(el => el.style.display = 'none');
+        editActions.style.display = 'none';
+    }
+}
+
+function guardarCambiosInstructor(id) {
+    const requestData = {
+        action: 'editarInstructor',
+        id: id,
+        documento: document.getElementById(`edit_documento_${id}`).value,
+        nombre: document.getElementById(`edit_nombres_${id}`).value,
+        apellido: document.getElementById(`edit_apellidos_${id}`).value,
+        email: document.getElementById(`edit_correo_${id}`).value,
+        celular: document.getElementById(`edit_celular_${id}`).value,
+        modulo: document.getElementById(`edit_modulo_${id}`).value
+    };
+
+    fetch('../controlador/instructor.php', {
+        method: 'POST',
+        body: JSON.stringify(requestData),
+        headers: { 'Content-Type': 'application/json' }
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+        if (data.success) {
+            // Actualizar los valores en modo visualización
+            document.getElementById(`documento_${id}`).textContent = requestData.documento;
+            document.getElementById(`nombres_${id}`).textContent = requestData.nombre;
+            document.getElementById(`apellidos_${id}`).textContent = requestData.apellido;
+            document.getElementById(`correo_${id}`).textContent = requestData.email;
+            document.getElementById(`celular_${id}`).textContent = requestData.celular || 'No especificado';
+            
+            // Obtener el nombre del módulo seleccionado
+            const moduloSelect = document.getElementById(`edit_modulo_${id}`);
+            const selectedOption = moduloSelect.options[moduloSelect.selectedIndex];
+            document.getElementById(`modulo_${id}`).textContent = selectedOption.textContent;
+            
+            // Volver al modo visualización
+            toggleEditMode(id);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error al guardar los cambios');
+    });
 }
 
 // Función para eliminar un instructor

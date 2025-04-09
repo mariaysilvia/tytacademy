@@ -5,7 +5,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin TYTACADEMY</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0" />
 <link rel="icon" href="../publico/imagenesadmin/logoADMIN1.png" type="image/x-icon">
 <link rel="stylesheet" href="../publico/css/listarinstructores.css">
@@ -14,124 +13,66 @@
 </head>
 <body>
     <div class="container">
-    <aside>
-        <div class="top">
-        <div class="logo">
-            <h2>Admin <span class="danger">Panel</span></h2>
-        </div>
-        <div class="close" id="close_btn">
-            <span class="material-symbols-sharp">
-            close
-            </span>
-        </div>
-        </div>
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <h2>Admin <span class="danger">Panel</span></h2>
+                </div>
+                <div class="close" id="close_btn">
+                    <span class="material-symbols-sharp">close</span>
+                </div>
+            </div>
 
-        <div class="sidebar">
+            <div class="sidebar">
+                <a href="../vista/adminpanel.php" class="active">
+                    <span class="material-symbols-sharp">person_outline</span>
+                    <h3>Administrador</h3>
+                </a>
+                <a href="../vista/crearinstructor.php">
+                    <span class="material-symbols-sharp">groups</span>
+                    <h3>Crear instructores</h3>
+                </a>
+                <a href="../vista/listarinstructores.php">
+                    <span class="material-symbols-sharp">clinical_notes</span>
+                    <h3>Ver Instructores</h3>
+                </a>
+                <a href="../vista/listaraprendices.php">
+                    <span class="material-symbols-sharp">how_to_reg</span>
+                    <h3>Aprendices</h3>
+                    <span class="msg_count">2</span>
+                </a>
+                <a href="#">
+                    <span class="material-symbols-sharp">file_open</span>
+                    <h3>Pruebas</h3>
+                </a>
+                <a href="#">
+                    <span class="material-symbols-sharp">logout</span>
+                    <h3>Cerrar sesión</h3>
+                </a>
+            </div>
+        </aside>
 
-        <a href="../vista/adminpanel.php" class="active">
-            <span class="material-symbols-sharp">person_outline </span>
-            <h3>Administrador</h3>
-        </a>
-        <a href="../vista/crearinstructor.php">
-            <span class="material-symbols-sharp">groups</span>
-            <h3>Crear instructores</h3>
-        </a>
-
-        <a href="../vista/listarinstructores.php">
-            <span class="material-symbols-sharp">clinical_notes</span>
-            <h3>Ver Instructores</h3>
-        </a>
-        <a href="../vista/listaraprendices.php">
-            <span class="material-symbols-sharp">how_to_reg</span>
-            <h3>Aprendices</h3>
-            <span class="msg_count">2</span>
-        </a>
-        <a href="#">
-            <span class="material-symbols-sharp">file_open</span>
-            <h3>Pruebas</h3>
-        </a>
-        <a href="#">
-            <span class="material-symbols-sharp">logout </span>
-            <h3>Cerrar sesión</h3>
-        </a>
-    </div>
-
-    </aside>
-
-<!--contenido principal-->
-
-<body>
-    <div class="containerI">
-    <h1>Lista de <span class="tituloI">los Instructores</span></h1>
-        <div id="listarinstructores">
-            <div class="card-containerI">
-                <!-- Las tarjetas de los instructores se agregarán aquí dinámicamente -->
+        <!-- Contenido principal -->
+        <div class="containerI">
+            <h1>Lista de <span class="tituloI">los Instructores</span></h1>
+            <div id="listarinstructores">
+                <div class="card-containerI">
+                    <!-- Las tarjetas de los instructores se agregarán aquí dinámicamente -->
+                </div>
             </div>
         </div>
     </div>
-<!-- Modal de Edición -->
-<div class="modal fade" id="editarInstructorModal" tabindex="-1" aria-labelledby="editarInstructorModalLabel">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Encabezado del modal -->
-            <div class="modal-header">
-                <h5 class="modal-title" id="editarInstructorModalLabel">Editar Instructor</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <!-- Cuerpo del modal -->
-            <div class="modal-body">
-                <form id="editarInstructorForm">
-                    <input type="hidden" id="edit_id">
-                    <div class="mb-3">
-                        <label for="edit_documento" class="form-label">Documento:</label>
-                        <input type="text" class="form-control" id="edit_documento" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="edit_nombres" class="form-label">Nombres:</label>
-                        <input type="text" class="form-control" id="edit_nombres" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="edit_apellidos" class="form-label">Apellidos:</label>
-                        <input type="text" class="form-control" id="edit_apellidos" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="edit_correo" class="form-label">Correo:</label>
-                        <input type="email" class="form-control" id="edit_correo" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="edit_celular" class="form-label">Celular:</label>
-                        <input type="text" class="form-control" id="edit_celular">
-                    </div>
-                    <div class="mb-3">
-                        <label for="edit_modulo" class="form-label">Módulo:</label>
-                        <select class="form-control" id="edit_modulo" required>
-                            <option value="">Seleccione un módulo</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <!-- Footer del modal -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="guardarCambiosInstructor()">Guardar cambios</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 
     <!-- Enlaces a los archivos JavaScript -->
     <script src="../publico/js/instructor.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             cargarInstructores();
-            // Solo cargar módulos si estamos en la página de crear instructor o en el modal de edición
-            if (document.getElementById('modulo') || document.getElementById('edit_modulo')) {
+            // Solo cargar módulos si estamos en la página de crear instructor
+            if (document.getElementById('modulo')) {
                 cargarModulos();
             }
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
