@@ -12,8 +12,8 @@
 <!--tarjetas acerca de crear las pruebas-->
 <br>
 <br>
-    <div class="container text-center">
-        <h1 class="title">¿Qué podrá hacer en TYTACADEMY?</h1>
+    <div class="containerING text-center">
+        <h1 class="titleING">¿Qué podrá hacer en TYTACADEMY?</h1>
     </div>
 
     <div class="containerP-card">

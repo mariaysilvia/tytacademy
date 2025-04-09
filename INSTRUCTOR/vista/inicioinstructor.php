@@ -20,8 +20,8 @@
 <br>
 <br>
 <section id="informacion">
-    <div class="container text-center">
-        <h1 class="title">¿Qué podrá hacer en TYTACADEMY?</h1>
+    <div class="containerING text-center">
+        <h1 class="titleING">¿Qué podrá hacer en TYTACADEMY?</h1>
     </div>
     <div class="columna1ING">
         <div class="contenedor-1ING">
@@ -61,9 +61,10 @@
 <br>
 <br>
     <!--Pasos para seguir y registrar su pregunta-->
-    <div class="container text-center">
-        <h1 class="title">¿Qué puede hacer?</h1>
+    <div class="containerING text-center">
+        <h1 class="titleING">¿Qué puede hacer?</h1>
     </div>
+    
     <div class="elements-containerING">
 
         <div class="elementING elementING--blue">
