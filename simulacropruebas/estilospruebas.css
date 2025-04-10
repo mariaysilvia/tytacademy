@@ -5,18 +5,15 @@
 }
 
 :root {
-    --primary-color: #14a1ffa3;
-    --secundary-color: #7692e1dc;
+    --primary-color: #3c72e6;
+    --secundary-color: #5aa3e6;
     --terceary-color: #4621ac;
     --background-color: #fff;
     --dark-color: #000;
 }
 
 body {
-    background-image: linear-gradient(to bottom, #FFF0F5, #3f14ff65);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    background-image: url(fondoPRUEBAS.jpg);
     margin: 0;
     padding: 0;
 }
@@ -31,21 +28,18 @@ body {
 /* Estilos para el encabezado */
 .header-prueba {
     text-align: center;
-    background: linear-gradient(#a9a9ee, #3c3ce622);
-    color: var(--terceary-color);
-    padding: 10px 0;
-    border-radius: 8px;
-    margin-bottom: 2rem;
-    display: flex;
-    justify-content: space-between;
+    padding: 1rem;
+    background: linear-gradient(to bottom, #86bdf08f, #3c16e48f);
     align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.507);
 }
 
 .header-prueba h1 {
     font-weight: 800;
     font-size: 50px;
     font-style: italic;
-    color: #FFF0F5;
+    color: #ffffffb7;
 }
 
 .info-prueba {
@@ -55,22 +49,18 @@ body {
 
 /* Estilos para el contenedor de preguntas */
 .contenedor-preguntas {
-    position: relative; 
-    z-index: 1; 
-    padding: 20px; 
-    margin: 20px auto; 
-    max-width: 800px; 
-    background-color: white; 
-    border-radius: 30px; 
-    box-shadow: 10px 20px 40px rgba(0, 0, 0, 0.375);
-    align-items: center;
+    background-color: #d1dde9e1;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.507);
+    margin-bottom: 2rem;
 }
 
 /* Estilos para cada pregunta */
 .pregunta {
     margin-bottom: 2rem;
     padding: 1rem;
-    border: 1px solid #dee2e6;
+    border: 1px solid var(--secundary-color);
     border-radius: 8px;
 }
 
@@ -97,32 +87,13 @@ body {
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem;
-    border: 1px solid #dee2e6;
+    border: 1px solid #3992eb;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-h3{
-    margin-top: 0;
-}
-
-label {
-    display: block;
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 3px solid #ccc;
-    cursor: pointer;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-label:hover {
-    background: #f1caeae6;
 }
 
 .respuesta-item:hover {
-    background-color: #f8f9fa;
+    background-color: #225180;
 }
 
 .respuesta-item input[type="radio"] {
@@ -153,7 +124,7 @@ label:hover {
 }
 
 .btn-navegacion:disabled {
-    background-color: #6c757d;
+    background-color: #2c71ad;
     cursor: not-allowed;
 }
 
@@ -170,16 +141,20 @@ label:hover {
 
 .btn-finalizar {
     padding: 1rem 2rem;
-    background-color: #dc3545;
+    background-color: var(--terceary-color);
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.2s;
 }
+.btn-finalizar{
+    font-weight: 600;
+    font-size: 20px;
+}
 
 .btn-finalizar:hover {
-    background-color: #bb2d3b;
+    background-color: #21ac34;
 }
 
 /* Estilos para imágenes de preguntas */
@@ -197,7 +172,7 @@ label:hover {
 
 /* Estilos para preguntas respondidas */
 .respuesta-item.respondida {
-    background-color: #e9ecef;
+    background-color: #0aa061;
 }
 
 /* Estilos para la pregunta actual */
@@ -218,7 +193,7 @@ label:hover {
     flex-direction: column;
     align-items: flex-start;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--primary-color);
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -226,7 +201,7 @@ label:hover {
 }
 
 .opcion:hover {
-    background-color: #f5f5f5;
+    background-color: #cadef1e6;
 }
 
 .opcion input[type="radio"] {
@@ -235,11 +210,12 @@ label:hover {
 
 .opcion span {
     margin-bottom: 10px;
+    font-size: 19px;
 }
 
 .grupo-preguntas {
     margin-bottom: 30px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--primary-color);
     padding: 20px;
     border-radius: 8px;
 }
@@ -250,9 +226,11 @@ label:hover {
 }
 
 .imagen-grupo img {
-    max-width: 100%;
+    width: 830px;
     height: auto;
-    border-radius: 5px;
+    display: 0 auto;
+    margin-bottom: 20px;
+    border-radius: 10px;
 }
 
 .pregunta {
@@ -263,13 +241,16 @@ label:hover {
 }
 
 .pregunta h3 {
-    color: #333;
+    color: #273557;
+    font-weight: 700;
+    font-size: 30px;
     margin-bottom: 10px;
 }
 
 .pregunta p {
     margin-bottom: 15px;
     line-height: 1.5;
+    font-size: 25px;
 }
 
 .imagen-respuesta {
