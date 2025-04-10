@@ -1,3 +1,26 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    text-decoration: none;
+}
+
+:root {
+    --primary-color: #14a1ffa3;
+    --secundary-color: #7692e1dc;
+    --terceary-color: #4621ac;
+    --background-color: #fff;
+    --dark-color: #000;
+}
+
+body {
+    background-image: linear-gradient(to bottom, #FFF0F5, #3f14ff65);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+}
+
 /* Estilos para el contenedor principal */
 .container-prueba {
     max-width: 1200px;
@@ -7,8 +30,10 @@
 
 /* Estilos para el encabezado */
 .header-prueba {
-    background-color: #f8f9fa;
-    padding: 1rem;
+    text-align: center;
+    background: linear-gradient(#a9a9ee, #3c3ce622);
+    color: var(--terceary-color);
+    padding: 10px 0;
     border-radius: 8px;
     margin-bottom: 2rem;
     display: flex;
@@ -17,8 +42,10 @@
 }
 
 .header-prueba h1 {
-    margin: 0;
-    color: #333;
+    font-weight: 800;
+    font-size: 50px;
+    font-style: italic;
+    color: #FFF0F5;
 }
 
 .info-prueba {
@@ -28,11 +55,15 @@
 
 /* Estilos para el contenedor de preguntas */
 .contenedor-preguntas {
-    background-color: #fff;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 2rem;
+    position: relative; 
+    z-index: 1; 
+    padding: 20px; 
+    margin: 20px auto; 
+    max-width: 800px; 
+    background-color: white; 
+    border-radius: 30px; 
+    box-shadow: 10px 20px 40px rgba(0, 0, 0, 0.375);
+    align-items: center;
 }
 
 /* Estilos para cada pregunta */
@@ -45,7 +76,7 @@
 
 .numero-pregunta {
     font-weight: bold;
-    color: #0d6efd;
+    color: var(--terceary-color);
     margin-bottom: 1rem;
 }
 
@@ -72,12 +103,31 @@
     transition: background-color 0.2s;
 }
 
+h3{
+    margin-top: 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 3px solid #ccc;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+label:hover {
+    background: #f1caeae6;
+}
+
 .respuesta-item:hover {
     background-color: #f8f9fa;
 }
 
 .respuesta-item input[type="radio"] {
-    margin: 0;
+    margin-right: 10px;
+    vertical-align: middle;
 }
 
 /* Estilos para la navegación */
@@ -92,7 +142,7 @@
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 4px;
-    background-color: #0d6efd;
+    background-color: var(--secundary-color);
     color: white;
     cursor: pointer;
     transition: background-color 0.2s;

@@ -10,29 +10,17 @@ if (!isset($_SESSION['preguntas'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prueba TYT</title>
-    <!-- Estilos generales -->
+    <title>Pruebas TYTACADEMY</title>
     <link rel="stylesheet" href="/trabajos/PruebasTYT/APRENDIZ/publico/css/principalAprendiz.css">
-    <!-- Estilos específicos para la prueba -->
-    <link rel="stylesheet" href="/trabajos/PruebasTYT/simulacropruebas/estilospruebas.css">
-    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../simulacropruebas/estilospruebas.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-
-
-    <!-- Contenedor principal -->
     <div class="container-prueba">
-        <!-- Encabezado de la prueba -->
         <header class="header-prueba">
             <h1 id="tituloPrueba">Prueba TYT - <?php echo htmlspecialchars($_SESSION['tipoPrueba']); ?></h1>
-            <div class="info-prueba">
-                <span id="tiempoRestante">Tiempo restante: 60:00</span>
-            </div>
         </header>
 
         <!-- Contenedor de preguntas -->
