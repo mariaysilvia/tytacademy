@@ -20,18 +20,20 @@
     </div>
     <section class="form-register">
         <img src="imagenesVideos/tytacademy.png" alt="TYTAcademy">
-        <h2>¿Quieres prepararte para Lectura Critica?</h2>
-        <h4>¡Realiza el simulacro de las pruebas TYT de Lectura Critica!</h4>
+        <h2>¿Quieres prepararte para las pruebas TYT?</h2>
+        <h5>¡Realiza los simulacros de cada modulo!</h5>
+        <h4>Escoge los temas y la cantidad de preguntas <strong> ¡Animo!</strong></h4>
         <br>
         <h6>Define las caracteristicas de la prueba</h6>
         <form id="formPrueba" action="/trabajos/PruebasTYT/APRENDIZ/controlador/realizarPrueba.php" method="GET">
-            <label for="temaModulo">¿Qué tipo de textos desea practicar?:</label>
+            <label for="temaModulo">¿Qué temas desea practicar?:</label>
             <select class="controls" name="temaModulo" id="temaModulo" required>
                 <option value="">Cargando temas...</option>
             </select>
 
             <label for="cantidad">¿Qué cantidad de preguntas desea en su prueba?:</label>
             <select class="controls" name="cantidad" id="cantidad" required>
+                <option value="cantidad de preguntas">Cantidad de preguntas</option>
                 <option value="10">10 Preguntas</option>
                 <option value="20">20 Preguntas</option>
             </select>
