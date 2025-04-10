@@ -46,14 +46,13 @@
         </a>
         <a href="../vista/listaraprendices.php">
             <span class="material-symbols-sharp">how_to_reg</span>
-            <h3>Aprendices</h3>
-            <span class="msg_count">2</span>
+            <h3> Ver Aprendices</h3>
         </a>
         <a href="#">
             <span class="material-symbols-sharp">file_open</span>
             <h3>Pruebas</h3>
         </a>
-
+        
         <a href="../vista/redesSociales.php">
             <span class="material-symbols-sharp">share</span>
             <h3>Redes Sociales</h3>
