@@ -1,0 +1,162 @@
+/* Estilos para el contenedor principal */
+.container-prueba {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* Estilos para el encabezado */
+.header-prueba {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-prueba h1 {
+    margin: 0;
+    color: #333;
+}
+
+.info-prueba {
+    display: flex;
+    gap: 1rem;
+}
+
+/* Estilos para el contenedor de preguntas */
+.contenedor-preguntas {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+/* Estilos para cada pregunta */
+.pregunta {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+}
+
+.numero-pregunta {
+    font-weight: bold;
+    color: #0d6efd;
+    margin-bottom: 1rem;
+}
+
+.texto-pregunta {
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+/* Estilos para las respuestas */
+.respuestas {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.respuesta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.respuesta-item:hover {
+    background-color: #f8f9fa;
+}
+
+.respuesta-item input[type="radio"] {
+    margin: 0;
+}
+
+/* Estilos para la navegación */
+.navegacion-preguntas {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.btn-navegacion {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #0d6efd;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-navegacion:hover {
+    background-color: #0b5ed7;
+}
+
+.btn-navegacion:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+.numeros-preguntas {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Estilos para el botón de finalizar */
+.finalizar-prueba {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.btn-finalizar {
+    padding: 1rem 2rem;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-finalizar:hover {
+    background-color: #bb2d3b;
+}
+
+/* Estilos para imágenes de preguntas */
+.imagen-pregunta {
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.imagen-pregunta img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+/* Estilos para el temporizador */
+#tiempoRestante {
+    font-weight: bold;
+    color: #dc3545;
+}
+
+/* Estilos para preguntas respondidas */
+.respuesta-item.respondida {
+    background-color: #e9ecef;
+}
+
+/* Estilos para la pregunta actual */
+.pregunta.actual {
+    border-color: #0d6efd;
+    background-color: #f8f9fa;
+} 

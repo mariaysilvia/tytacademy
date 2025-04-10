@@ -1,6 +1,18 @@
-<?php include '../vista/navbar.php'; ?> <!-- Incluye el navbar aquí -->
+<?php 
+session_start();
+if (!isset($_SESSION['preguntas'])) {
+    header('Location: PRUEBAS.php');
+    exit;
+}
+include '../vista/navbar.php'; 
+?>
 
     </header>
+
+    <!-- Contenedor de preguntas -->
+    <section class="preguntas-container">
+        <div id="preguntas"></div>
+    </section>
 
     <!--banner de lectura critica-->
 <section class="bannerLC contenedor">
@@ -191,4 +203,14 @@
     <i class="fa-solid fa-chevron-up"></i>
 </div>
 
-<?php include '../vista/footer.php'; ?> <!-- Incluye el footer aquí -->
+<!-- Scripts necesarios -->
+<script src="/trabajos/PruebasTYT/APRENDIZ/publico/js/mostrarPreguntas.js"></script>
+<script>
+    // Cargar las preguntas desde la sesión
+    document.addEventListener('DOMContentLoaded', function() {
+        const preguntas = <?php echo json_encode($_SESSION['preguntas']); ?>;
+        mostrarPreguntas(preguntas);
+    });
+</script>
+
+<?php include '../vista/footer.php'; ?>

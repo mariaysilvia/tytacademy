@@ -320,7 +320,13 @@ function cargarInstructores() {
         .then(response => response.json())
         .then(data => {
             const cardContainer = document.querySelector('.card-containerI');
-            cardContainer.innerHTML = '';
+            cardContainer.innerHTML = ''; // Limpiar el contenedor
+
+            if (!data.success || data.data.length === 0) {
+                // Mostrar mensaje si no hay instructores
+                cardContainer.innerHTML = '<p>No hay instructores disponibles.</p>';
+                return;
+            }
 
             data.data.forEach(instructor => {
                 const card = document.createElement('div');
@@ -379,38 +385,14 @@ function cargarInstructores() {
                     </div>
                 `;
                 cardContainer.appendChild(card);
-                
-                // Cargar opciones del módulo para el select
-                const moduloSelect = document.getElementById(`edit_modulo_${instructor.idInstructor}`);
-                if (moduloSelect) {
-                    fetch('../controlador/instructor.php', {
-                        method: 'POST',
-                        body: JSON.stringify({ action: 'getModulos' }),
-                        headers: { 'Content-Type': 'application/json' }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            data.data.forEach(modulo => {
-                                const option = document.createElement('option');
-                                option.value = modulo.idModulo;
-                                option.textContent = modulo.modulo;
-                                if (modulo.idModulo === instructor.idModulo) {
-                                    option.selected = true;
-                                }
-                                moduloSelect.appendChild(option);
-                            });
-                        }
-                    });
-                }
             });
         })
         .catch(error => {
-            console.error('Error:', error);
-            alert('Error al cargar los instructores');
+            console.error('Error al cargar los instructores:', error);
+            const cardContainer = document.querySelector('.card-containerI');
+            cardContainer.innerHTML = '<p>No hay instructores disponibles.</p>';
         });
 }
-
 function toggleEditMode(id) {
     const card = document.querySelector(`#documento_${id}`).closest('.cardI');
     const viewModeElements = card.querySelectorAll('.view-mode');

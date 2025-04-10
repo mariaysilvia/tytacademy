@@ -33,7 +33,7 @@
                     <li><a href="#" data-bs-toggle="modal" data-bs-target="#verPerfilModal">Mi perfil</a>
                         <ul>
                             <li><a href="#" data-bs-toggle="modal" data-bs-target="#verPerfilModal">Ver perfil</a></li>
-                            <li><a href="#">Cerrar sesión</a></li>
+                            <li><a href="#" onclick="confirmLogout()">Cerrar sesión</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -77,6 +77,14 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="../publico/js/perfilInstructor.js"></script>
+<script>
+    function confirmLogout() {
+        const confirmLogout = confirm('¿Está seguro que quiere cerrar sesión?');
+        if (confirmLogout) {
+            window.location.href = '../../APRENDIZ/vista/index.html'; // Cambia la ruta si es necesario
+        }
+    }
+</script>
 
 </body>
 </html>
