@@ -37,7 +37,7 @@
                 <input class="controls" type="password" name="clave" id="clave" placeholder="Ingrese su clave." required>
                 
                 <input class="botons" type="submit" value="Iniciar sesión">
-                <p><a href="../vista/index.html">¿Desea volver al inicio?</a></p>
+                <p><a href="../../APRENDIZ/vista/index.html">¿Desea volver al inicio?</a></p>
             </form>
             <!-- Elemento para mostrar mensajes del sistema -->
             <div id="loginMessage" class="mensaje" style="display: none;"></div>

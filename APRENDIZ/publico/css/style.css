@@ -276,9 +276,15 @@ body{
     font-weight: 600;
 }
 .services p{
-    font-size: 22px;
+    font-size: 25px;
+    font-style: italic;
+    
 }
-
+.services h5{
+    font-size: 27px;
+    font-weight: 700;
+    color: var(--primary-color);
+}
 .title::before{
     content: '';
     background: var(--primary-color);
