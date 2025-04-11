@@ -205,11 +205,5 @@
     <i class="fa-solid fa-chevron-up"></i>
 </div>
 
-<!--boton de ir hacia arriba-->
-
-<div id="button-up">
-    <i class="fa-solid fa-chevron-up"></i>
-</div>
-
 <?php include '../vista/footer.php'; ?> <!-- Incluye el footer aquí -->
 

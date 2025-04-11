@@ -11,19 +11,35 @@ try {
 
     // Obtener el módulo desde la URL
     $modulo = $_GET['modulo'] ?? '';
-    
+
     if (empty($modulo)) {
         throw new Exception('Módulo no especificado.');
     }
 
-    // Crear instancia del modelo con el módulo específico
-    $pruebaModel = new PruebaModel($pdo, $modulo);
+    // Mapear alias cortos a nombres reales de la base de datos
+    $aliasMap = [
+        'lecturacritica' => 'Lectura Crítica',
+        'razonamientocuantitativo' => 'Razonamiento Cuantitativo',
+        'competenciasciudadanas' => 'Competencias Ciudadanas',
+        'comunicacion' => 'Comunicación Escrita',
+        'ingles' => 'Inglés'
+    ];
+
+    // Convertir alias a nombre real
+    $moduloReal = $aliasMap[$modulo] ?? null;
+
+    if (!$moduloReal) {
+        throw new Exception("El módulo '$modulo' no es válido.");
+    }
+
+    // Crear instancia del modelo con el módulo real
+    $pruebaModel = new PruebaModel($pdo, $moduloReal);
     $temas = $pruebaModel->obtenerTemasPorTipoPrueba();
 
     if (!is_array($temas) || empty($temas)) {
         throw new Exception('No se encontraron temas para el módulo especificado.');
     }
-    
+
     echo json_encode([
         'success' => true,
         'temas' => $temas
