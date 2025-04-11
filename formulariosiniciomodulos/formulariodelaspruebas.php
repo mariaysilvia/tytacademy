@@ -40,6 +40,7 @@
                 <option value="20">20 preguntas</option>
             </select>
             <input class="botons" type="submit" value="Realizar Prueba">
+            <p><a href="../../APRENDIZ/vista/PRUEBAS.php">Cambiar de modulo</a></p>
         </form>
     </section>
     <?php include 'footerFORMULARIOS.php'; ?>
