@@ -9,17 +9,19 @@ try {
         throw new Exception('No se pudo establecer la conexión con la base de datos.');
     }
 
-    $tipoPrueba = $_GET['tipoPrueba'] ?? '';
+    // Obtener el módulo desde la URL
+    $modulo = $_GET['modulo'] ?? '';
     
-    if (empty($tipoPrueba)) {
-        throw new Exception('Tipo de prueba no especificado.');
+    if (empty($modulo)) {
+        throw new Exception('Módulo no especificado.');
     }
 
-    $pruebaModel = new PruebaModel($pdo, $tipoPrueba);
+    // Crear instancia del modelo con el módulo específico
+    $pruebaModel = new PruebaModel($pdo, $modulo);
     $temas = $pruebaModel->obtenerTemasPorTipoPrueba();
 
     if (!is_array($temas) || empty($temas)) {
-        throw new Exception('No se encontraron temas para el tipo de prueba especificado.');
+        throw new Exception('No se encontraron temas para el módulo especificado.');
     }
     
     echo json_encode([

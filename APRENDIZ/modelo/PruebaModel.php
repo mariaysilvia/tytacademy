@@ -10,36 +10,55 @@ class PruebaModel {
 
     public function obtenerTemasPorTipoPrueba() {
         try {
-            // Mapear el tipo de prueba a los nombres correctos en la base de datos
-            $tipoPruebaMap = [
-                'critica' => 'Lectura Crítica',
+            // Mapeo completo de URLs a nombres de módulo en BD
+            $moduloMap = [
+                'lecturacritica' => 'Lectura Crítica',
                 'razonamiento' => 'Razonamiento Cuantitativo',
                 'ciudadana' => 'Competencias Ciudadanas',
                 'comunicacion' => 'Comunicación Escrita',
-                'ingles' => 'Inglés'
+                'ingles' => 'Inglés',
+                // Aliases adicionales por si acaso
+                'critica' => 'Lectura Crítica',
+                'cuantitativo' => 'Razonamiento Cuantitativo',
+                'competencias' => 'Competencias Ciudadanas'
             ];
-
-            $nombreModulo = $tipoPruebaMap[$this->tipoPrueba] ?? $this->tipoPrueba;
-
-            $sql = "SELECT tm.idtemaModulo, tm.nombreTema, m.modulo 
-            FROM temaModulo tm
-            JOIN Modulo m ON tm.idModulo = m.idModulo
-            WHERE m.modulo = :nombreModulo";
-
+    
+            $nombreModulo = $moduloMap[strtolower($this->tipoPrueba)] ?? $this->tipoPrueba;
+            error_log("Buscando temas para módulo: " . $nombreModulo);
+    
+            // Consulta SQL mejorada con JOIN explícito
+            $sql = "SELECT tm.idtemaModulo, tm.nombreTema 
+                    FROM temaModulo tm
+                    INNER JOIN Modulo m ON tm.idModulo = m.idModulo
+                    WHERE m.modulo = :nombreModulo
+                    ORDER BY tm.nombreTema";
+    
             $stmt = $this->pdo->prepare($sql);
-            $stmt->bindValue(':nombreModulo', $nombreModulo, PDO::PARAM_STR);
-            $stmt->execute();
-
-            $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            if (empty($resultados)) {
-                error_log("No se encontraron temas para el módulo: " . $nombreModulo);
+            $stmt->bindParam(':nombreModulo', $nombreModulo, PDO::PARAM_STR);
+            
+            if (!$stmt->execute()) {
+                $errorInfo = $stmt->errorInfo();
+                throw new Exception("Error en ejecución de consulta: " . $errorInfo[2]);
             }
-
+    
+            $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            if (empty($resultados)) {
+                error_log("Consulta no devolvió resultados para: " . $nombreModulo);
+                // Verificar si el módulo existe
+                $sqlCheck = "SELECT idModulo FROM Modulo WHERE modulo = :nombreModulo";
+                $stmtCheck = $this->pdo->prepare($sqlCheck);
+                $stmtCheck->execute([':nombreModulo' => $nombreModulo]);
+                if (!$stmtCheck->fetch()) {
+                    throw new Exception("El módulo '$nombreModulo' no existe en la base de datos");
+                }
+            }
+    
             return $resultados;
+    
         } catch (PDOException $e) {
-            error_log("Error en obtenerTemasPorTipoPrueba: " . $e->getMessage());
-            throw new Exception("Error al obtener los temas: " . $e->getMessage());
+            error_log("PDOException en obtenerTemasPorTipoPrueba: " . $e->getMessage());
+            throw new Exception("Error de base de datos al obtener temas");
         }
     }
 
@@ -49,7 +68,7 @@ class PruebaModel {
 
             // Primero obtener las preguntas aleatorias agrupadas por imagen
             $sqlPreguntas = "SELECT p.idPregunta, p.pregunta, p.imagen,
-                                   COUNT(*) OVER (PARTITION BY p.imagen) as preguntasPorImagen
+                     COUNT(*) OVER (PARTITION BY p.imagen) as preguntasPorImagen
                             FROM Pregunta p
                             WHERE p.idModulo = (SELECT idModulo FROM Modulo WHERE modulo = :tipoPrueba)";
 
@@ -94,9 +113,9 @@ class PruebaModel {
             // Obtener las respuestas para las preguntas seleccionadas
             $sqlRespuestas = "SELECT r.idPregunta, r.idRespuesta, r.respuesta, r.imagen as imagenRespuesta,
                                     r.tipoRespuesta, r.esCorrecta
-                             FROM Respuesta r
-                             WHERE r.idPregunta IN ($placeholders)
-                             ORDER BY r.idPregunta, r.idRespuesta";
+                            FROM Respuesta r
+                            WHERE r.idPregunta IN ($placeholders)
+                            ORDER BY r.idPregunta, r.idRespuesta";
 
             $stmtRespuestas = $this->pdo->prepare($sqlRespuestas);
             $stmtRespuestas->execute($idsPreguntas);

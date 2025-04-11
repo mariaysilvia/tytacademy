@@ -161,14 +161,16 @@ class PreguntaModel {
     public function getPreguntasModulo($idModulo) {
         try {
             $query = "SELECT p.idPregunta, p.pregunta, p.imagen, p.idtipoPregunta, p.idtemaModulo, 
-                      tp.nombreTipoPregunta as tipoPregunta, tm.nombreTema as temaModulo 
+                      tp.nombreTipoPregunta as tipoPregunta, tm.nombreTema as temaModulo,
+                      m.modulo as nombreModulo
                       FROM Pregunta p 
-            JOIN tipoPregunta tp ON p.idtipoPregunta = tp.idtipoPregunta 
-            JOIN temaModulo tm ON p.idtemaModulo = tm.idtemaModulo 
+                      JOIN tipoPregunta tp ON p.idtipoPregunta = tp.idtipoPregunta 
+                      JOIN temaModulo tm ON p.idtemaModulo = tm.idtemaModulo 
+                      JOIN Modulo m ON p.idModulo = m.idModulo
                       WHERE p.idModulo = ?";
             
             $stmt = $this->conexion->prepare($query);
-        $stmt->execute([$idModulo]);
+            $stmt->execute([$idModulo]);
             $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
             
             if (empty($resultado)) {

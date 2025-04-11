@@ -1,11 +1,4 @@
-<?php 
-session_start();
-if (!isset($_SESSION['preguntas'])) {
-    header('Location: PRUEBAS.php');
-    exit;
-}
-include '../vista/navbar.php'; 
-?>
+<?php include '../vista/navbar.php'; ?> <!-- Incluye el navbar aquí -->
 
     </header>
 
@@ -119,8 +112,9 @@ include '../vista/navbar.php';
                 <p>Se organizan en oraciones y párrafos que se conectan entre sí, creando un discurso lógico y fluido.
                 Su principal herramienta es el lenguaje escrito,
                 utilizando reglas gramaticales para que la información se entienda de forma clara y coherente.</p>
-                    <p><strong>En las pruebas TYT, puedes encontrar ejemplos de textos continuos en forma de ensayos, novelas y artículos de prensa.</strong></p>
+                    <p><strong>En las pruebas TYT, se evalúa la capacidad de comprender, analizar y evaluar diferentes tipos de textos.</strong></p>
                 <div class="link">
+                    <a href="/trabajos/PruebasTYT/formulariosiniciomodulos/formulariodelaspruebas.php?tipo=critica">Realizar Prueba</a>
                 </div>
             </div>
         </div>
@@ -203,14 +197,5 @@ include '../vista/navbar.php';
     <i class="fa-solid fa-chevron-up"></i>
 </div>
 
-<!-- Scripts necesarios -->
-<script src="/trabajos/PruebasTYT/APRENDIZ/publico/js/mostrarPreguntas.js"></script>
-<script>
-    // Cargar las preguntas desde la sesión
-    document.addEventListener('DOMContentLoaded', function() {
-        const preguntas = <?php echo json_encode($_SESSION['preguntas']); ?>;
-        mostrarPreguntas(preguntas);
-    });
-</script>
 
 <?php include '../vista/footer.php'; ?>

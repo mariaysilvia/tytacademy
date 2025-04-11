@@ -1,5 +1,12 @@
 
-<?php include '../vista/navbar.php'; ?> <!-- Incluye el navbar aquí -->
+<?php 
+session_start();
+if (!isset($_SESSION['preguntas'])) {
+    header('Location: PRUEBAS.php');
+    exit;
+}
+include '../vista/navbar.php'; 
+?>
 <section class="modulostarjetas">
     <div class="container-cards">
 <!--Lectura critica-->
@@ -13,7 +20,7 @@
                 <i class="fa-regular fa-clock"></i><strong>20 Preguntas</strong>
             </ul>
             <div class="card-body">
-            <a href="../../formulariosiniciomodulos/formulariodelaspruebas.php" class="card-link">Realizar Prueba</a>
+            <a href="../../formulariosiniciomodulos/formulariodelaspruebas.php?modulo=lecturacritica" class="card-link">Realizar Prueba</a>
             </div>
         </div>
 
@@ -28,7 +35,7 @@
                 <i class="fa-regular fa-clock"></i><strong>20 Preguntas</strong>
             </ul>
             <div class="card-body">
-            <a href="../../formulariosiniciomodulos/formulariodelaspruebas.php" class="card-link">Realizar Prueba</a>
+            <a href="../../formulariosiniciomodulos/formulariodelaspruebas.php?modulo=razonamientocuantitativo" class="card-link">Realizar Prueba</a>
             </div>
         </div>
 
@@ -43,7 +50,7 @@
                 <i class="fa-regular fa-clock"></i><strong>20 Preguntas</strong>
             </ul>
             <div class="card-body">
-            <a href="../../formulariosiniciomodulos/formulariodelaspruebas.php" class="card-link">Realizar Prueba</a>
+            <a href="../../formulariosiniciomodulos/formulariodelaspruebas.php?modulo=competenciasciudadanas" class="card-link">Realizar Prueba</a>
             </div>
         </div>
 
@@ -58,7 +65,7 @@
                 <i class="fa-regular fa-clock"></i><strong>20 Preguntas</strong>
             </ul>
             <div class="card-body">
-            <a href="../../formulariosiniciomodulos/formulariodelaspruebas.php" class="card-link">Realizar Prueba</a>
+            <a href="../../formulariosiniciomodulos/formulariodelaspruebas.php?modulo=comunicacion" class="card-link">Realizar Prueba</a>
             </div>
         </div>
 
@@ -73,10 +80,11 @@
                 <i class="fa-regular fa-clock"></i><strong>20 Preguntas</strong>
             </ul>
             <div class="card-body">
-            <a href="../../formulariosiniciomodulos/formulariodelaspruebas.php" class="card-link">Realizar Prueba</a>
+            <a href="../../formulariosiniciomodulos/formulariodelaspruebas.php?modulo=ingles" class="card-link">Realizar Prueba</a>
             </div>
         </div>
     </div>
 </section>
+
 
 <?php include '../vista/footer.php'; ?> <!-- Incluye el footer aquí -->

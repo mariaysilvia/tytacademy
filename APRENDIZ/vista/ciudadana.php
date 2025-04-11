@@ -130,9 +130,9 @@
             <div class="face back">
                 <h3>Multiperspectiva</h3>
                 <p>Las pruebas evalúan la capacidad de los estudiantes para reconocer y analizar las diferentes perspectivas que una persona puede tener frente a una situación problemática o un conflicto.</p>
-                <p><strong>En las pruebas TYT, se evalúa la capacidad de reconocer las diferentes perspectivas, posiciones y comportamientos con el fin de analizar y evaluar las propuestas de solución.</strong></p>
+                <p><strong>En las pruebas TYT, se evalúa la capacidad de analizar situaciones sociales y tomar decisiones basadas en valores ciudadanos.</strong></p>
                 <div class="link">
-
+                    <a href="/trabajos/PruebasTYT/formulariosiniciomodulos/formulariodelaspruebas.php?tipo=ciudadana">Realizar Prueba</a>
                 </div>
             </div>
         </div>

@@ -1,106 +1,72 @@
-// Función para obtener el tipo de prueba de la URL
-function obtenerTipoPrueba() {
-    const url = window.location.href;
-    const tipo = url.split('tipo=')[1];
-    return tipo || 'critica';
+// Obtener el módulo actual desde la URL
+function obtenerModuloActual() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('modulo'); // debe coincidir con ?modulo= en la URL
 }
 
-// Función para hacer la petición al servidor
-function obtenerTemasDelServidor(tipoPrueba) {
-    return new Promise(function(resolve, reject) {
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', '/trabajos/PruebasTYT/APRENDIZ/controlador/obtenerTemas.php?tipoPrueba=' + tipoPrueba, true);
-        
-        xhr.onload = function() {
-            if (xhr.status === 200) {
-                try {
-                    const data = JSON.parse(xhr.responseText);
-                    resolve(data);
-                } catch (e) {
-                    reject('Error al procesar la respuesta');
-                }
-            } else {
-                reject('Error en la petición');
-            }
-        };
-        
-        xhr.onerror = function() {
-            reject('Error de conexión');
-        };
-        
-        xhr.send();
-    });
-}
-
-// Función para crear las opciones del select
-function crearOpcionesTemas(temas) {
-    let opciones = '<option value="">Seleccione un tipo de texto</option>';
+// Cargar los temas desde el servidor según el módulo
+function cargarTemas(modulo) {
+    console.log(`Iniciando carga de temas para módulo: ${modulo}`);
     
-    for (let i = 0; i < temas.length; i++) {
-        opciones += `<option value="${temas[i].idtemaModulo}">${temas[i].nombreTema}</option>`;
-    }
-    
-    return opciones;
-}
-
-// Función para actualizar el select con los temas
-function actualizarSelectTemas(opciones) {
     const select = document.getElementById('temaModulo');
-    if (select) {
-        select.innerHTML = opciones;
+    if (!select) {
+        console.error("Elemento select con id 'temaModulo' no encontrado.");
+        return;
     }
-}
 
-// Función para mostrar errores
-function mostrarError(mensaje) {
-    const select = document.getElementById('temaModulo');
-    if (select) {
-        select.innerHTML = `<option value="">${mensaje}</option>`;
-    }
-    console.error(mensaje);
-}
+    select.innerHTML = '<option value="">Cargando temas...</option>';
+    select.disabled = true;
 
-// Función principal para cargar los temas
-function cargarTemasModulo() {
-    const tipoPrueba = obtenerTipoPrueba();
-    
-    obtenerTemasDelServidor(tipoPrueba)
-        .then(function(data) {
-            if (data.success) {
-                const opciones = crearOpcionesTemas(data.temas);
-                actualizarSelectTemas(opciones);
+    fetch(`/trabajos/PruebasTYT/APRENDIZ/controlador/obtenerTemas.php?modulo=${encodeURIComponent(modulo)}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log("Temas recibidos:", data);
+            if (data.success && data.temas.length > 0) {
+                select.innerHTML = '<option value="">Seleccione un tema</option>';
+                data.temas.forEach(tema => {
+                    const option = document.createElement('option');
+                    option.value = tema.idtemaModulo;
+                    option.textContent = tema.nombreTema;
+                    select.appendChild(option);
+                });
             } else {
-                mostrarError(data.error || 'Error al cargar los temas');
+                select.innerHTML = '<option value="">No hay temas disponibles</option>';
             }
+            select.disabled = false;
         })
-        .catch(function(error) {
-            mostrarError(error);
+        .catch(error => {
+            console.error("Error al cargar temas:", error);
+            select.innerHTML = '<option value="">Error al cargar temas</option>';
+            select.disabled = false;
         });
 }
 
-// Función para manejar el envío del formulario
+// Manejador del formulario
 function manejarEnvioFormulario(event) {
     event.preventDefault();
-    
+
     const form = event.target;
     const temaModulo = form.temaModulo.value;
-    const cantidad = form.cantidad.value;
-    
+
     if (!temaModulo) {
-        alert('Por favor seleccione un tipo de texto');
+        alert('Por favor seleccione un tema');
         return;
     }
-    
-    // Enviar el formulario
+
     form.submit();
 }
 
-// Evento cuando el DOM está cargado
-document.addEventListener('DOMContentLoaded', function() {
-    // Cargar los temas
-    cargarTemasModulo();
-    
-    // Agregar el manejador de eventos al formulario
+// Inicializar todo al cargar la página
+document.addEventListener('DOMContentLoaded', () => {
+    const modulo = obtenerModuloActual();
+    console.log("Módulo detectado:", modulo);
+
+    if (modulo) {
+        cargarTemas(modulo);
+    } else {
+        console.error("No se pudo determinar el módulo actual desde la URL");
+    }
+
     const form = document.getElementById('formPrueba');
     if (form) {
         form.addEventListener('submit', manejarEnvioFormulario);

@@ -1,4 +1,3 @@
-
 <?php include '../vista/navbar.php'; ?> <!-- Incluye el navbar aquí -->
 
     
@@ -126,7 +125,7 @@
                 <p>El álgebra se centra en el uso de símbolos y letras para la representación de números y cantidades en fórmulas y ecuaciones. El cálculo, por otro lado, se encarga del estudio del cambio y el movimiento.</p>
                 <p><strong>En las pruebas TYT, ambas ramas de las matemáticas son necesarias para desarrollar habilidades de razonamiento y cuantitativo.</strong></p>
                 <div class="link">
-
+                    <a href="/trabajos/PruebasTYT/formulariosiniciomodulos/formulariodelaspruebas.php?tipo=razonamiento">Realizar Prueba</a>
                 </div>
             </div>
         </div>

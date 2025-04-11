@@ -117,9 +117,9 @@
             <div class="face back">
                 <h3>Habla</h3>
                 <p>Se mide el conocimiento de palabras y frases en inglés, así como su uso en diferentes contextos.</p>
-                <p><strong>En las pruebas TYT, se evalúa la capacidad de comprender el inglés de manera que hay preguntas que simulan conversaciones reales entre personas.</strong></p>
+                <p><strong>En las pruebas TYT, se evalúa la capacidad de comprender y analizar textos en inglés.</strong></p>
                 <div class="link">
-
+                    <a href="/trabajos/PruebasTYT/formulariosiniciomodulos/formulariodelaspruebas.php?tipo=ingles">Realizar Prueba</a>
                 </div>
             </div>
         </div>

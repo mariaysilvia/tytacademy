@@ -114,9 +114,9 @@
             <div class="face back">
                 <h3>Forma de expresión</h3>
                 <p>En donde el autor sustente una opinión, realice argumentos que la justifiquen y expliquen su punto de vista.</p>
-                <p><strong>En las pruebas TYT, se evalúa la capacidad del autor del texto con respecto a su correcta argumentación y justificación.</strong></p>
+                <p><strong>En las pruebas TYT, se evalúa la capacidad de expresarse de manera clara y coherente por escrito.</strong></p>
                 <div class="link">
-
+                    <a href="/trabajos/PruebasTYT/formulariosiniciomodulos/formulariodelaspruebas.php?tipo=comunicacion">Realizar Prueba</a>
                 </div>
             </div>
         </div>

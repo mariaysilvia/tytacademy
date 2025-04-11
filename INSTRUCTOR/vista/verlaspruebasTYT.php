@@ -66,7 +66,8 @@ $preguntas = $preguntaModel->getPreguntasModulo($idModulo);
                             <?php endif; ?>
                             
     <div class="card-body">
-                                <h6 class="card-title"><strong>Modulo: </strong><?php echo htmlspecialchars($pregunta['temaModulo']); ?></h6>
+                                <h6 class="card-title"><strong>Módulo: </strong><?php echo htmlspecialchars($pregunta['nombreModulo']); ?></h6>
+                                <h6 class="card-title"><strong>Tema: </strong><?php echo htmlspecialchars($pregunta['temaModulo']); ?></h6>
                                 <p class="card-text"><?php echo htmlspecialchars($pregunta['pregunta']); ?></p>
 </div>
 
