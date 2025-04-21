@@ -1,30 +1,3 @@
-// Evento para cargar las preguntas al cargar la página
-document.addEventListener('DOMContentLoaded', function () {
-    // Verificar si estamos en la página de preguntas
-    const urlParams = new URLSearchParams(window.location.search);
-    const temaModulo = urlParams.get('temaModulo');
-    const cantidad = urlParams.get('cantidad');
-
-    if (temaModulo && cantidad) {
-        cargarPreguntas(temaModulo, cantidad);
-    } else {
-        console.error("Faltan parámetros en la URL: temaModulo o cantidad");
-        const contenedor = document.getElementById('preguntas');
-        if (contenedor) {
-            contenedor.innerHTML = '<div class="error">Faltan parámetros para cargar las preguntas.</div>';
-        }
-    }
-
-    // Mostrar el valor de modulo_id en la consola
-    fetch('/trabajos/PruebasTYT/APRENDIZ/controlador/obtenerModuloId.php')
-        .then(response => response.json())
-        .then(data => {
-            console.log("modulo_id en JS:", data.modulo_id);
-        })
-        .catch(error => {
-            console.error("Error al obtener modulo_id:", error);
-        });
-});
 
 // Función para cargar preguntas
 function cargarPreguntas(temaModulo, cantidad) {

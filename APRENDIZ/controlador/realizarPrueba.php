@@ -17,7 +17,7 @@ $_SESSION['modulo_id'] = obtenerModuloDesdeTema($temaId); // Función para obten
 
 try {
     // Crear instancia del modelo
-    $pdo = new PDO("mysql:host=localhost;dbname=tyt_academy;charset=utf8", "root", "");
+    $pdo = new PDO("mysql:host=localhost;dbname=basededatostytacademy;charset=utf8", "root", "1234");
     $pruebaModel = new PruebaModel($pdo);
 
     // Obtener preguntas

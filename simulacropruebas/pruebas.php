@@ -64,27 +64,6 @@ $moduloId = $_SESSION['modulo_id'] ?? 'Desconocido';
 
                             echo '</div>'; // Cierre de grupo
                         }
-                        // Pregunta individual (sin grupo)
-                        else {
-                            echo '<div class="pregunta">';
-                            echo '<h3>Pregunta ' . $contadorPreguntas . '</h3>';
-                            if (!empty($grupo['imagen'])) {
-                                echo '<div class="imagen-pregunta"><img src="' . htmlspecialchars($grupo['imagen']) . '" alt="Imagen de la pregunta"></div>';
-                            }
-                            echo '<p>' . htmlspecialchars($grupo['pregunta']) . '</p>';
-                            echo '<div class="opciones-vertical">';
-                            foreach ($grupo['respuestas'] as $respuesta) {
-                                echo '<label class="opcion">';
-                                echo '<input type="radio" name="respuesta_' . $grupo['id'] . '" value="' . $respuesta['id'] . '" required>';
-                                echo '<span>' . htmlspecialchars($respuesta['texto']) . '</span>';
-                                if (!empty($respuesta['imagen'])) {
-                                    echo '<img src="' . htmlspecialchars($respuesta['imagen']) . '" alt="Imagen de respuesta" class="imagen-respuesta">';
-                                }
-                                echo '</label>';
-                            }
-                            echo '</div></div>';
-                            $contadorPreguntas++;
-                        }
                     }
                     ?>
                 </div>
@@ -109,7 +88,7 @@ $moduloId = $_SESSION['modulo_id'] ?? 'Desconocido';
     </div>
 
     <!-- Scripts -->
-    <script src="/trabajos/PruebasTYT/APRENDIZ/publico/js/cargartemas.js"></script>
+    <script src="/trabajos/PruebasTYT/APRENDIZ/publico/js/mostrarpreguntas.js"></script>
     <script src="/trabajos/PruebasTYT/APRENDIZ/publico/js/corregirpruebas.js"></script>
 </body>
 </html>

@@ -10,21 +10,21 @@ class PruebaModel {
     /**
      * Obtener preguntas por tema y cantidad.
      *
-     * @param int $temaId ID del tema.
+     * @param int $idtemaModulo ID del tema.
      * @param int $cantidad Número de preguntas a obtener.
      * @return array Lista de preguntas.
      */
-    public function obtenerPreguntasPorTipo($temaId, $cantidad) {
+    public function obtenerPreguntasPorTipo($idtemaModulo, $cantidad) {
         try {
             // Consulta para obtener preguntas por tema
             $sqlPreguntas = "SELECT p.idPregunta, p.pregunta, p.imagen
                              FROM Pregunta p
-                             WHERE p.idtemaModulo = :temaId
+                             WHERE p.idtemaModulo = :idtemaModulo
                              ORDER BY RAND()
                              LIMIT :cantidad";
 
             $stmtPreguntas = $this->pdo->prepare($sqlPreguntas);
-            $stmtPreguntas->bindParam(':temaId', $temaId, PDO::PARAM_INT);
+            $stmtPreguntas->bindParam(':idtemaModulo', $idtemaModulo, PDO::PARAM_INT);
             $stmtPreguntas->bindParam(':cantidad', $cantidad, PDO::PARAM_INT);
             $stmtPreguntas->execute();
 
@@ -48,7 +48,7 @@ class PruebaModel {
             $stmtRespuestas = $this->pdo->prepare($sqlRespuestas);
             $stmtRespuestas->execute($idsPreguntas);
             $respuestas = $stmtRespuestas->fetchAll(PDO::FETCH_ASSOC);
-
+            error_log("Obteniendo preguntas para idtemaModulo=" . $idtemaModulo . " y cantidad=" . $cantidad);
             // Organizar las preguntas con sus respuestas
             $preguntasOrganizadas = [];
             foreach ($preguntasSeleccionadas as $pregunta) {
