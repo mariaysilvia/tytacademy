@@ -259,3 +259,37 @@ body {
     margin-top: 10px;
     border-radius: 5px;
 }
+
+.tarjeta-oculta {
+    display: none;
+}
+
+.tarjeta-visible {
+    display: block;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    z-index: 1000;
+    text-align: center;
+    min-width: 220px;
+}
+
+/* Colores por rendimiento */
+.tarjeta-excelente {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.tarjeta-media {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.tarjeta-baja {
+    background-color: #f8d7da;
+    color: #721c24;
+}

@@ -1,58 +1,48 @@
 <?php
-require_once '../../config/conexion.php';
-require_once '../modelo/PruebaModel.php';
+session_start();
+require_once '../../config/conexion.php'; // Ajusta la ruta si es necesario
+require_once '../modelo/PruebaModel.php'; // Modelo para manejar la lógica de preguntas
 
-// Obtener parámetros de la URL
-$temaModulo = $_GET['temaModulo'] ?? '';
-$cantidad = $_GET['cantidad'] ?? 10;
+// Validar parámetros
+$temaId = $_GET['temaModulo'] ?? null;
+$cantidad = $_GET['cantidad'] ?? null;
 
-if (empty($temaModulo)) {
-    header('Location: ../vista/PRUEBAS.php?error=Debe seleccionar un tema');
+if (!$temaId || !$cantidad || !is_numeric($cantidad)) {
+    header("Location: /trabajos/PruebasTYT/APRENDIZ/vista/PRUEBAS.php?error=Faltan parámetros o cantidad inválida");
     exit;
 }
 
+// Guardar módulo en la sesión
+$_SESSION['modulo_id'] = obtenerModuloDesdeTema($temaId); // Función para obtener el módulo desde el tema
+
 try {
-    // Usar la conexión PDO que ya está definida en conexion.php
-    global $pdo;
-    
-    // Obtener el tipo de prueba basado en el tema
-    $sql = "SELECT m.modulo, tm.nombreTema FROM temaModulo tm 
-            JOIN Modulo m ON tm.idModulo = m.idModulo 
-            WHERE tm.idtemaModulo = :idtemaModulo";
-    
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':idtemaModulo', $temaModulo, PDO::PARAM_INT);
-    $stmt->execute();
-    $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-    if (!$resultado) {
-        throw new Exception('No se encontró el módulo correspondiente');
-    }
-    
-    $tipoPrueba = $resultado['modulo'];
-    $tipoTexto = $resultado['nombreTema'];
-    
-    // Instanciar el modelo y obtener las preguntas
-    $pruebaModel = new PruebaModel($pdo, $tipoPrueba);
-    $preguntas = $pruebaModel->obtenerPreguntasPorTipo($tipoTexto, $cantidad);
-    
+    // Crear instancia del modelo
+    $pdo = new PDO("mysql:host=localhost;dbname=tyt_academy;charset=utf8", "root", "");
+    $pruebaModel = new PruebaModel($pdo);
+
+    // Obtener preguntas
+    $preguntas = $pruebaModel->obtenerPreguntasPorTipo($temaId, $cantidad);
+
     if (empty($preguntas)) {
-        throw new Exception('No se encontraron preguntas para el tema seleccionado');
+        header("Location: /trabajos/PruebasTYT/APRENDIZ/vista/PRUEBAS.php?error=No se encontraron preguntas");
+        exit;
     }
-    
-    // Guardar las preguntas en la sesión
-    session_start();
+
+    // Guardar preguntas en la sesión
     $_SESSION['preguntas'] = $preguntas;
-    $_SESSION['tipoPrueba'] = $tipoPrueba;
-    $_SESSION['temaModulo'] = $temaModulo;
-    $_SESSION['cantidad'] = $cantidad;
-    
-    // Redirigir a la página de prueba general
-    header('Location: /trabajos/PruebasTYT/simulacropruebas/prueba.php');
+
+    // Redirigir a la vista de la prueba
+    header("Location: /trabajos/PruebasTYT/simulacropruebas/pruebas.php");
     exit;
-    
+
 } catch (Exception $e) {
-    error_log("Error en realizarPrueba: " . $e->getMessage());
-    header('Location: ../vista/PRUEBAS.php?error=' . urlencode($e->getMessage()));
+    error_log("Error en realizarPrueba.php: " . $e->getMessage());
+    header("Location: /trabajos/PruebasTYT/APRENDIZ/vista/PRUEBAS.php?error=Error al obtener preguntas");
     exit;
-} 
+}
+
+// Función opcional para obtener el módulo desde el tema
+function obtenerModuloDesdeTema($temaId) {
+    // Aquí puedes implementar la lógica para obtener el módulo desde el tema
+    return $temaId; // Cambia esto según tu lógica
+}

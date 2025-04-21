@@ -1,81 +1,72 @@
 <?php
-require_once '../modelo/PruebaModel.php';
-require_once '../modelo/AprendizModel.php';
-
-session_start();
-
 header('Content-Type: application/json');
+session_start();
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
-try {
-    // Verificar si el usuario está logueado
-    if (!isset($_SESSION['idAprendiz'])) {
-        throw new Exception('Debe iniciar sesión para realizar la prueba');
-    }
+require_once '../../config/conexion.php'; // Ajusta la ruta si es necesario
 
-    // Obtener datos del POST
-    $respuestas = $_POST['respuestas'] ?? [];
-    $tipoPrueba = $_POST['tipoPrueba'] ?? '';
-    $tiempoTotal = $_POST['tiempoTotal'] ?? 0;
-    $idAprendiz = $_SESSION['idAprendiz'];
-
-    // Validaciones
-    if (empty($respuestas)) {
-        throw new Exception('No se recibieron respuestas');
-    }
-
-    if (empty($tipoPrueba)) {
-        throw new Exception('No se especificó el tipo de prueba');
-    }
-
-    if (!is_array($respuestas)) {
-        throw new Exception('Formato de respuestas inválido');
-    }
-
-    // Verificar duplicados
-    $preguntasRespondidas = array_keys($respuestas);
-    if (count($preguntasRespondidas) !== count(array_unique($preguntasRespondidas))) {
-        throw new Exception('Hay preguntas duplicadas en las respuestas');
-    }
-
-    // Crear instancia del modelo
-    $pruebaModel = new PruebaModel($tipoPrueba);
-
-    // Guardar la prueba con tiempo total
-    $idPrueba = $pruebaModel->guardarPrueba($idAprendiz, $tiempoTotal);
-
-    // Guardar las respuestas y calcular resultados
-    $resultados = $pruebaModel->guardarRespuestas($idPrueba, $respuestas);
-
-    // Calcular porcentaje
-    $totalPreguntas = count($respuestas);
-    $porcentaje = ($resultados['correctas'] / $totalPreguntas) * 100;
-
-    // Devolver resultados detallados
-    echo json_encode([
-        'success' => true,
-        'totalPreguntas' => $totalPreguntas,
-        'correctas' => $resultados['correctas'],
-        'incorrectas' => $resultados['incorrectas'],
-        'porcentaje' => round($porcentaje, 2),
-        'tiempoTotal' => $tiempoTotal,
-        'mensaje' => generarMensajeResultado($porcentaje)
-    ]);
-
-} catch (Exception $e) {
-    error_log("Error en corregirPrueba: " . $e->getMessage());
-    http_response_code(400);
-    echo json_encode([
-        'success' => false,
-        'error' => $e->getMessage()
-    ]);
+// Verificar que el usuario esté autenticado
+if (!isset($_SESSION['idAprendiz']) || !isset($_SESSION['modulo_id'])) {
+    echo json_encode(['error' => 'Sesión no válida']);
+    exit;
 }
 
-function generarMensajeResultado($porcentaje) {
-    if ($porcentaje >= 80) {
-        return "¡Excelente trabajo! Has demostrado un gran dominio del tema.";
-    } elseif ($porcentaje >= 60) {
-        return "Buen trabajo. Sigue practicando para mejorar tus resultados.";
+$aprendizId = $_SESSION['idAprendiz'];
+$moduloId = $_SESSION['modulo_id'];
+
+// Obtener respuestas del frontend
+$datos = json_decode(file_get_contents("php://input"), true);
+
+if (!$datos || !is_array($datos)) {
+    echo json_encode(['error' => 'Respuestas inválidas']);
+    exit;
+}
+
+// Crear la prueba en la tabla Prueba
+$fechaInicio = date('Y-m-d H:i:s');
+$fechaFin = date('Y-m-d H:i:s');
+
+$stmt = $conn->prepare("INSERT INTO Prueba (idAprendiz, idModulo, fechaHoraInicial, fechaHoraFinal) VALUES (?, ?, ?, ?)");
+$stmt->bind_param( $aprendizId, $moduloId, $fechaInicio, $fechaFin);
+$stmt->execute();
+$idPrueba = $stmt->insert_id;
+$stmt->close();
+
+// Inicializar conteo de aciertos y errores
+$aciertos = 0;
+$fallos = 0;
+
+// Recorrer las respuestas del usuario
+foreach ($datos as $idPregunta => $idRespuesta) {
+    // Verificar si la respuesta es correcta
+    $stmt = $conn->prepare("SELECT esCorrecta FROM Respuesta WHERE idRespuesta = ? AND idPregunta = ?");
+    $stmt->bind_param("ii", $idRespuesta, $idPregunta);
+    $stmt->execute();
+    $stmt->bind_result($esCorrecta);
+    $stmt->fetch();
+    $stmt->close();
+
+    $resultado = $esCorrecta ? 1 : 0;
+
+    // Insertar en la tabla Valoracion
+    $stmt = $conn->prepare("INSERT INTO Valoracion (resultado, idPrueba, idPregunta, idRespuesta) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("iiii", $resultado, $idPrueba, $idPregunta, $idRespuesta);
+    $stmt->execute();
+    $stmt->close();
+
+    // Sumar al conteo
+    if ($resultado) {
+        $aciertos++;
     } else {
-        return "Necesitas practicar más. Revisa los temas y vuelve a intentarlo.";
+        $fallos++;
     }
-} 
+}
+
+// Enviar respuesta al cliente
+echo json_encode([
+    'exito' => true,
+    'aciertos' => $aciertos,
+    'fallos' => $fallos,
+    'mensaje' => 'Prueba corregida y registrada con éxito.'
+]);

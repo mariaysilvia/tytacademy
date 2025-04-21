@@ -14,14 +14,23 @@ function cargarTemas(modulo) {
         return;
     }
 
+    // Mostrar mensaje de carga
     select.innerHTML = '<option value="">Cargando temas...</option>';
     select.disabled = true;
 
+    // Realizar la solicitud al servidor
     fetch(`/trabajos/PruebasTYT/APRENDIZ/controlador/obtenerTemas.php?modulo=${encodeURIComponent(modulo)}`)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error en la respuesta del servidor: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             console.log("Temas recibidos:", data);
+
             if (data.success && data.temas.length > 0) {
+                // Poblar el select con los temas recibidos
                 select.innerHTML = '<option value="">Seleccione un tema</option>';
                 data.temas.forEach(tema => {
                     const option = document.createElement('option');
@@ -30,6 +39,7 @@ function cargarTemas(modulo) {
                     select.appendChild(option);
                 });
             } else {
+                // Mostrar mensaje si no hay temas disponibles
                 select.innerHTML = '<option value="">No hay temas disponibles</option>';
             }
             select.disabled = false;
@@ -65,6 +75,9 @@ document.addEventListener('DOMContentLoaded', () => {
         cargarTemas(modulo);
     } else {
         console.error("No se pudo determinar el módulo actual desde la URL");
+        alert("No se pudo determinar el módulo actual. Por favor, regresa y selecciona un módulo.");
+        // Opcional: redirigir al usuario a una página de selección de módulo
+        window.location.href = "/trabajos/PruebasTYT/APRENDIZ/vista/PRUEBAS.php";
     }
 
     const form = document.getElementById('formPrueba');

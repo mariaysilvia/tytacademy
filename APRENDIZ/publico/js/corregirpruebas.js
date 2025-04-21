@@ -1,73 +1,35 @@
-// Función para recolectar respuestas del formulario
-function recolectarRespuestas() {
+document.getElementById('btnFinalizar').addEventListener('click', () => {
     const respuestas = {};
-    const inputs = document.getElementsByTagName('input');
-    
-    for (let i = 0; i < inputs.length; i++) {
-        if (inputs[i].type === 'radio' && inputs[i].checked) {
-            respuestas[inputs[i].name] = inputs[i].value;
-        }
-    }
-    
-    return respuestas;
-}
+    const radios = document.querySelectorAll('input[type="radio"]:checked');
 
-// Función para obtener el tipo de prueba de la URL
-function obtenerTipoPrueba() {
-    const url = window.location.href;
-    const tipo = url.split('tipo=')[1];
-    return tipo || 'critica';
-}
+    radios.forEach(radio => {
+        const nombre = radio.name; // ejemplo: respuesta_25
+        const idPregunta = nombre.split('_')[1];
+        respuestas[idPregunta] = radio.value;
+    });
 
-// Función para mostrar resultados
-function mostrarResultados(correctas, incorrectas) {
-    document.getElementById('resultados').innerText = `Respuestas correctas: ${correctas}`;
-    document.getElementById('incorrectas').innerText = `Respuestas incorrectas: ${incorrectas}`;
-    
-    const emoji = document.querySelector('.emoji');
-    if (emoji) {
-        emoji.style.display = 'block';
-    }
-}
-
-// Función para mostrar error
-function mostrarError(mensaje) {
-    alert('Error al corregir la prueba: ' + mensaje);
-}
-
-// Función principal para corregir la prueba
-function corregirPrueba() {
-    const respuestas = recolectarRespuestas();
-    const tipoPrueba = obtenerTipoPrueba();
-    
     fetch('/trabajos/PruebasTYT/APRENDIZ/controlador/corregirPrueba.php', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            respuestas: respuestas,
-            tipoPrueba: tipoPrueba
-        })
+        body: JSON.stringify(respuestas),
+        headers: { 'Content-Type': 'application/json' }
     })
-    .then(function(response) {
-        return response.json();
-    })
-    .then(function(data) {
-        if (data.success) {
-            mostrarResultados(data.correctas, data.incorrectas);
+    .then(res => res.json())
+    .then(data => {
+        if (data.exito) {
+            document.getElementById('resCorrectas').innerText = `Correctas: ${data.aciertos}`;
+            document.getElementById('resIncorrectas').innerText = `Incorrectas: ${data.fallos}`;
+            document.getElementById('tarjetaResultados').classList.remove('tarjeta-oculta');
+
+            document.getElementById('emojiResultado').textContent = data.aciertos >= radios.length / 2 ? '🎉' : '📚';
         } else {
-            mostrarError(data.error);
+            alert('Error al corregir: ' + (data.error || 'Desconocido'));
         }
     })
-    .catch(function(error) {
-        console.error('Error:', error);
-        mostrarError('Error al enviar las respuestas');
+    .catch(err => {
+        alert('Error de conexión: ' + err);
     });
-}
+});
 
-// Asignar la función al botón de corregir
-const btnCorregir = document.getElementById('btnCorregir');
-if (btnCorregir) {
-    btnCorregir.onclick = corregirPrueba;
+function cerrarTarjeta() {
+    document.getElementById('tarjetaResultados').classList.add('tarjeta-oculta');
 }

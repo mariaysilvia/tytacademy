@@ -32,9 +32,11 @@ try {
         throw new Exception("El módulo '$modulo' no es válido.");
     }
 
-    // Crear instancia del modelo con el módulo real
-    $pruebaModel = new PruebaModel($pdo, $moduloReal);
-    $temas = $pruebaModel->obtenerTemasPorTipoPrueba();
+    // Crear instancia del modelo
+    $pruebaModel = new PruebaModel($pdo);
+
+    // Obtener los temas por módulo
+    $temas = $pruebaModel->obtenerTemasPorModulo($moduloReal);
 
     if (!is_array($temas) || empty($temas)) {
         throw new Exception('No se encontraron temas para el módulo especificado.');
